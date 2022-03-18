@@ -14,8 +14,8 @@ import java.io.IOException;
 //@WebServlet({"/a/aa"})
 //@WebServlet({"/a/*"})
 //@WebServlet({"/*"})
-//@WebServlet({"*.do"})
-@WebServlet({"/"})
+@WebServlet({"*.do"})
+//@WebServlet({"/"})
 public class HelloServlet extends HttpServlet {
 
     @Override
