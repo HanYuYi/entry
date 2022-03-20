@@ -15,6 +15,7 @@ public class GetRequestParams extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
+        req.setCharacterEncoding("utf-8");
         // request分为三部分：请求行，请求头，请求体
 
         // 获取虚拟目录
@@ -68,5 +69,11 @@ public class GetRequestParams extends HttpServlet {
                 System.out.print("---"+val);
             }
         }
+
+        // 请求转发，域对象共享数据
+        req.getRequestDispatcher("/aaa").forward(req, resp);
+        req.setAttribute("name", "hahaha");
+        // 在/aaa请求获取共享数据：req.getAttribute("name");
+        // req.removeAttribute("name")
     }
 }
