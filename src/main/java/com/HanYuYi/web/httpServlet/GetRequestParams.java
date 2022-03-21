@@ -1,11 +1,14 @@
 package com.HanYuYi.web.httpServlet;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -16,7 +19,7 @@ public class GetRequestParams extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doGet(req, resp);
         req.setCharacterEncoding("utf-8");
-        // request分为三部分：请求行，请求头，请求体
+        // request分为四部分：请求行，请求头，请求空行，请求体
 
         // 获取虚拟目录
         String contextPath = req.getContextPath();
@@ -32,6 +35,38 @@ public class GetRequestParams extends HttpServlet {
         System.out.println(referer);
         String userAgent = req.getHeader("user-agent");
         System.out.println(userAgent );
+
+
+        resp.setContentType("text/html;charset=utf-8");
+        // response分为四部分：响应行，响应头，响应空行，响应体
+        // 设置状态码
+         resp.setStatus(200);
+        // 设置响应头
+        // resp.setHeader("content-type", "text/html;charset=utf-8");
+        // 设置响应体，字符输出流
+        PrintWriter writer = resp.getWriter();
+        writer.write("注册成功");
+        writer.flush();
+        // 设置响应体，字节输出流
+        // resp.getOutputStream()
+
+        // 重定向，需要加虚拟目录，可以访问其他服务器资源
+        // resp.setStatus(302);
+        // resp.setHeader("location", contextPath + "/*.do");
+        // 简化重定向，需要加虚拟目录
+        // resp.sendRedirect(contextPath + " /*.do");
+
+
+        // getServletContext 域对象，最大的对象，在任何一个httpServlet都可以共享数据
+        ServletContext servletContext = req.getServletContext();
+        String img = "a.jpg";
+        // 获取mime类型
+        String mimeType = servletContext.getMimeType(img);
+        System.out.println(mimeType);
+        // 获取文件路径
+        String realPath = servletContext.getRealPath("/entry");
+        File file = new File(realPath);
+        System.out.println(file);
     }
 
     @Override
@@ -70,7 +105,7 @@ public class GetRequestParams extends HttpServlet {
             }
         }
 
-        // 请求转发，域对象共享数据
+        // 请求转发，不需要加虚拟目录(只能转发到本服务器)，域对象共享数据
         req.getRequestDispatcher("/aaa").forward(req, resp);
         req.setAttribute("name", "hahaha");
         // 在/aaa请求获取共享数据：req.getAttribute("name");
