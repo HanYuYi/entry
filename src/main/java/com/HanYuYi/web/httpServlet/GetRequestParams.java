@@ -99,9 +99,9 @@ public class GetRequestParams extends HttpServlet {
         Map<String, String[]> parameterMap = req.getParameterMap();
         for (String name : parameterMap.keySet()) {
             System.out.println();
-            System.out.print(name);
+            System.out.print(name + "----");
             for (String val : parameterMap.get(name)) {
-                System.out.print("---"+val);
+                System.out.print(val + ", ");
             }
         }
 

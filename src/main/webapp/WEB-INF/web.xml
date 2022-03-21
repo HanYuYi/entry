@@ -8,7 +8,7 @@
         <servlet-name>first</servlet-name>
         <servlet-class>com.HanYuYi.web.servletOld.HelloServelt</servlet-class>
         <!--指定servlet init创建时机，< 0 第一次被访问时创建，>= 0 服务启动时创建（默认）-->
-        <load-on-startup>-1</load-on-startup>
+        <!--<load-on-startup>-1</load-on-startup>-->
     </servlet>
     <servlet-mapping>
         <servlet-name>first</servlet-name>
