@@ -25,16 +25,4 @@ public class HelloServlet extends HttpServlet {
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
         System.out.println("service....");
     }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         super.doGet(req, resp);
-
-        System.out.println("zzzzz");
-        resp.setContentType("text/html");
-        PrintWriter pw = resp.getWriter();
-        pw.write("<h1>Hello, world!</h1>");
-        pw.flush();
-        System.out.println("QQQQQQ");
-    }
 }

@@ -12,13 +12,11 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import java.util.Map;
 
-//@WebServlet("/demo")
 @WebServlet("/register")
 public class GetRequestParams extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-        req.setCharacterEncoding("utf-8");
+         req.setCharacterEncoding("utf-8");
         // request分为四部分：请求行，请求头，请求空行，请求体
 
         // 获取虚拟目录
@@ -36,19 +34,6 @@ public class GetRequestParams extends HttpServlet {
         String userAgent = req.getHeader("user-agent");
         System.out.println(userAgent );
 
-
-        resp.setContentType("text/html;charset=utf-8");
-        // response分为四部分：响应行，响应头，响应空行，响应体
-        // 设置状态码
-         resp.setStatus(200);
-        // 设置响应头
-        // resp.setHeader("content-type", "text/html;charset=utf-8");
-        // 设置响应体，字符输出流
-        PrintWriter writer = resp.getWriter();
-        writer.write("注册成功");
-        writer.flush();
-        // 设置响应体，字节输出流
-        // resp.getOutputStream()
 
         // 重定向，需要加虚拟目录，可以访问其他服务器资源
         // resp.setStatus(302);
@@ -71,8 +56,6 @@ public class GetRequestParams extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-
         // 获取请求参数，get，post通用
         // getParameter
         // getParameterValues 一般用于获取复选框的值
@@ -96,19 +79,39 @@ public class GetRequestParams extends HttpServlet {
             System.out.println();
         }*/
 
-        Map<String, String[]> parameterMap = req.getParameterMap();
+        /*Map<String, String[]> parameterMap = req.getParameterMap();
         for (String name : parameterMap.keySet()) {
             System.out.println();
             System.out.print(name + "----");
             for (String val : parameterMap.get(name)) {
                 System.out.print(val + ", ");
             }
-        }
+        }*/
 
         // 请求转发，不需要加虚拟目录(只能转发到本服务器)，域对象共享数据
-        req.getRequestDispatcher("/aaa").forward(req, resp);
-        req.setAttribute("name", "hahaha");
-        // 在/aaa请求获取共享数据：req.getAttribute("name");
+        // req.getRequestDispatcher("/aaa").forward(req, resp);
+        // req.setAttribute("name", "hahaha");
+        // 在/aaa获取共享数据：req.getAttribute("name");
         // req.removeAttribute("name")
+
+
+
+        resp.setContentType("text/html;charset=utf-8");
+        // response分为四部分：响应行，响应头，响应空行，响应体
+        // 设置状态码
+        resp.setStatus(200);
+        // 设置响应头
+        // resp.setHeader("content-type", "text/html;charset=utf-8");
+        // 设置响应体，字符输出流
+        PrintWriter writer = resp.getWriter();
+        String username = req.getParameter("username");
+        if (username != null) {
+            writer.write("注册成功！欢迎您：" + req.getParameter("username"));
+        } else {
+            writer.write("注册失败！请重试");
+        }
+        writer.flush();
+        // 设置响应体，字节输出流
+        // resp.getOutputStream()
     }
 }
