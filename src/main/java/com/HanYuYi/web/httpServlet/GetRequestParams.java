@@ -49,7 +49,7 @@ public class GetRequestParams extends HttpServlet {
         String mimeType = servletContext.getMimeType(img);
         System.out.println(mimeType);
         // 获取文件路径
-        String realPath = servletContext.getRealPath("/entry");
+        String realPath = servletContext.getRealPath("/WEB-INF/web.xml");
         File file = new File(realPath);
         System.out.println(file);
     }
