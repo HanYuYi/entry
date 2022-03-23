@@ -91,6 +91,7 @@ public class GetRequestParams extends HttpServlet {
         // 请求转发，不需要加虚拟目录(只能转发到本服务器)，域对象共享数据
         // req.getRequestDispatcher("/aaa").forward(req, resp);
         // req.setAttribute("name", "hahaha");
+        // getAttribute在重定向中不能共享数据
         // 在/aaa获取共享数据：req.getAttribute("name");
         // req.removeAttribute("name")
 
@@ -113,5 +114,11 @@ public class GetRequestParams extends HttpServlet {
         writer.flush();
         // 设置响应体，字节输出流
         // resp.getOutputStream()
+
+
+        // 总结： 三大作用域
+        // 1：request.setAttribute
+        // 2：request.getSession().setAttribute
+        // 3：request.getServletContext
     }
 }

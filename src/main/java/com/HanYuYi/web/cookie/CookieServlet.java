@@ -33,5 +33,11 @@ public class CookieServlet extends HttpServlet {
         cookie1.setPath("/");
         // 设置在多个tomcat服务器下一级域名相同的项目可以共享cookie
         // cookie1.setDomain(".baidu");
+
+
+
+        //在重定向中使用session共享数据
+        // 设置session
+        // req.getSession().setAttribute("sess", "hua");
     }
 }
