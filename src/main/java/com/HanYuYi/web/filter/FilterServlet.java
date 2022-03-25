@@ -13,7 +13,7 @@ import java.util.Enumeration;
  */
 
 // 推荐使用配置，不推荐使用注解，因为filter如果有多个，需要指定顺序
-// @WebFilter("/filter_page.html")
+// @WebFilter("/")
 public class FilterServlet implements Filter {
     private String encoding = "";
 
@@ -37,9 +37,11 @@ public class FilterServlet implements Filter {
             // 要继续处理请求，必须调用doFilter，但如果逻辑未完成可以重定向
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            HttpServletResponse response = (HttpServletResponse) servletResponse;
+            /*HttpServletResponse response = (HttpServletResponse) servletResponse;
             String virPath = servletRequest.getServletContext().getContextPath();
-            response.sendRedirect(virPath + "/register.html");
+            response.sendRedirect(virPath + "/register.html");*/
+            System.out.println("请设置编码......");
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
 

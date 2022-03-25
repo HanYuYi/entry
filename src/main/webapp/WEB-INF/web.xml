@@ -28,7 +28,7 @@
     <!--设置WebFilter-->
     <filter-mapping>
         <filter-name>filterServlet</filter-name>
-        <url-pattern>/filter_page.html</url-pattern>
+        <url-pattern>/</url-pattern>
         <!--
         拦截阶段，默认为请求拦截
         REQUEST

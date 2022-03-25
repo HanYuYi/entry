@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -120,5 +121,9 @@ public class GetRequestParams extends HttpServlet {
         // 1：request.setAttribute
         // 2：request.getSession().setAttribute
         // 3：request.getServletContext
+
+        // getSession设置有效期，默认为一个会话中
+        // request.getSession().setMaxInactiveInterval
+        // String id = req.getSession().getId();
     }
 }
