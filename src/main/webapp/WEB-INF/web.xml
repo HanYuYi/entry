@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <!--此依赖用于映射Servelt的实现类，Servlet3.0之前-->
+    <!--此依赖用于映射Servlet的实现类，Servlet3.0之前-->
     <servlet>
         <servlet-name>first</servlet-name>
         <servlet-class>com.HanYuYi.web.servletOld.HelloServelt</servlet-class>
@@ -14,4 +14,28 @@
         <servlet-name>first</servlet-name>
         <url-pattern>/hello</url-pattern>
     </servlet-mapping>
+
+    <!--此依赖用于映射Servlet Filter的实现类-->
+    <filter>
+        <filter-name>filterServlet</filter-name>
+        <filter-class>com.HanYuYi.web.filter.FilterServlet</filter-class>
+        <!--设置init生命周期的参数-->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <!--设置WebFilter-->
+    <filter-mapping>
+        <filter-name>filterServlet</filter-name>
+        <url-pattern>/filter_page.html</url-pattern>
+        <!--
+        拦截阶段，默认为请求拦截
+        REQUEST
+        FORWARD
+        INCLUDE
+        ERROR
+        -->
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
 </web-app>
