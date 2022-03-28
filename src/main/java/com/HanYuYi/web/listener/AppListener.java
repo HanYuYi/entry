@@ -14,13 +14,17 @@ import java.sql.SQLException;
  */
 @WebListener
 public class AppListener implements ServletContextListener {
-    private Connection databaseStart = new DatabaseInit().start();
+
+    private Connection databaseStart = null;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        new DatabaseInit().start();
+        System.out.println("数据库连接成功...");
+        databaseStart = new DatabaseInit().start();
+        System.out.println(databaseStart);
         ServletContext globalServletContext = sce.getServletContext();
         globalServletContext.setAttribute("database", databaseStart);
-        System.out.println(databaseStart);
     }
 
     @Override

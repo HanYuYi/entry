@@ -13,7 +13,7 @@ import java.util.Enumeration;
  */
 
 // 推荐使用配置，不推荐使用注解，因为filter如果有多个，需要指定顺序
-// @WebFilter("/")
+// @WebFilter("/*")
 public class FilterServlet implements Filter {
     private String encoding = "";
 
@@ -25,7 +25,9 @@ public class FilterServlet implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        System.out.println(encoding);
         if (encoding != "" && encoding != null) {
+            System.out.println("-----" + encoding);
             String reqEncoding = servletRequest.getCharacterEncoding();
             String respEncoding = servletResponse.getCharacterEncoding();
             if (reqEncoding == null) {
@@ -40,7 +42,6 @@ public class FilterServlet implements Filter {
             /*HttpServletResponse response = (HttpServletResponse) servletResponse;
             String virPath = servletRequest.getServletContext().getContextPath();
             response.sendRedirect(virPath + "/register.html");*/
-            System.out.println("请设置编码......");
             filterChain.doFilter(servletRequest, servletResponse);
         }
     }

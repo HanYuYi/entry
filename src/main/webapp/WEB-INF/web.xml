@@ -17,7 +17,7 @@
 
     <!--此依赖用于映射Servlet Filter的实现类-->
     <filter>
-        <filter-name>filterServlet</filter-name>
+        <filter-name>FilterServlet</filter-name>
         <filter-class>com.HanYuYi.web.filter.FilterServlet</filter-class>
         <!--设置init生命周期的参数-->
         <init-param>
@@ -27,8 +27,8 @@
     </filter>
     <!--设置WebFilter-->
     <filter-mapping>
-        <filter-name>filterServlet</filter-name>
-        <url-pattern>/</url-pattern>
+        <filter-name>FilterServlet</filter-name>
+        <url-pattern>/*</url-pattern>
         <!--
         拦截阶段，默认为请求拦截
         REQUEST

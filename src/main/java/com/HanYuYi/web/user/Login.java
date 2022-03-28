@@ -1,5 +1,10 @@
 package com.HanYuYi.web.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +27,6 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext servletContext = req.getServletContext();
         Connection database = (Connection) servletContext.getAttribute("database");
-        System.out.println(database);
 
         String username = req.getParameter("username");
 
@@ -32,6 +36,7 @@ public class Login extends HttpServlet {
                 try (ResultSet result = preparedStatement.executeQuery()) {
                     List<LoginMapping> students = new ArrayList();
                     while (result.next()) {
+                        System.out.println(result.getString("name"));
                         students.add(new LoginMapping(
                                 result.getString("name"),
                                 result.getString("gender"),
@@ -39,12 +44,33 @@ public class Login extends HttpServlet {
                         ));
                     }
                     PrintWriter writer = resp.getWriter();
-                    writer.write("" + writer);
+                    Object[] array = students.toArray();
+                    writer.write(dataToJson(array));
+                    for (LoginMapping s : students) {
+                        System.out.println(s);
+                    }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * 将查询出来的数据反序列化为json
+     * @param data
+     * @return
+     */
+    private String dataToJson(Object[] data) {
+        ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        String backStr = null;
+        try {
+            backStr = objectMapper.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return backStr;
     }
 }
