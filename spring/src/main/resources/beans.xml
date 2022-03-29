@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="getUser" class="com.HanYuYi.dao.UserDaoImpl"></bean>
+
+    <bean id="helloUser" class="com.HanYuYi.service.demo01.UserServiceImpl">
+        <!-- value 和 ref的区别
+        value：直接赋值
+        ref：对象引用
+        -->
+        <property name="name" value="张三"></property>
+        <property name="userDao" ref="getUser"></property>
+    </bean>
+</beans>
