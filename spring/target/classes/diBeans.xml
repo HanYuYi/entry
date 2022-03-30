@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.HanYuYi.di.Address">
+        <property name="address" value="广东"></property>
+    </bean>
+
+    <bean id="students" class="com.HanYuYi.di.Students">
+        <!--1：普通值注入-->
+        <property name="name" value="hello, di"></property>
+
+        <!--2：bean注入-->
+        <property name="address" ref="address"></property>
+
+        <!--3：Array注入-->
+        <property name="books">
+            <array>
+                <value>西游记</value>
+                <value>三国演义</value>
+                <value>将夜</value>
+            </array>
+        </property>
+
+        <!--4：List注入-->
+        <property name="hobbys">
+            <list>
+                <value>唱歌</value>
+                <value>美食</value>
+                <value>睡觉</value>
+            </list>
+        </property>
+
+        <!--5：Map注入-->
+        <property name="card">
+            <map>
+                <entry key="学生证" value="389232897"></entry>
+                <entry key="银行卡" value="622883762891928736"></entry>
+            </map>
+        </property>
+
+        <!--6：Set注入-->
+        <property name="games">
+            <set>
+                <value>吃鸡</value>
+                <value>刀塔</value>
+            </set>
+        </property>
+
+        <!--6：Set注入-->
+        <property name="wife">
+            <null/>
+        </property>
+
+        <!--7：Properties注入-->
+        <property name="info">
+            <props>
+                <prop key="number">20190321</prop>
+                <prop key="username">张张</prop>
+                <prop key="gender">男</prop>
+                <prop key="age">16</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

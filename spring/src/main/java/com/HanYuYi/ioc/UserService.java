@@ -1,4 +1,4 @@
-package com.HanYuYi.service.demo01;
+package com.HanYuYi.ioc;
 
 public interface UserService {
     void show();
