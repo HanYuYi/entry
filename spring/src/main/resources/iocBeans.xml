@@ -3,9 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:c="http://www.springframework.org/schema/c"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
 
 
+    <!--注册bean-->
     <bean id="getUser" class="com.HanYuYi.dao.UserDaoImpl"></bean>
     <bean id="helloUser" class="com.HanYuYi.ioc.UserServiceImpl">
         <!-- value 和 ref的区别
@@ -41,7 +46,7 @@
     <import resource="XXX.xml"></import>-->
 
 
-    <!--namespace：命名空间
+    <!--namespace：命名空间，注意：要在xml头部配置
     p：针对set注入
     c：针对构造器注入-->
     <bean id="namesp1" class="com.HanYuYi.ioc.NameSpaceCalss"
@@ -49,4 +54,23 @@
 
     <bean id="namesp2" class="com.HanYuYi.ioc.NameSpaceCalss"
           c:age="23" c:name="命名2" />
+
+
+    <!--bean的作用域，默认是单例，还有其他reques，session，application等等-->
+    <bean id="namesp3" class="com.HanYuYi.ioc.NameSpaceCalss" scope="prototype" />
+
+
+    <!--autowire：xml自动装配，byName byType constructor-->
+    <bean id="dog" class="com.HanYuYi.ioc.demo03.Dog"></bean>
+    <bean id="people" class="com.HanYuYi.ioc.demo03.People" autowire="constructor"></bean>
+
+
+    <!--autowire: 注解自动装配，注意：要在xml头部配置-->
+    <context:annotation-config />
+    <bean id="dogNew" class="com.HanYuYi.ioc.demo03.DogNew" c:dogName="修勾勾"></bean>
+    <bean id="dogNew1" class="com.HanYuYi.ioc.demo03.DogNew" c:dogName="修勾"></bean>
+    <bean id="catNew" class="com.HanYuYi.ioc.demo03.CatNew" p:catName="大圆子"></bean>
+    <bean id="catNew1" class="com.HanYuYi.ioc.demo03.CatNew" p:catName="大咪"></bean>
+    <bean id="peopleNew" class="com.HanYuYi.ioc.demo03.PeopleNew"></bean>
+
 </beans>
