@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 
         try {
             try (PreparedStatement preparedStatement = database.prepareStatement("SELECT * FROM students WHERE name = ?")) {
-                preparedStatement.setObject(1, username);
+                preparedStatement.setString(1, username);
                 try (ResultSet result = preparedStatement.executeQuery()) {
                     List<LoginMapping> students = new ArrayList();
                     while (result.next()) {
