@@ -24,6 +24,6 @@ hs_err_pid*
 
 /out/
 /IODirectory/
-/target/
+servlet/target/
 .DS_Store
 /spring/target

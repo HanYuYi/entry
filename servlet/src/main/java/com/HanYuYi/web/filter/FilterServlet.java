@@ -15,7 +15,7 @@ import java.util.Enumeration;
 // 推荐使用配置，不推荐使用注解，因为filter如果有多个，需要指定顺序
 // @WebFilter("/*")
 public class FilterServlet implements Filter {
-    private String encoding = "";
+    private String encoding = null;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -27,14 +27,13 @@ public class FilterServlet implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println(encoding);
         if (encoding != "" && encoding != null) {
-            System.out.println("-----" + encoding);
             String reqEncoding = servletRequest.getCharacterEncoding();
             String respEncoding = servletResponse.getCharacterEncoding();
             if (reqEncoding == null) {
-                servletRequest.setCharacterEncoding("utf-8");
+                servletRequest.setCharacterEncoding(encoding);
             }
             if (respEncoding == null) {
-                servletResponse.setCharacterEncoding("utf-8");
+                servletResponse.setCharacterEncoding(encoding);
             }
             // 要继续处理请求，必须调用doFilter，但如果逻辑未完成可以重定向
             filterChain.doFilter(servletRequest, servletResponse);
