@@ -19,7 +19,9 @@ public class AppListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        new DatabaseInit().start();
+        // TODO 待解决
+         new DatabaseInit().start();
+         new DatabaseInit().start();
         System.out.println("数据库连接成功...");
         databaseStart = new DatabaseInit().start();
         System.out.println(databaseStart);
