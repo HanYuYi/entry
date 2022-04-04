@@ -25,10 +25,6 @@ import java.util.List;
 public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO 待解决
-        req.setCharacterEncoding("utf-8");
-        resp.setCharacterEncoding("utf-8");
-        resp.setContentType("text/html;charset=utf-8");
 
         ServletContext servletContext = req.getServletContext();
         Connection database = (Connection) servletContext.getAttribute("database");

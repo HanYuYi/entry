@@ -29,11 +29,15 @@ public class FilterServlet implements Filter {
         if (encoding != "" && encoding != null) {
             String reqEncoding = servletRequest.getCharacterEncoding();
             String respEncoding = servletResponse.getCharacterEncoding();
+            String contentType = servletResponse.getContentType();
             if (reqEncoding == null) {
                 servletRequest.setCharacterEncoding(encoding);
             }
             if (respEncoding == null) {
                 servletResponse.setCharacterEncoding(encoding);
+            }
+            if (contentType == null) {
+                servletResponse.setContentType("text/html;charset=utf-8");
             }
             // 要继续处理请求，必须调用doFilter，但如果逻辑未完成可以重定向
             filterChain.doFilter(servletRequest, servletResponse);
