@@ -25,7 +25,6 @@ public class FilterServlet implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println(encoding);
         if (encoding != "" && encoding != null) {
             String reqEncoding = servletRequest.getCharacterEncoding();
             String respEncoding = servletResponse.getCharacterEncoding();

@@ -17,18 +17,22 @@ public class AppListener implements ServletContextListener {
 
     private Connection databaseStart = null;
 
+    /**
+     * 建立数据库连接
+     * @param sce
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        // TODO 待解决
-         new DatabaseInit().start();
-         new DatabaseInit().start();
-        System.out.println("数据库连接成功...");
         databaseStart = new DatabaseInit().start();
-        System.out.println(databaseStart);
+        System.out.println("mysql驱动：" + databaseStart);
         ServletContext globalServletContext = sce.getServletContext();
         globalServletContext.setAttribute("database", databaseStart);
     }
 
+    /**
+     * 关闭数据库连接
+     * @param sce
+     */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         try {

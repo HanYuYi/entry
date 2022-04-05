@@ -28,7 +28,6 @@ public class DatabaseInit {
             configMap.put("url", properties.getProperty("DATABASE_URL"));
             configMap.put("username", properties.getProperty("DATABASE_USERNAME"));
             configMap.put("password", properties.getProperty("DATABASE_PASSWORD"));
-            System.out.println("数据库配置文件获取成功...");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -38,7 +37,7 @@ public class DatabaseInit {
     }
 
     /**
-     * 建立数据库连接
+     * 建立数据库连接，并返回
      * @return
      */
     public Connection start() {
@@ -46,6 +45,8 @@ public class DatabaseInit {
         Map<String, String> configMap = loadConfig();
 
         try {
+            // 注册 JDBC 驱动
+            Class.forName("com.mysql.jdbc.Driver");
             // 建立连接
             connection = DriverManager.getConnection(
                     configMap.get("url"),
@@ -53,6 +54,8 @@ public class DatabaseInit {
                     configMap.get("password")
             );
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
