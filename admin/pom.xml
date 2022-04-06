@@ -48,6 +48,10 @@
     </plugins>
   </build>
 
+  <properties>
+    <junit.version>5.7.1</junit.version>
+  </properties>
+
   <dependencies>
     <!-- javax.servlet -->
     <dependency>
@@ -66,12 +70,7 @@
     <!-- javax.servlet.jsp.jstl -->
     <dependency>
       <groupId>javax.servlet.jsp.jstl</groupId>
-      <artifactId>jstl</artifactId>
-      <version>1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet.jsp.jstl</groupId>
-      <artifactId>jstl</artifactId>
+      <artifactId>jstl-api</artifactId>
       <version>1.2</version>
     </dependency>
     <!-- jsp 更多标签-->
@@ -86,6 +85,19 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.28</version>
       <scope>runtime</scope>
+    </dependency>
+    <!--junit-->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

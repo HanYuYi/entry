@@ -22,8 +22,8 @@ public class BaseDao {
             properties.load(resource);
             driver = properties.getProperty("DRIVER");
             url = properties.getProperty("DATABASE_URL");
-            driver = properties.getProperty("DATABASE_USERNAME");
-            driver = properties.getProperty("DATABASE_PASSWORD");
+            name = properties.getProperty("DATABASE_USERNAME");
+            password = properties.getProperty("DATABASE_PASSWORD");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,56 +40,90 @@ public class BaseDao {
             connection = DriverManager.getConnection(url, name, password);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return connection;
     }
 
     /**
-     * 公共查询方法
+     * 获取PreparedStatement sql预编译
+     * @param connection
      * @param sql
+     * @return
+     */
+    public static PreparedStatement getPreparedStatement(Connection connection, String sql) {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statement;
+    }
+
+    /**
+     * 公共查询方法
+     * @param statement
      * @param params
      * @return
      */
-    public static ResultSet query(String sql, Object[] params) {
+    public static ResultSet query(PreparedStatement statement, Object[] params) {
+        ResultSet result = null;
         try {
-            Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
             for (int i = 0; i < params.length; i++) {
                 statement.setObject(i + 1, params[i]);
             }
-            ResultSet result = statement.executeQuery();
-            result.close();
-            statement.close();
-            connection.close();
-            return result;
+            result = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return result;
     }
 
     /**
      * 公共更新方法
-     * @param sql
+     * @param statement
      * @param params
      * @return
      */
-    public static int update(String sql, Object[] params) {
+    public static int update(PreparedStatement statement, Object[] params) {
+        int updateRowIndex = -1;
         try {
-            Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
             for (int i = 0; i < params.length; i++) {
                 statement.setObject(i + 1, params[i]);
             }
-            int UpdaterowIndex = statement.executeUpdate();
-            statement.close();
-            connection.close();
-            return UpdaterowIndex;
+            updateRowIndex = statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
         }
+        return updateRowIndex;
+    }
+
+    /**
+     * 关闭数据库连接
+     * @param connection
+     * @param statement
+     * @param result
+     * @return
+     */
+    public static boolean closeResources(Connection connection, PreparedStatement statement, ResultSet result) {
+        boolean status = true;
+
+        try {
+            if (result != null) {
+                result.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            status = false;
+        }
+        return status;
     }
 }

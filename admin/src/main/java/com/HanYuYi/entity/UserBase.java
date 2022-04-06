@@ -143,4 +143,25 @@ public class UserBase {
     public int getUserRoleName() {
         return userRoleName;
     }
+
+    @Override
+    public String toString() {
+        return "UserBase{" +
+                "id=" + id +
+                ", userCode=" + userCode +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", gender=" + gender +
+                ", birthday=" + birthday +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", userRole=" + userRole +
+                ", createBy=" + createBy +
+                ", createDate=" + createDate +
+                ", modifyBy=" + modifyBy +
+                ", modifyDate=" + modifyDate +
+                ", age=" + age +
+                ", userRoleName=" + userRoleName +
+                '}';
+    }
 }
