@@ -2,9 +2,7 @@ package com.HanYuYi.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 /**
@@ -46,5 +44,52 @@ public class BaseDao {
             throwables.printStackTrace();
         }
         return connection;
+    }
+
+    /**
+     * 公共查询方法
+     * @param sql
+     * @param params
+     * @return
+     */
+    public static ResultSet query(String sql, Object[] params) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                statement.setObject(i + 1, params[i]);
+            }
+            ResultSet result = statement.executeQuery();
+            result.close();
+            statement.close();
+            connection.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 公共更新方法
+     * @param sql
+     * @param params
+     * @return
+     */
+    public static int update(String sql, Object[] params) {
+        try {
+            Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++) {
+                statement.setObject(i + 1, params[i]);
+            }
+            int UpdaterowIndex = statement.executeUpdate();
+            statement.close();
+            connection.close();
+            return UpdaterowIndex;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }
