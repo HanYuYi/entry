@@ -20,7 +20,7 @@ public class UserBaseServiceImpl implements UserBaseService{
         UserBase info = null;
         try {
             UserBase temporaryInfo = userInfo.getUserInfo(username);
-            if (temporaryInfo.getUserPassword().equals(password)) {
+            if (temporaryInfo != null && temporaryInfo.getUserPassword().equals(password)) {
                 info = temporaryInfo;
             }
         } catch (SQLException e) {

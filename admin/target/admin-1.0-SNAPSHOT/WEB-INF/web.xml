@@ -4,24 +4,34 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-  <!-- 用于映射Servlet Filter的实现类-->
+  <!-- 设置字符编码 WebFilter-->
   <filter>
     <filter-name>charEncoding</filter-name>
     <filter-class>com.HanYuYi.filter.CharEncoding</filter-class>
   </filter>
-  <!--设置WebFilter-->
   <filter-mapping>
     <filter-name>charEncoding</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
+  <!--设置login WebFilter-->
   <filter>
     <filter-name>loginIntercept</filter-name>
     <filter-class>com.HanYuYi.filter.LoginIntercept</filter-class>
   </filter>
-  <!--设置WebFilter-->
   <filter-mapping>
     <filter-name>loginIntercept</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+
+  <!--设置mime WebFilter-->
+  <filter>
+    <filter-name>mimeEncoding</filter-name>
+    <filter-class>com.HanYuYi.filter.MimeEncoding</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>mimeEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
 </web-app>

@@ -1,16 +1,26 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: yuyihan
-  Date: 2022/4/6
-  Time: 10:50 下午
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>首页</title>
+    <link type="text/css" rel="stylesheet" href="./css/element-ui-2.15.6.min.css">
+    <link type="text/css" rel="stylesheet" href="./css/default.css">
+    <link type="text/css" rel="stylesheet" href="./css/public.css">
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <script type="text/javascript" src="./js/element-ui-2.15.6.min.js"></script>
 </head>
 <body>
-<h2>${userSession.userName}你好，欢迎您登录！</h2>
+    <%@ include file="common/main-start.jsp" %>
+
+    <div id="home">
+    </div>
+
+    <%@ include file="common/main-end.jsp" %>
+
+<script>
+    new Vue({ el: "#home" });
+</script>
 </body>
 </html>

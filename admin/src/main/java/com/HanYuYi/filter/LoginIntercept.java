@@ -15,7 +15,7 @@ public class LoginIntercept implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        String uri = req.getRequestURI().replaceAll("/admin_war_exploded", "");
+        String uri = req.getRequestURI().replaceAll(req.getContextPath(), "");
         Object attr = req.getSession().getAttribute(Constants.USER_SESSION);
 
         HttpServletResponse resp = (HttpServletResponse) response;
