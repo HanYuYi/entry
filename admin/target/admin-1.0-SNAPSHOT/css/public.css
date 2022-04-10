@@ -1,3 +1,4 @@
+/**home*/
 /*header*/
 header {
     position: fixed;
@@ -32,7 +33,47 @@ header>.right {
 header>.right>span {
     font-size: 18px;
 }
+header>.right>.log-out {
+    display: inline-block;
+    width: 50px;
+    height: 76px;
+    vertical-align: initial;
+    text-align: center;
+}
+header>.right>.log-out>i:hover {
+    font-size: 24px;
+}
+header>.right>.log-out>i {
+    color: #fff;
+    font-size: 22px;
+}
 /*主体面板*/
 main {
-    margin-top: 80px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    display: flex;
+    background: #f9f9f9;
+}
+main>.menu_box {
+    width: 280px;
+    height: 100%;
+    overflow: auto;
+    border-right: solid 1px #e6e6e6;
+    background: #ffffff;
+}
+main>.menu_box>#menu>.el-menu {
+    border: 0;
+}
+main>aside {
+    width: calc(100vw - 280px - 40px - 30px);
+    height: calc(100% - 40px - 30px);
+    margin: 20px;
+    padding: 15px;
+    overflow: auto;
+    border-radius: 7px;
+    background: #ffffff;
+    box-shadow: 1px 1px 30px #cbcaca;
 }

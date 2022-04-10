@@ -21,12 +21,12 @@ public class LoginIntercept implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         // 未登录
         if (attr == null) {
-            if (!uri.contains("login.jsp")) {
-                resp.sendRedirect("login.jsp");
+            if (!uri.contains("index.jsp")) {
+                resp.sendRedirect("index.jsp");
             }
         } else {
-            if (uri.contains("login.jsp")) {
-                resp.sendRedirect("index.jsp");
+            if (uri.contains("index.jsp")) {
+                resp.sendRedirect(req.getContextPath() + "/auth/home.jsp");
             }
         }
         chain.doFilter(request, response);

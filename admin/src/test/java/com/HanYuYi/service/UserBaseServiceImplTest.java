@@ -1,9 +1,8 @@
 package com.HanYuYi.service;
 
 import com.HanYuYi.entity.UserBase;
+import com.HanYuYi.service.userBase.UserBaseServiceImpl;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserBaseServiceImplTest {
 

@@ -1,4 +1,4 @@
-package com.HanYuYi.service;
+package com.HanYuYi.service.userBase;
 
 import com.HanYuYi.dao.userBase.UserBaseDaoImpl;
 import com.HanYuYi.entity.UserBase;
