@@ -53,10 +53,12 @@
                         }).then((resp) => {
                             if (resp.status === 1) {
                                 this.resetForm()
+                                this.$message({ message: resp.message, type: 'success' });
+                            } else {
+                                this.$message.error({ message: resp.message });
                             }
-                            this.$message({ message: resp.message, type: 'success' });
                         }).catch(error => {
-                            console.log(error)
+                            new Error(error);
                         })
                     } else {
                         return;
