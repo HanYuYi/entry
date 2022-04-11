@@ -42,26 +42,4 @@ public class RespFormat<T> {
     public T getData() {
         return data;
     }
-
-    /**
-     * 以json格式获取
-     * @return
-     */
-    public String getJsonData() {
-        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        Map<String, Object> backMap = new HashMap<>();
-        backMap.put("status", status);
-        backMap.put("message", status);
-        backMap.put("status", data);
-
-        String backJson = null;
-        try {
-            backJson = mapper.writeValueAsString(backMap);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return backJson;
-    }
 }

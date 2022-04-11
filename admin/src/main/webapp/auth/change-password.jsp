@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script type="text/javascript" src="../js/ajax.js"></script>
+<script type="text/javascript" src="../js/ajax.js?date=20220411"></script>
 
 <%@ include file="../common/header.jsp" %>
 
@@ -50,10 +50,13 @@
                             url: "${pageContext.request.contextPath}" + "/user/passwordChange",
                             type: "post",
                             data: this.formData
-                        }).then(response => {
-                            console.log(response)
+                        }).then((resp) => {
+                            if (resp.status === 1) {
+                                this.resetForm()
+                            }
+                            this.$message({ message: resp.message, type: 'success' });
                         }).catch(error => {
-                            console.log(error)
+                            new Error(error);
                         })
                     } else {
                         return;
