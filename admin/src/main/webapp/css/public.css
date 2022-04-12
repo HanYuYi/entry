@@ -33,19 +33,29 @@ header>.right {
 header>.right>span {
     font-size: 18px;
 }
-header>.right>.log-out {
-    display: inline-block;
-    width: 50px;
-    height: 76px;
-    vertical-align: initial;
-    text-align: center;
+header>.right>.out_btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 0;
 }
-header>.right>.log-out>i:hover {
-    font-size: 24px;
+header>.right>.out_btn>span {
+    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+    display: block;
 }
-header>.right>.log-out>i {
+header>.right>.out_btn>span>.log-out {
+    display: block;
+    width: inherit;
+    height: inherit;
+}
+header>.right>.out_btn>span>.log-out>i {
     color: #fff;
     font-size: 22px;
+    margin-top: 7px;
 }
 /*主体面板*/
 main {

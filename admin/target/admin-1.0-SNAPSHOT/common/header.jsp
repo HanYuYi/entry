@@ -21,9 +21,13 @@
         </div>
         <div class="right">
             <span>${userSession.userName}，欢迎您！</span>
-            <a class="log-out" href="${pageContext.request.contextPath}/logout.do">
-                <i class="el-icon-switch-button"></i>
-            </a>
+            <el-tooltip class="item" effect="dark" content="退出" placement="bottom">
+                <el-button class="out_btn">
+                    <a class="log-out" href="${pageContext.request.contextPath}/logout.do">
+                        <i class="el-icon-switch-button"></i>
+                    </a>
+                </el-button>
+            </el-tooltip>
         </div>
     </header>
     <script>
@@ -81,7 +85,7 @@
                         isCollapse: true,
                         menuList: {
                             "0": "home.jsp",
-                            "1": null,
+                            "1": "user-management.jsp",
                             "2": "change-password.jsp",
                             "3-0-0": null
                         }
