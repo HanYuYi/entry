@@ -2,7 +2,7 @@
 
 <%@ include file="../common/header.jsp" %>
 
-<div id="user-management">
+<div id="user-list">
 
     <el-form ref="form" :model="form" :inline="true" label-width="70px" style="margin-top: 10px">
         <el-form-item label="用户名">
@@ -83,7 +83,7 @@
 
 <script>
     new Vue({
-        el: "#user-management",
+        el: "#user-list",
         data() {
             return {
                 form: {

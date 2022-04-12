@@ -23,7 +23,7 @@
             <span>${userSession.userName}，欢迎您！</span>
             <el-tooltip class="item" effect="dark" content="退出" placement="bottom">
                 <el-button class="out_btn">
-                    <a class="log-out" href="${pageContext.request.contextPath}/logout.do">
+                    <a class="log-out" @click="confirmLogout">
                         <i class="el-icon-switch-button"></i>
                     </a>
                 </el-button>
@@ -31,7 +31,21 @@
         </div>
     </header>
     <script>
-        new Vue({ el: "#header" });
+        new Vue({
+            el: "#header",
+            methods: {
+                confirmLogout() {
+                    this.$confirm("确定退出登录？", "提示", {
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消",
+                        type: "warning",
+                        center: true
+                    }).then(() => {
+                        location.href = "${pageContext.request.contextPath}/logout.do";
+                    });
+                }
+            }
+        });
     </script>
     <%--主体面板--%>
     <main>
@@ -85,9 +99,9 @@
                         isCollapse: true,
                         menuList: {
                             "0": "home.jsp",
-                            "1": "user-management.jsp",
+                            "1": ["user-list.jsp", "userList.do"],
                             "2": "change-password.jsp",
-                            "3-0-0": null
+                            "3-0-0": ""
                         }
                     };
                 },
@@ -97,7 +111,7 @@
                         let back = "0";
                         Object.values(this.menuList).forEach((value, index) => {
                             const urlArr = location.pathname.split("/");
-                            if (urlArr[urlArr.length - 1] === value) {
+                            if (urlArr[urlArr.length - 1] === value || value.includes(urlArr[urlArr.length - 1])) {
                                 back = Object.keys(this.menuList)[index];
                                 return;
                             }
@@ -109,7 +123,9 @@
             <%--根据菜单点击跳转页面--%>
             handlePage(index) {
                 if (Object.prototype.toString.call(index) === "[object String]" && this.menuList[index]) {
-                    location.href = "${pageContext.request.contextPath}" + "/auth/" + this.menuList[index];
+                    location.href = "${pageContext.request.contextPath}" +
+                        (this.menuList[index].includes(".do") ? "/" :  "/auth/") +
+                        (Object.prototype.toString.call(this.menuList[index]) === "[object Array]" ? this.menuList[index][0] : this.menuList[index]);
                 }
             },
             handleOpen(key, keyPath) {

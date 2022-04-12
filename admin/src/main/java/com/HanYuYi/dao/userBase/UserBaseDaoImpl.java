@@ -12,9 +12,9 @@ import java.sql.SQLException;
  * 获取基本用户信息
  */
 public class UserBaseDaoImpl implements UserBaseDao {
+
     @Override
-    public UserBase getUserInfo(String username) throws SQLException {
-        Connection connection = BaseDao.getConnection();
+    public UserBase getUserInfo(Connection connection, String username) throws SQLException {
         UserBase user = null;
         if (connection != null) {
             String sqlStr = "SELECT * FROM user_base WHERE userName = ?";
@@ -36,8 +36,41 @@ public class UserBaseDaoImpl implements UserBaseDao {
                 user.setModifyBy(query.getLong("modifyBy"));
                 user.setModifyDate(query.getDate("modifyDate"));
             }
-            BaseDao.closeResources(connection, statement, query);
+            BaseDao.closeResources(null, statement, query);
         }
         return user;
+    }
+
+    @Override
+    public boolean setUserPassword(Connection connection, String username, String password) {
+        boolean changeStatus = false;
+        if (connection != null) {
+            String sql = "UPDATE user_base SET userPassword = ? WHERE userName = ?";
+            Object[] sqlParams = {password, username};
+            PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql);
+            int updateIndex = BaseDao.update(statement, sqlParams);
+            if (updateIndex > 0) {
+                changeStatus = true;
+            }
+            BaseDao.closeResources(null, statement, null);
+        }
+        return changeStatus;
+    }
+
+    @Override
+    public boolean hasUser(Connection connection, String username) throws SQLException {
+        boolean hasUser = false;
+        UserBase user = null;
+        if (connection != null) {
+            String sql = "SELECT userName username FROM user_base WHERE userName = ?";
+            Object[] sqlParams = {username};
+            PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql);
+            ResultSet resultSet = BaseDao.query(statement, sqlParams);
+            if (resultSet.next()) {
+                hasUser = true;
+            }
+            BaseDao.closeResources(null, statement, resultSet);
+        }
+        return hasUser;
     }
 }

@@ -1,6 +1,6 @@
 package com.HanYuYi.servlet.userBase;
 
-import com.HanYuYi.service.userBase.UserPasswordChangeImpl;
+import com.HanYuYi.service.userBase.UserBaseServiceImpl;
 import com.HanYuYi.util.DataFormatConversion;
 import com.HanYuYi.util.RespFormat;
 
@@ -28,7 +28,7 @@ public class PasswordChange extends HttpServlet {
         String password = reqSerialize.password;
         String confirmPassword = reqSerialize.confirmPassword;
 
-        UserPasswordChangeImpl passwordChange = new UserPasswordChangeImpl(username, password, confirmPassword);
+        UserBaseServiceImpl passwordChange = new UserBaseServiceImpl(username, password, confirmPassword);
 
         resp.setContentType("application/json;charset=UTF-8");
 
