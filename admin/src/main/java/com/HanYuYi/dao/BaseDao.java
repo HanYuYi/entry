@@ -71,8 +71,10 @@ public class BaseDao {
     public static ResultSet query(PreparedStatement statement, Object[] params) {
         ResultSet result = null;
         try {
-            for (int i = 0; i < params.length; i++) {
-                statement.setObject(i + 1, params[i]);
+            if (params != null) {
+                for (int i = 0; i < params.length; i++) {
+                    statement.setObject(i + 1, params[i]);
+                }
             }
             result = statement.executeQuery();
         } catch (SQLException e) {

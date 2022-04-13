@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>中后台管理系统</title>
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-    <link type="text/css" rel="stylesheet" href="../css/element-ui-2.15.6.min.css">
+    <link type="text/css" rel="stylesheet" href="../css/element-ui-2.15.6.min.css?a=1">
     <link type="text/css" rel="stylesheet" href="../css/default.css">
     <link type="text/css" rel="stylesheet" href="../css/public.css?a=2">
     <script type="text/javascript" src="../js/vue.js"></script>
@@ -40,9 +40,11 @@
                         cancelButtonText: "取消",
                         type: "warning",
                         center: true
-                    }).then(() => {
+                    })
+                        .then(() => {
                         location.href = "${pageContext.request.contextPath}/logout.do";
-                    });
+                    })
+                        .catch(error => { console.log(error) });
                 }
             }
         });

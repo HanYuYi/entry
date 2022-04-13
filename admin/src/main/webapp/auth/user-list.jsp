@@ -1,12 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<style>
+    .table_scorll {
+        height: calc(100% - 62px - 10px - 50px);
+        overflow: auto!important;
+    }
+</style>
 <%@ include file="../common/header.jsp" %>
 
-<div id="user-list">
 
-    <el-form ref="form" :model="form" :inline="true" label-width="70px" style="margin-top: 10px">
+<div id="user-list" style="height: 100%">
+
+    <el-form ref="form" :model="form" :inline="true" label-width="70px" style="padding-top: 10px">
         <el-form-item label="用户名">
             <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="用户角色">
+            <el-select v-model="form.role" placeholder="请选择用户角色">
+                <el-option label="区域一" value="shanghai"></el-option>
+                <el-option label="区域二" value="beijing"></el-option>
+            </el-select>
         </el-form-item>
         <el-form-item label="注册日期">
             <el-col :span="11">
@@ -18,11 +30,12 @@
             </el-col>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary">查询</el-button>
+            <el-button type="primary" icon="el-icon-search">查询</el-button>
+            <el-button type="success" icon="el-icon-circle-plus">添加用户</el-button>
         </el-form-item>
     </el-form>
 
-    <el-table :data="tableData" style="width: 100%" border>
+    <el-table v-if="tableHeight" :data="tableData" size="small" class="table_scorll" border :height="tableHeight">
         <el-table-column label="用户名" width="180">
             <template slot-scope="scope">
                 {{ scope.row.username }}
@@ -74,8 +87,9 @@
             <template slot-scope="scope">
                 <el-button size="mini"
                         @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-button size="mini" type="danger"
-                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                <el-popconfirm title="确定删除该用户？"icon="el-icon-info" @confirm="handleDelete(scope.$index, scope.row)">
+                    <el-button slot="reference" size="mini" type="danger">删除</el-button>
+                </el-popconfirm>
             </template>
         </el-table-column>
     </el-table>
@@ -88,9 +102,11 @@
             return {
                 form: {
                     username: "",
+                    role: "",
                     start: "",
                     end: ""
                 },
+                tableHeight: 0,
                 tableData: [{
                     username: "王锋",
                     userCode: 1,
@@ -111,25 +127,157 @@
                     address: "上海市普陀区金沙江路 1517 弄",
                     role: "管理员",
                     createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
+                }, {
+                    username: "何晓卫",
+                    userCode: 2,
+                    sex: "女",
+                    birthday: "08-08",
+                    age: 22,
+                    phone: "17688410258",
+                    address: "上海市普陀区金沙江路 1517 弄",
+                    role: "管理员",
+                    createDate: "2016-05-04",
                 }]
             }
         },
+        mounted() {
+            this.tableHeightCalc();
+            window.onresize = () => this.tableHeightCalc();
+        },
         methods: {
+            tableHeightCalc() {
+                const reslut = () => this.$el && this.$el.offsetHeight ? this.$el.offsetHeight - 72 - 40 : 200;
+                this.tableHeight = reslut();
+            },
             handleEdit(index, row) {
                 console.log(index, row);
             },
             handleDelete(index, row) {
-                this.$confirm("确定删除该用户？", "提示", {
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
-                    type: "warning"
-                }).then(() => {
-                    this.$message({
-                        type: "success",
-                        message: "删除成功!"
-                    });
-                })
                 console.log(index, row);
+                this.$message({
+                    type: "success",
+                    message: "删除成功!"
+                });
             }
         }
     })

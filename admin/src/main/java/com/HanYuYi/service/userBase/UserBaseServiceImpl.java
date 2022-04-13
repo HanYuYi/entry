@@ -30,6 +30,12 @@ public class UserBaseServiceImpl implements UserBaseService{
         this.confirmPassword = confirmPassword;
     }
 
+    /**
+     * 用户登录接口
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public UserBase login(String username, String password) {
         Connection connection = null;
@@ -48,6 +54,10 @@ public class UserBaseServiceImpl implements UserBaseService{
         return info;
     }
 
+    /**
+     * 验证两次密码的输入是否一致
+     * @return
+     */
     @Override
     public boolean isAgreement() {
         if (password.equals(confirmPassword)) {
@@ -56,6 +66,11 @@ public class UserBaseServiceImpl implements UserBaseService{
         return false;
     }
 
+    /**
+     * 用户是否存在
+     * @param user
+     * @return
+     */
     @Override
     public boolean hasUsername(UserBaseDaoImpl user) {
         Connection connection = null;
@@ -73,7 +88,10 @@ public class UserBaseServiceImpl implements UserBaseService{
         return has;
     }
 
-
+    /**
+     * 修改密码
+     * @return
+     */
     @Override
     public Map setPassword() {
         Map<String, Object> map = new HashMap<>();
@@ -104,4 +122,25 @@ public class UserBaseServiceImpl implements UserBaseService{
         BaseDao.closeResources(connection, null, null);
         return map;
     }
+
+    /**
+     * 查询用户数量
+     * @return
+     */
+    @Override
+    public int getUserCount() {
+        Connection connection = null;
+        int count = 0;
+        try {
+            connection = BaseDao.getConnection();
+            count = userInfo.userCount(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResources(connection, null, null);
+        }
+        return count;
+    }
+
+
 }

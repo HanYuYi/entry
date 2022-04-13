@@ -12,23 +12,31 @@ public interface UserBaseService {
      * @param password
      * @return
      */
-    public UserBase login(String username, String password);
+    UserBase login(String username, String password);
 
     /**
      * 验证两次密码的输入是否一致
      * @return
      */
-    public boolean isAgreement();
+    boolean isAgreement();
 
     /**
      * 用户是否存在
      * @return
      */
-    public boolean hasUsername(UserBaseDaoImpl user);
+    boolean hasUsername(UserBaseDaoImpl user);
 
     /**
      * 执行修改密码
      * @return
      */
-    public Map setPassword();
+    Map setPassword();
+
+    /**
+     * 获取用户数量
+     * @return
+     */
+    int getUserCount();
+
+
 }
