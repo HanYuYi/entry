@@ -3,6 +3,9 @@ package com.HanYuYi.service.userBase;
 import com.HanYuYi.dao.userBase.UserBaseDaoImpl;
 import com.HanYuYi.entity.UserBase;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 public interface UserBaseService {
@@ -38,5 +41,15 @@ public interface UserBaseService {
      */
     int getUserCount();
 
-
+    /**
+     * 用户列表查询用户信息
+     * @param username
+     * @param roleId
+     * @param startDate
+     * @param endDate
+     * @param pageSize
+     * @param pageNum
+     * @return
+     */
+    List<UserBase> getUserList(String username, long roleId, Date startDate, Date endDate, int pageSize, int pageNum);
 }

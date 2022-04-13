@@ -32,13 +32,6 @@ public interface UserBaseDao {
     boolean hasUser(Connection connection, String username) throws SQLException;
 
     /**
-     * 查询用户数量
-     * @return
-     * @throws SQLException
-     */
-    int userCount(Connection connection) throws SQLException;
-
-    /**
      * 查询所有用户信息
      * @param connection
      * @param pageSize
@@ -48,7 +41,31 @@ public interface UserBaseDao {
     List<UserBase> allUserList(Connection connection, int pageSize, int pageNum);
 
     /**
+     * 根据 用户名、用户角色、注册日期查询用户数量
+     * @param connection
+     * @param username
+     * @param roleId
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws SQLException
+     */
+    int userCount(Connection connection,
+                  String username,
+                  long roleId,
+                  Date startDate,
+                  Date endDate
+    ) throws SQLException;
+
+    /**
      * 根据 用户名、用户角色、注册日期 分页查询用户信息
+     * @param connection
+     * @param username
+     * @param roleId
+     * @param startDate
+     * @param endDate
+     * @param pageSize
+     * @param pageNum
      * @return
      * @throws SQLException
      */
@@ -56,7 +73,7 @@ public interface UserBaseDao {
             Connection connection,
             String username,
             long roleId,
-            Date StartDate,
+            Date startDate,
             Date endDate,
             int pageSize,
             int pageNum) throws SQLException;

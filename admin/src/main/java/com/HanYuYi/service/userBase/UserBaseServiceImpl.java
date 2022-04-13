@@ -6,9 +6,9 @@ import com.HanYuYi.entity.UserBase;
 import com.HanYuYi.util.RespFormat;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 用户逻辑层
@@ -133,7 +133,7 @@ public class UserBaseServiceImpl implements UserBaseService{
         int count = 0;
         try {
             connection = BaseDao.getConnection();
-            count = userInfo.userCount(connection);
+            count = userInfo.userCount(connection, "adm", 0, null, null);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -142,5 +142,27 @@ public class UserBaseServiceImpl implements UserBaseService{
         return count;
     }
 
-
+    /**
+     * 用户列表查询用户信息
+     * @param username
+     * @param roleId
+     * @param startDate
+     * @param endDate
+     * @param pageSize
+     * @param pageNum
+     * @return
+     */
+    public List<UserBase> getUserList(String username, long roleId, Date startDate, Date endDate, int pageSize, int pageNum) {
+        Connection connection = null;
+        List<UserBase> list = new ArrayList<>();
+        try {
+            connection = BaseDao.getConnection();
+            list = userInfo.userList(connection, username, roleId, startDate, endDate, pageSize, pageNum);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResources(connection, null, null);
+        }
+        return list;
+    }
 }

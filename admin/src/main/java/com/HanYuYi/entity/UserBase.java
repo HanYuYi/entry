@@ -21,7 +21,7 @@ public class UserBase {
     private Date modifyDate; // 更新时间
 
     private int age;// 年龄
-    private int userRoleName;// 角色名称
+    private String userRoleName;// 角色名称
 
     public void setId(long id) {
         this.id = id;
@@ -79,7 +79,7 @@ public class UserBase {
         this.age = age;
     }
 
-    public void setUserRoleName(int userRoleName) {
+    public void setUserRoleName(String userRoleName) {
         this.userRoleName = userRoleName;
     }
 
@@ -140,7 +140,7 @@ public class UserBase {
         return age;
     }
 
-    public int getUserRoleName() {
+    public String getUserRoleName() {
         return userRoleName;
     }
 
