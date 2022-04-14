@@ -39,7 +39,7 @@ public interface UserBaseService {
      * 获取用户数量
      * @return
      */
-    int getUserCount();
+    int getUserCount(String username, long roleId, Date startDate, Date endDate);
 
     /**
      * 用户列表查询用户信息

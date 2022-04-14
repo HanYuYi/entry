@@ -15,9 +15,8 @@
             <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="用户角色">
-            <el-select v-model="form.role" placeholder="请选择用户角色">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
+            <el-select v-if="serverData.roleList.length" v-model="form.role" placeholder="请选择用户角色">
+                <el-option v-for="(item, index) in serverData.roleList" :key="index" :label="item.roleName" :value="item.id"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="注册日期">
@@ -100,6 +99,9 @@
         el: "#user-list",
         data() {
             return {
+                serverData: {
+                    roleList: []
+                },
                 form: {
                     username: "",
                     role: "",
@@ -263,6 +265,11 @@
         mounted() {
             this.tableHeightCalc();
             window.onresize = () => this.tableHeightCalc();
+
+            if (${roleList}) {
+                this.serverData.roleList = ${roleList};
+                console.log(${roleList})
+            }
         },
         methods: {
             tableHeightCalc() {

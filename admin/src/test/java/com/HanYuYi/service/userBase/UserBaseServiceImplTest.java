@@ -10,7 +10,7 @@ class UserBaseServiceImplTest {
 
     @Test
     void getUserCount() {
-        int userCount = new UserBaseServiceImpl().getUserCount();
+        int userCount = new UserBaseServiceImpl().getUserCount("adm", 0, null, null);
         System.out.println(userCount);
     }
 

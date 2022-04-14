@@ -125,9 +125,13 @@
             <%--根据菜单点击跳转页面--%>
             handlePage(index) {
                 if (Object.prototype.toString.call(index) === "[object String]" && this.menuList[index]) {
-                    location.href = "${pageContext.request.contextPath}" +
-                        (this.menuList[index].includes(".do") ? "/" :  "/auth/") +
-                        (Object.prototype.toString.call(this.menuList[index]) === "[object Array]" ? this.menuList[index][0] : this.menuList[index]);
+                    let _url = "${pageContext.request.contextPath}";
+                    if (Object.prototype.toString.call(this.menuList[index]) === "[object Array]") {
+                        _url += "/" + this.menuList[index][1];
+                    } else {
+                        _url += "/auth/" + this.menuList[index];
+                    }
+                    location.href = _url;
                 }
             },
             handleOpen(key, keyPath) {

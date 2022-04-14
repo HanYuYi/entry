@@ -22,11 +22,14 @@ public class UserRoleServiceImpl implements UserRoleService{
     @Override
     public List<UserRole> getRoleList() {
         List<UserRole> userRoles = null;
+        Connection connection = null;
         try {
-            Connection connection = BaseDao.getConnection();
+            connection = BaseDao.getConnection();
             userRoles = userRoleInfo.roleList(connection);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            BaseDao.closeResources(connection, null, null);
         }
         return userRoles;
     }

@@ -13,7 +13,7 @@ class UserRoleServiceImplTest {
     void getRoleList() {
         List<UserRole> roleList = new UserRoleServiceImpl().getRoleList();
         for (UserRole role : roleList) {
-            System.out.println(role.toString());
+            System.out.println(role.getId());
         }
     }
 }

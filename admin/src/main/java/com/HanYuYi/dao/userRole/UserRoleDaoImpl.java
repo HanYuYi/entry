@@ -25,8 +25,8 @@ public class UserRoleDaoImpl implements UserRoleDao {
             String sql = "SELECT * FROM user_role";
             PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql);
             ResultSet resultSet = BaseDao.query(statement, null);
-            UserRole userRole = new UserRole();
             while (resultSet.next()) {
+                UserRole userRole = new UserRole();
                 userRole.setId(resultSet.getLong("id"));
                 userRole.setRoleCode(resultSet.getLong("roleCode"));
                 userRole.setRoleName(resultSet.getString("roleName"));
@@ -36,6 +36,7 @@ public class UserRoleDaoImpl implements UserRoleDao {
                 userRole.setModifyDate(resultSet.getDate("modifyDate"));
                 list.add(userRole);
             }
+            BaseDao.closeResources(null, statement, resultSet);
         }
         return list;
     }

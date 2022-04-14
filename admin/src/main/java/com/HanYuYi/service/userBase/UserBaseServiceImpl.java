@@ -128,7 +128,11 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @return
      */
     @Override
-    public int getUserCount() {
+    public int getUserCount(String username, long roleId, Date startDate, Date endDate) {
+        // 时间必须成对传
+        if (startDate != null || endDate!=null) {
+            return -1;
+        }
         Connection connection = null;
         int count = 0;
         try {
@@ -153,6 +157,18 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @return
      */
     public List<UserBase> getUserList(String username, long roleId, Date startDate, Date endDate, int pageSize, int pageNum) {
+        // 时间必须成对传
+        if (startDate != null || endDate!=null) {
+            return null;
+        }
+        // 默认size
+        if (pageSize == 0) {
+            pageSize = 20;
+        }
+        // 默认页码
+        if (pageSize == 0) {
+            pageSize = 1;
+        }
         Connection connection = null;
         List<UserBase> list = new ArrayList<>();
         try {
