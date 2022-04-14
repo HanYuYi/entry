@@ -10,7 +10,7 @@ public class UserBase {
     private long userCode; // 用户编码
     private String userName; // 用户名
     private String userPassword; // 密码
-    private boolean gender; // 性别
+    private String gender; // 性别
     private Date birthday; // 生日
     private String phone; // 电话
     private String address; // 地址
@@ -40,7 +40,7 @@ public class UserBase {
     }
 
     public void setGender(boolean gender) {
-        this.gender = gender;
+        this.gender = gender ? "男" : "女";
     }
 
     public void setBirthday(Date birthday) {
@@ -100,7 +100,7 @@ public class UserBase {
         return userPassword;
     }
 
-    public boolean isGender() {
+    public String getGender() {
         return gender;
     }
 

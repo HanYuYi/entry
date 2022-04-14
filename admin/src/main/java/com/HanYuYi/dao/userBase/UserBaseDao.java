@@ -32,15 +32,6 @@ public interface UserBaseDao {
     boolean hasUser(Connection connection, String username) throws SQLException;
 
     /**
-     * 查询所有用户信息
-     * @param connection
-     * @param pageSize
-     * @param pageNum
-     * @return
-     */
-    List<UserBase> allUserList(Connection connection, int pageSize, int pageNum);
-
-    /**
      * 根据 用户名、用户角色、注册日期查询用户数量
      * @param connection
      * @param username

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script type="text/javascript" src="../js/ajax.js?date=20220414"></script>
 <style>
     .table_scorll {
-        height: calc(100% - 62px - 10px - 50px);
         overflow: auto!important;
     }
 </style>
@@ -15,29 +15,29 @@
             <el-input v-model="form.username"></el-input>
         </el-form-item>
         <el-form-item label="用户角色">
-            <el-select v-if="serverData.roleList.length" v-model="form.role" placeholder="请选择用户角色">
+            <el-select v-if="serverData.roleList.length" v-model="form.roleId" placeholder="请选择用户角色">
                 <el-option v-for="(item, index) in serverData.roleList" :key="index" :label="item.roleName" :value="item.id"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="注册日期">
             <el-col :span="11">
-                <el-date-picker type="date" v-model="form.start" style="width: 100%;"></el-date-picker>
+                <el-date-picker type="date" v-model="form.startDate" style="width: 100%;"></el-date-picker>
             </el-col>
             <el-col :span="1" style="text-align: center">-</el-col>
             <el-col :span="11">
-                <el-date-picker type="date" v-model="form.end" style="width: 100%;"></el-date-picker>
+                <el-date-picker type="date" v-model="form.endDate" style="width: 100%;"></el-date-picker>
             </el-col>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" icon="el-icon-search">查询</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="handleQuery">查询</el-button>
             <el-button type="success" icon="el-icon-circle-plus">添加用户</el-button>
         </el-form-item>
     </el-form>
 
-    <el-table v-if="tableHeight" :data="tableData" size="small" class="table_scorll" border :height="tableHeight">
+    <el-table v-if="tableHeight" :data="serverData.tableData" size="small" class="table_scorll" border :height="tableHeight">
         <el-table-column label="用户名" width="180">
             <template slot-scope="scope">
-                {{ scope.row.username }}
+                {{ scope.row.userName }}
             </template>
         </el-table-column>
         <el-table-column label="用户编码" width="180">
@@ -47,7 +47,7 @@
         </el-table-column>
         <el-table-column label="性别" width="100">
             <template slot-scope="scope">
-                {{ scope.row.sex }}
+                {{ scope.row.gender }}
             </template>
         </el-table-column>
         <el-table-column label="生日" width="120">
@@ -62,7 +62,7 @@
         </el-table-column>
         <el-table-column label="角色" width="120">
             <template slot-scope="scope">
-                {{ scope.row.role }}
+                {{ scope.row.userRoleName }}
             </template>
         </el-table-column>
         <el-table-column label="注册日期" width="200">
@@ -92,6 +92,18 @@
             </template>
         </el-table-column>
     </el-table>
+
+    <el-pagination
+            style="margin-top: 20px"
+            background
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage"
+            :page-sizes="[20, 40, 70, 100]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="serverData.pageTotal">
+    </el-pagination>
 </div>
 
 <script>
@@ -100,166 +112,19 @@
         data() {
             return {
                 serverData: {
-                    roleList: []
+                    roleList: [],
+                    tableData: [],
+                    pageTotal: 0
                 },
                 form: {
                     username: "",
-                    role: "",
-                    start: "",
-                    end: ""
+                    roleId: "",
+                    startDate: "",
+                    endDate: ""
                 },
                 tableHeight: 0,
-                tableData: [{
-                    username: "王锋",
-                    userCode: 1,
-                    sex: "男",
-                    birthday: "11-15",
-                    age: 31,
-                    phone: "13551882174",
-                    address: "上海市普陀区金沙江路 1518 弄",
-                    role: "运营",
-                    createDate: "2016-05-02",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }, {
-                    username: "何晓卫",
-                    userCode: 2,
-                    sex: "女",
-                    birthday: "08-08",
-                    age: 22,
-                    phone: "17688410258",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                    role: "管理员",
-                    createDate: "2016-05-04",
-                }]
+                pageSize: 20,
+                currentPage: 1,
             }
         },
         mounted() {
@@ -270,21 +135,51 @@
                 this.serverData.roleList = ${roleList};
                 console.log(${roleList})
             }
+
+            if (${userList}) {
+                this.serverData.tableData = ${userList};
+                console.log(${userList})
+            }
+
+            if (${userCount}) {
+                this.serverData.pageTotal = ${userCount};
+                console.log(${userCount})
+            }
+
         },
         methods: {
+            // 动态计算高度
             tableHeightCalc() {
-                const reslut = () => this.$el && this.$el.offsetHeight ? this.$el.offsetHeight - 72 - 40 : 200;
+                const reslut = () => this.$el && this.$el.offsetHeight ? this.$el.offsetHeight - 72 - 60 : 200;
                 this.tableHeight = reslut();
             },
+            // 查询
+            handleQuery() {
+                ajax({
+                    url: "${pageContext.request.contextPath}" + "/userList.do",
+                    type: "get",
+                    data: {...this.form, pageSize: this.pageSize, pageNum: this.currentPage}
+                });
+            },
+            // 编辑
             handleEdit(index, row) {
                 console.log(index, row);
             },
+            // 删除
             handleDelete(index, row) {
                 console.log(index, row);
                 this.$message({
                     type: "success",
                     message: "删除成功!"
                 });
+            },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                console.log(val);
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                console.log(val);
             }
         }
     })

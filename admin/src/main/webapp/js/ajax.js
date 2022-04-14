@@ -30,12 +30,14 @@ function ajax({ url, type, async = true, data }) {
             }
             newUrl = newUrl + "?" + serialize;
         }
-
-        xmlHttp.open(type, url, async);
+        xmlHttp.open(type, newUrl, async);
         if (typeStr === "post") {
             xmlHttp.setRequestHeader("Content-Type", "application/json");
+            xmlHttp.send(JSON.stringify(data));
         }
-        typeStr === "get" ? xmlHttp.send() : xmlHttp.send(JSON.stringify(data));
+        if (typeStr === "get") {
+            xmlHttp.send();
+        }
 
         xmlHttp.onload = function () {
             if (xmlHttp.readyState === 4) {

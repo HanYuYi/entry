@@ -6,7 +6,6 @@ import com.HanYuYi.entity.UserBase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 /**
  * 获取基本用户信息
@@ -92,46 +91,6 @@ public class UserBaseDaoImpl implements UserBaseDao {
             BaseDao.closeResources(null, statement, resultSet);
         }
         return hasUser;
-    }
-
-
-    /***
-     * 查询所有用户信息
-     * @param connection
-     * @param pageSize
-     * @param pageNum
-     * @return
-     */
-    public List<UserBase> allUserList(Connection connection, int pageSize, int pageNum) {
-        List<UserBase> userList = new ArrayList<>();
-        if (connection != null) {
-            String sql = "SELECT * FROM user_base LIMIT ? OFFSET ?";
-            Object[] sqlParams = {pageSize, pageSize * pageNum};
-            PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql);
-            ResultSet resultSet = BaseDao.query(statement, sqlParams);
-            UserBase userBase = new UserBase();
-            try {
-                while (resultSet.next()) {
-                    userBase.setUserName(resultSet.getString("userName"));
-                    userBase.setUserCode(resultSet.getLong("userCode"));
-                    userBase.setUserPassword(resultSet.getString("userPassword"));
-                    userBase.setGender(resultSet.getBoolean("gender"));
-                    userBase.setBirthday(resultSet.getDate("birthday"));
-                    userBase.setPhone(resultSet.getString("phone"));
-                    userBase.setAddress(resultSet.getString("address"));
-                    userBase.setUserRole(resultSet.getLong("userRole"));
-                    userBase.setCreateBy(resultSet.getLong("createBy"));
-                    userBase.setCreateDate(resultSet.getDate("createDate"));
-                    userBase.setModifyBy(resultSet.getLong("modifyBy"));
-                    userBase.setModifyDate(resultSet.getDate("modifyDate"));
-                    userList.add(userBase);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            BaseDao.closeResources(null, statement, resultSet);
-        }
-        return userList;
     }
 
     /**
@@ -237,6 +196,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
                 userBase.setModifyBy(resultSet.getLong("modifyBy"));
                 userBase.setModifyDate(resultSet.getDate("modifyDate"));
                 userBase.setUserRoleName(resultSet.getString("roleName"));
+//                userBase.setAge(new Date().now() - resultSet.getString("birthday"));
                 userList.add(userBase);
             }
             BaseDao.closeResources(null, statement, resultSet);
