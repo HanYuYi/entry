@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script type="text/javascript" src="../js/ajax.js?date=20220414"></script>
 <style>
     .table_scorll {
         overflow: auto!important;
@@ -131,19 +130,24 @@
             this.tableHeightCalc();
             window.onresize = () => this.tableHeightCalc();
 
+            if (${saveParams}) {
+                let { username, roleId, startDate, endDate, pageSize, pageNum } = ${saveParams};
+                this.form = { username, roleId, startDate, endDate };
+                this.pageSize = pageSize;
+                this.currentPage = pageNum;
+                console.log(${saveParams});
+            }
+
             if (${roleList}) {
                 this.serverData.roleList = ${roleList};
-                console.log(${roleList})
             }
 
             if (${userList}) {
                 this.serverData.tableData = ${userList};
-                console.log(${userList})
             }
 
             if (${userCount}) {
                 this.serverData.pageTotal = ${userCount};
-                console.log(${userCount})
             }
 
         },
@@ -155,11 +159,8 @@
             },
             // 查询
             handleQuery() {
-                ajax({
-                    url: "${pageContext.request.contextPath}" + "/userList.do",
-                    type: "get",
-                    data: {...this.form, pageSize: this.pageSize, pageNum: this.currentPage}
-                });
+                const sendParam = {...this.form, pageSize: this.pageSize, pageNum: this.currentPage};
+                location.href = "${pageContext.request.contextPath}" + "/userList.do?" + serializeJson(sendParam);
             },
             // 编辑
             handleEdit(index, row) {

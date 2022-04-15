@@ -23,11 +23,7 @@ function ajax({ url, type, async = true, data }) {
 
         // get序列化参数
         if (typeStr === "get") {
-            let serialize = "";
-            Object.keys(data).forEach(key => serialize += key + "=" + data[key] + "&");
-            if (serialize[serialize.length - 1] === "&") {
-                serialize = serialize.substr(0, serialize.length - 1);
-            }
+            let serialize = serializeJson(data);
             newUrl = newUrl + "?" + serialize;
         }
         xmlHttp.open(type, newUrl, async);
@@ -41,10 +37,16 @@ function ajax({ url, type, async = true, data }) {
 
         xmlHttp.onload = function () {
             if (xmlHttp.readyState === 4) {
+                console.log(111)
                 if (xmlHttp.status === 200 || xmlHttp.status === 304) {
                     resolve(JSON.parse(xmlHttp.responseText));
+                    console.log(222)
+                } else {
+                    console.log(xmlHttp.responseText)
+                    reject(xmlHttp.responseText)
                 }
             } else {
+                console.log(333)
                 reject(xmlHttp.responseText)
             }
         }

@@ -6,6 +6,7 @@ import com.HanYuYi.service.userBase.UserBaseServiceImpl;
 import com.HanYuYi.service.userRole.UserRoleServiceImpl;
 import com.HanYuYi.util.Constants;
 import com.HanYuYi.util.DataFormatConversion;
+import com.HanYuYi.util.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +29,8 @@ public class UserList extends HttpServlet {
         String endDate = req.getParameter("endDate");
         String pageSize = req.getParameter("pageSize");
         String pageNum = req.getParameter("pageNum");
+        String saveParams = req.getParameter("saveParams");
+
         System.out.println("username：" + username);
         System.out.println("roleId：" + roleId);
         System.out.println("startDate：" + startDate);
@@ -35,23 +38,29 @@ public class UserList extends HttpServlet {
         System.out.println("pageSize：" + pageSize);
         System.out.println("pageNum：" + pageNum);
 
+        String _username = null;
+        if (!StringUtils.isNullOrEmpty(username)) {
+            _username = username;
+        }
         long _roleId = 0l;
-        if (roleId != null) {
+        if (!StringUtils.isNullOrEmpty(roleId)) {
             _roleId = Integer.parseInt(roleId);
         }
+        // 时间必须成对传
+        String _startDate = null;
+        String _endDate = null;
+        if (!StringUtils.isNullOrEmpty(startDate) && !StringUtils.isNullOrEmpty(endDate)) {
+            _startDate = startDate;
+            _endDate = endDate;
+        }
         int _pageSize = 20;
-        if (pageSize != null) {
+        if (!StringUtils.isNullOrEmpty(pageSize)) {
             _pageSize = Integer.parseInt(pageSize);
         }
         int _pageNum = 1;
-        if (pageSize != null) {
+        if (!StringUtils.isNullOrEmpty(pageNum)) {
             _pageNum = Integer.parseInt(pageNum);
         }
-        // 时间必须成对传
-        /*if (startDate == null || endDate==null) {
-            startDate = null;
-            endDate = null;
-        }*/
         HttpSession session = req.getSession();
 
         // 用户角色
@@ -62,7 +71,7 @@ public class UserList extends HttpServlet {
         // 用户列表
         UserBaseServiceImpl userBase = new UserBaseServiceImpl();
         List<UserBase> userList = userBase.getUserList(
-                username,
+                _username,
                 _roleId,
                 null,
                 null,
@@ -73,8 +82,16 @@ public class UserList extends HttpServlet {
         session.setAttribute(Constants.USER_LIST, userListJson);
 
         // 数据total
-        int count = userBase.getUserCount(username, _roleId, null, null);
+        int count = userBase.getUserCount(_username, _roleId, null, null);
         session.setAttribute(Constants.USER_LIST_LENGTH, count);
+
+        // 透传前端参数，用在前端刷新页面后还保存参数
+        String __username = null;
+        if (_username != null) {
+            __username = "'" + _username + "'";
+        }
+        session.setAttribute("saveParams", "{username:"+ __username + ",roleId:" + _roleId + ",startDate:" + _startDate + ",endDate:" + _endDate + ",pageSize:" + _pageSize + ",pageNum:" + _pageNum + "}");
+
 
         resp.sendRedirect(req.getContextPath() + "/auth/user-list.jsp");
     }

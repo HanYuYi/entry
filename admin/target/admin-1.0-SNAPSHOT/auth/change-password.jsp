@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<script type="text/javascript" src="../js/ajax.js?date=20220414"></script>
 
 <%@ include file="../common/header.jsp" %>
 
