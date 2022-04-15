@@ -87,3 +87,6 @@ main>aside {
     background: #ffffff;
     box-shadow: 1px 1px 30px #cbcaca;
 }
+.box_scorll {
+    overflow: auto!important;
+}

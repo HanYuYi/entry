@@ -10,7 +10,7 @@ public class StringUtils {
      * @return
      */
     public static boolean isNullOrEmpty(String data) {
-        if (data == null || data == "") {
+        if (data == null || "".equals(data) || "null".equals(data)) {
             return true;
         }
         return false;

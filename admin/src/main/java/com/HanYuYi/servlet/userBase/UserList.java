@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/userList.do")
@@ -29,7 +30,6 @@ public class UserList extends HttpServlet {
         String endDate = req.getParameter("endDate");
         String pageSize = req.getParameter("pageSize");
         String pageNum = req.getParameter("pageNum");
-        String saveParams = req.getParameter("saveParams");
 
         System.out.println("username：" + username);
         System.out.println("roleId：" + roleId);
@@ -44,14 +44,20 @@ public class UserList extends HttpServlet {
         }
         long _roleId = 0l;
         if (!StringUtils.isNullOrEmpty(roleId)) {
+            System.out.println(11);
             _roleId = Integer.parseInt(roleId);
         }
         // 时间必须成对传
-        String _startDate = null;
-        String _endDate = null;
+        Long _startDate = null;
+        Long _endDate = null;
         if (!StringUtils.isNullOrEmpty(startDate) && !StringUtils.isNullOrEmpty(endDate)) {
-            _startDate = startDate;
-            _endDate = endDate;
+            Long tempStartDate = Long.parseLong(startDate);
+            Long tempDndDate = Long.parseLong(endDate);
+            _endDate = Long.parseLong(endDate);
+            if (tempStartDate <= tempDndDate) {
+                _startDate = tempStartDate;
+                _endDate = tempDndDate;
+            }
         }
         int _pageSize = 20;
         if (!StringUtils.isNullOrEmpty(pageSize)) {
@@ -67,31 +73,29 @@ public class UserList extends HttpServlet {
         List<UserRole> roleList = new UserRoleServiceImpl().getRoleList();
         String roleJson = DataFormatConversion.Deserialization(roleList);
         session.setAttribute(Constants.ROLE_LIST, roleJson);
-
         // 用户列表
         UserBaseServiceImpl userBase = new UserBaseServiceImpl();
         List<UserBase> userList = userBase.getUserList(
                 _username,
                 _roleId,
-                null,
-                null,
+                _startDate,
+                _endDate,
                 _pageSize,
                 _pageNum
         );
         String userListJson = DataFormatConversion.Deserialization(userList);
         session.setAttribute(Constants.USER_LIST, userListJson);
-
         // 数据total
-        int count = userBase.getUserCount(_username, _roleId, null, null);
+        int count = userBase.getUserCount(_username, _roleId, _startDate, _endDate);
         session.setAttribute(Constants.USER_LIST_LENGTH, count);
 
-        // 透传前端参数，用在前端刷新页面后还保存参数
-        String __username = null;
-        if (_username != null) {
-            __username = "'" + _username + "'";
-        }
-        session.setAttribute("saveParams", "{username:"+ __username + ",roleId:" + _roleId + ",startDate:" + _startDate + ",endDate:" + _endDate + ",pageSize:" + _pageSize + ",pageNum:" + _pageNum + "}");
-
+        // 请求数据的参数
+        session.setAttribute("p_username", _username != null ? "\"" +_username + "\"" : "\"\"");
+        session.setAttribute("p_roleId",  _roleId);
+        session.setAttribute("p_startDate", _startDate != null ? _startDate : "null");
+        session.setAttribute("p_endDate", _endDate != null ? _endDate : "null");
+        session.setAttribute("p_pageSize", _pageSize);
+        session.setAttribute("p_pageNum", _pageNum);
 
         resp.sendRedirect(req.getContextPath() + "/auth/user-list.jsp");
     }

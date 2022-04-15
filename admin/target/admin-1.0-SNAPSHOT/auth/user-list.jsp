@@ -1,9 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<style>
-    .table_scorll {
-        overflow: auto!important;
-    }
-</style>
 <%@ include file="../common/header.jsp" %>
 
 
@@ -29,11 +24,11 @@
         </el-form-item>
         <el-form-item>
             <el-button type="primary" icon="el-icon-search" @click="handleQuery">查询</el-button>
-            <el-button type="success" icon="el-icon-circle-plus">添加用户</el-button>
+            <el-button type="success" icon="el-icon-circle-plus" @click="toUserAddPage">创建用户</el-button>
         </el-form-item>
     </el-form>
 
-    <el-table v-if="tableHeight" :data="serverData.tableData" size="small" class="table_scorll" border :height="tableHeight">
+    <el-table v-if="tableHeight" :data="serverData.tableData" size="small" class="box_scorll" border :height="tableHeight">
         <el-table-column label="用户名" width="180">
             <template slot-scope="scope">
                 {{ scope.row.userName }}
@@ -111,45 +106,24 @@
         data() {
             return {
                 serverData: {
-                    roleList: [],
-                    tableData: [],
-                    pageTotal: 0
+                    roleList: ${roleList},
+                    tableData: ${userList},
+                    pageTotal: ${userCount}
                 },
                 form: {
-                    username: "",
-                    roleId: "",
-                    startDate: "",
-                    endDate: ""
+                    username: ${p_username},
+                    roleId: ${p_roleId} != 0 ? ${p_roleId} : null,
+                    startDate: ${p_startDate} !== null ? new Date(parseInt(${p_startDate})) : null,
+                    endDate: ${p_endDate} !== null ? new Date(parseInt(${p_endDate})) : null
                 },
                 tableHeight: 0,
-                pageSize: 20,
-                currentPage: 1,
+                pageSize: ${p_pageSize},
+                currentPage: ${p_pageNum},
             }
         },
         mounted() {
             this.tableHeightCalc();
             window.onresize = () => this.tableHeightCalc();
-
-            if (${saveParams}) {
-                let { username, roleId, startDate, endDate, pageSize, pageNum } = ${saveParams};
-                this.form = { username, roleId, startDate, endDate };
-                this.pageSize = pageSize;
-                this.currentPage = pageNum;
-                console.log(${saveParams});
-            }
-
-            if (${roleList}) {
-                this.serverData.roleList = ${roleList};
-            }
-
-            if (${userList}) {
-                this.serverData.tableData = ${userList};
-            }
-
-            if (${userCount}) {
-                this.serverData.pageTotal = ${userCount};
-            }
-
         },
         methods: {
             // 动态计算高度
@@ -159,6 +133,24 @@
             },
             // 查询
             handleQuery() {
+                let validate = true;
+                // 验证时间
+                if (this.form.startDate || this.form.endDate) {
+                    if (this.form.startDate && this.form.endDate) {
+                        if (this.form.startDate > this.form.endDate) {
+                            validate = false;
+                            this.$message({ type: "warning", message: "开始时间不能大于结束时间!" });
+                        } else {
+                            this.form.startDate = this.form.startDate.getTime();
+                            this.form.endDate = this.form.endDate.getTime();
+                        }
+                    } else {
+                        validate = false;
+                        this.$message({ type: "warning", message: "请选择完整的时间范围!" });
+                    }
+                }
+                if (this.form.roleId == null) this.form.roleId = 0;
+                if (!validate) return;
                 const sendParam = {...this.form, pageSize: this.pageSize, pageNum: this.currentPage};
                 location.href = "${pageContext.request.contextPath}" + "/userList.do?" + serializeJson(sendParam);
             },
@@ -169,10 +161,7 @@
             // 删除
             handleDelete(index, row) {
                 console.log(index, row);
-                this.$message({
-                    type: "success",
-                    message: "删除成功!"
-                });
+                this.$notify({ title: '提示', message: '删除成功', type: 'success' });
             },
             handleSizeChange(val) {
                 this.pageSize = val;
@@ -181,6 +170,9 @@
             handleCurrentChange(val) {
                 this.currentPage = val;
                 console.log(val);
+            },
+            toUserAddPage() {
+                location.href = '${pageContext.request.contextPath}/auth/user-add.jsp';
             }
         }
     })

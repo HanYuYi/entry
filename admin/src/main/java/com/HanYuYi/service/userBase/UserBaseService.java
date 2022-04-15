@@ -39,7 +39,7 @@ public interface UserBaseService {
      * 获取用户数量
      * @return
      */
-    int getUserCount(String username, long roleId, Date startDate, Date endDate);
+    int getUserCount(String username, long roleId, Long startDate, Long endDate);
 
     /**
      * 用户列表查询用户信息
@@ -51,5 +51,5 @@ public interface UserBaseService {
      * @param pageNum
      * @return
      */
-    List<UserBase> getUserList(String username, long roleId, Date startDate, Date endDate, int pageSize, int pageNum);
+    List<UserBase> getUserList(String username, long roleId, Long startDate, Long endDate, int pageSize, int pageNum);
 }

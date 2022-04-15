@@ -128,12 +128,12 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @return
      */
     @Override
-    public int getUserCount(String username, long roleId, Date startDate, Date endDate) {
+    public int getUserCount(String username, long roleId, Long startDate, Long endDate) {
         Connection connection = null;
         int count = 0;
         try {
             connection = BaseDao.getConnection();
-            count = userInfo.userCount(connection, "adm", 0, null, null);
+            count = userInfo.userCount(connection, username, roleId, startDate, endDate);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -152,7 +152,7 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @param pageNum
      * @return
      */
-    public List<UserBase> getUserList(String username, long roleId, Date startDate, Date endDate, int pageSize, int pageNum) {
+    public List<UserBase> getUserList(String username, long roleId, Long startDate, Long endDate, int pageSize, int pageNum) {
         Connection connection = null;
         List<UserBase> list = new ArrayList<>();
         try {
