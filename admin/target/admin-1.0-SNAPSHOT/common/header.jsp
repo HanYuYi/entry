@@ -11,7 +11,7 @@
     <link type="text/css" rel="stylesheet" href="../css/public.css?a=2">
     <script type="text/javascript" src="../js/vue.js"></script>
     <script type="text/javascript" src="../js/element-ui-2.15.6.min.js"></script>
-    <script type="text/javascript" src="../js/utils.js"></script>
+    <script type="text/javascript" src="../js/utils.js?20220416"></script>
     <script type="text/javascript" src="../js/ajax.js?20220414"></script>
 </head>
 <body>

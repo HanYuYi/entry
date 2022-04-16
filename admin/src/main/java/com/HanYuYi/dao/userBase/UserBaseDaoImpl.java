@@ -104,7 +104,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
      * @throws SQLException
      */
     @Override
-    public int userCount(Connection connection, String username, long roleId, Long startDate, Long endDate) throws SQLException {
+    public int userCount(Connection connection, String username, long roleId, String startDate, String endDate) throws SQLException {
         int backCount = 0;
         if (connection != null) {
             // sql拼接
@@ -144,7 +144,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
      * @return
      * @throws SQLException
      */
-    public List<UserBase> userList(Connection connection, String username, long roleId, Long startDate, Long endDate, int pageSize, int pageNum) throws SQLException {
+    public List<UserBase> userList(Connection connection, String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) throws SQLException {
         List<UserBase> userList = new ArrayList<>();
         if (connection != null) {
             StringBuilder sql = new StringBuilder("SELECT b.*, r.roleName FROM user_base b, user_role r WHERE b.userRole = r.id");
@@ -184,7 +184,6 @@ public class UserBaseDaoImpl implements UserBaseDao {
                 userBase.setModifyBy(resultSet.getLong("modifyBy"));
                 userBase.setModifyDate(resultSet.getDate("modifyDate"));
                 userBase.setUserRoleName(resultSet.getString("roleName"));
-//                userBase.setAge(new Date().now() - resultSet.getString("birthday"));
                 userList.add(userBase);
             }
             BaseDao.closeResources(null, statement, resultSet);

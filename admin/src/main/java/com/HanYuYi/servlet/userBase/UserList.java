@@ -6,6 +6,7 @@ import com.HanYuYi.service.userBase.UserBaseServiceImpl;
 import com.HanYuYi.service.userRole.UserRoleServiceImpl;
 import com.HanYuYi.util.Constants;
 import com.HanYuYi.util.DataFormatConversion;
+import com.HanYuYi.util.DateUtils;
 import com.HanYuYi.util.StringUtils;
 
 import javax.servlet.ServletException;
@@ -15,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Date;
+import java.time.ZoneOffset;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @WebServlet("/userList.do")
@@ -44,19 +47,21 @@ public class UserList extends HttpServlet {
         }
         long _roleId = 0l;
         if (!StringUtils.isNullOrEmpty(roleId)) {
-            System.out.println(11);
             _roleId = Integer.parseInt(roleId);
         }
         // 时间必须成对传
-        Long _startDate = null;
-        Long _endDate = null;
+        String _startDate = null;
+        String _endDate = null;
+        Long startMilli = null;
+        Long endMilli = null;
         if (!StringUtils.isNullOrEmpty(startDate) && !StringUtils.isNullOrEmpty(endDate)) {
-            Long tempStartDate = Long.parseLong(startDate);
-            Long tempDndDate = Long.parseLong(endDate);
-            _endDate = Long.parseLong(endDate);
-            if (tempStartDate <= tempDndDate) {
-                _startDate = tempStartDate;
-                _endDate = tempDndDate;
+            LocalDateTime parseStartDate = DateUtils.dateTimeStringToDate(startDate);
+            LocalDateTime parseEndDate = DateUtils.dateTimeStringToDate(endDate);
+            startMilli = DateUtils.dateToEpochMilli(parseStartDate);
+            endMilli = DateUtils.dateToEpochMilli(parseEndDate);
+            if (startMilli <= endMilli) {
+                _startDate = startDate;
+                _endDate = endDate;
             }
         }
         int _pageSize = 20;
@@ -75,25 +80,18 @@ public class UserList extends HttpServlet {
         session.setAttribute(Constants.ROLE_LIST, roleJson);
         // 用户列表
         UserBaseServiceImpl userBase = new UserBaseServiceImpl();
-        List<UserBase> userList = userBase.getUserList(
-                _username,
-                _roleId,
-                _startDate,
-                _endDate,
-                _pageSize,
-                _pageNum
-        );
+        List<UserBase> userList = userBase.getUserList(_username, _roleId, _startDate, _endDate, _pageSize, _pageNum);
         String userListJson = DataFormatConversion.Deserialization(userList);
         session.setAttribute(Constants.USER_LIST, userListJson);
         // 数据total
         int count = userBase.getUserCount(_username, _roleId, _startDate, _endDate);
         session.setAttribute(Constants.USER_LIST_LENGTH, count);
 
-        // 请求数据的参数
-        session.setAttribute("p_username", _username != null ? "\"" +_username + "\"" : "\"\"");
+        // 查询条件的参数
+        session.setAttribute("p_username", _username);
         session.setAttribute("p_roleId",  _roleId);
-        session.setAttribute("p_startDate", _startDate != null ? _startDate : "null");
-        session.setAttribute("p_endDate", _endDate != null ? _endDate : "null");
+        session.setAttribute("p_startDate", startMilli);
+        session.setAttribute("p_endDate", endMilli);
         session.setAttribute("p_pageSize", _pageSize);
         session.setAttribute("p_pageNum", _pageNum);
 

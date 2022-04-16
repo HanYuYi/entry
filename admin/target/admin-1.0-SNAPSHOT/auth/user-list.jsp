@@ -46,7 +46,7 @@
         </el-table-column>
         <el-table-column label="生日" width="120">
             <template slot-scope="scope">
-                {{ scope.row.birthday }}
+                {{ scope.row.birthdayFmt }}
             </template>
         </el-table-column>
         <el-table-column label="年龄" width="100">
@@ -62,7 +62,7 @@
         <el-table-column label="注册日期" width="200">
             <template slot-scope="scope">
                 <i class="el-icon-time"></i>
-                <span style="margin-left: 10px">{{ scope.row.createDate }}</span>
+                <span style="margin-left: 10px">{{ scope.row.createDateFmt }}</span>
             </template>
         </el-table-column>
         <el-table-column label="更多" width="100">
@@ -111,10 +111,10 @@
                     pageTotal: ${userCount}
                 },
                 form: {
-                    username: ${p_username},
+                    username: "${p_username}",
                     roleId: ${p_roleId} != 0 ? ${p_roleId} : null,
-                    startDate: ${p_startDate} !== null ? new Date(parseInt(${p_startDate})) : null,
-                    endDate: ${p_endDate} !== null ? new Date(parseInt(${p_endDate})) : null
+                    startDate: "${p_startDate}" !== "" ? new Date(parseInt(${p_startDate})) : null,
+                    endDate: "${p_endDate}" !== "" ? new Date(parseInt(${p_endDate})) : null
                 },
                 tableHeight: 0,
                 pageSize: ${p_pageSize},
@@ -140,9 +140,6 @@
                         if (this.form.startDate > this.form.endDate) {
                             validate = false;
                             this.$message({ type: "warning", message: "开始时间不能大于结束时间!" });
-                        } else {
-                            this.form.startDate = this.form.startDate.getTime();
-                            this.form.endDate = this.form.endDate.getTime();
                         }
                     } else {
                         validate = false;
@@ -151,7 +148,13 @@
                 }
                 if (this.form.roleId == null) this.form.roleId = 0;
                 if (!validate) return;
-                const sendParam = {...this.form, pageSize: this.pageSize, pageNum: this.currentPage};
+                const sendParam = {
+                    ...this.form,
+                    startDate: dateFormat("yyyy-MM-dd HH:mm:ss", this.form.startDate),
+                    endDate: dateFormat("yyyy-MM-dd HH:mm:ss", this.form.endDate),
+                    pageSize: this.pageSize,
+                    pageNum: this.currentPage
+                };
                 location.href = "${pageContext.request.contextPath}" + "/userList.do?" + serializeJson(sendParam);
             },
             // 编辑
@@ -165,11 +168,11 @@
             },
             handleSizeChange(val) {
                 this.pageSize = val;
-                console.log(val);
+                this.handleQuery();
             },
             handleCurrentChange(val) {
                 this.currentPage = val;
-                console.log(val);
+                this.handleQuery();
             },
             toUserAddPage() {
                 location.href = '${pageContext.request.contextPath}/auth/user-add.jsp';

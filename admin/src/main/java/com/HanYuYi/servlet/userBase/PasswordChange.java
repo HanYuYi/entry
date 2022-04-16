@@ -2,7 +2,6 @@ package com.HanYuYi.servlet.userBase;
 
 import com.HanYuYi.service.userBase.UserBaseServiceImpl;
 import com.HanYuYi.util.DataFormatConversion;
-import com.HanYuYi.util.RespFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;

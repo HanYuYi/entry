@@ -10,14 +10,17 @@ class UserBaseServiceImplTest {
 
     @Test
     void getUserCount() {
-        int userCount = new UserBaseServiceImpl().getUserCount("adm", 0, null, null);
+        int userCount = new UserBaseServiceImpl().getUserCount("adm", 0, "", "");
         System.out.println(userCount);
     }
 
     @Test
     void getUserList() {
-        List<UserBase> list = new UserBaseServiceImpl().getUserList("admi", 0, null, null, 10, 1);
+        List<UserBase> list = new UserBaseServiceImpl().getUserList("admi", 0, "", "", 10, 1);
         list.stream().forEach(System.out::println);
+        for (UserBase u : list) {
+            System.out.println(u.getCreateDateFmt());
+        }
     }
 
 }

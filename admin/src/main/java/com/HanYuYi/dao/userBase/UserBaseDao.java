@@ -44,8 +44,8 @@ public interface UserBaseDao {
     int userCount(Connection connection,
                   String username,
                   long roleId,
-                  Long startDate,
-                  Long endDate
+                  String startDate,
+                  String endDate
     ) throws SQLException;
 
     /**
@@ -64,8 +64,8 @@ public interface UserBaseDao {
             Connection connection,
             String username,
             long roleId,
-            Long startDate,
-            Long endDate,
+            String startDate,
+            String endDate,
             int pageSize,
             int pageNum) throws SQLException;
 }

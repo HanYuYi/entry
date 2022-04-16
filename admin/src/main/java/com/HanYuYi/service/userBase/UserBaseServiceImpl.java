@@ -6,7 +6,6 @@ import com.HanYuYi.entity.UserBase;
 import com.HanYuYi.util.RespFormat;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -128,7 +127,7 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @return
      */
     @Override
-    public int getUserCount(String username, long roleId, Long startDate, Long endDate) {
+    public int getUserCount(String username, long roleId, String startDate, String endDate) {
         Connection connection = null;
         int count = 0;
         try {
@@ -152,7 +151,7 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @param pageNum
      * @return
      */
-    public List<UserBase> getUserList(String username, long roleId, Long startDate, Long endDate, int pageSize, int pageNum) {
+    public List<UserBase> getUserList(String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) {
         Connection connection = null;
         List<UserBase> list = new ArrayList<>();
         try {

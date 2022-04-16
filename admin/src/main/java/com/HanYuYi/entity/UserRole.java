@@ -1,6 +1,6 @@
 package com.HanYuYi.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * 映射user_role表
