@@ -7,6 +7,9 @@ import com.HanYuYi.util.RespFormat;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -163,5 +166,63 @@ public class UserBaseServiceImpl implements UserBaseService{
             BaseDao.closeResources(connection, null, null);
         }
         return list;
+    }
+
+    /**
+     * 创建用户账号
+     * @param username
+     * @param gender
+     * @param birthday
+     * @param phone
+     * @param address
+     * @param userRole
+     * @return
+     */
+    @Override
+    public boolean toCreateUser(String username, String password, int gender, String birthday, String phone, String address, long userRole, long createBy, long modifyBy) {
+        Connection connection = null;
+        boolean isSuccess = false;
+
+        // 用户编码逻辑
+        int userCount = getUserCount(null, 0, null, null);
+        userCount += 1;
+
+        // 用户性别逻辑
+        boolean genderBool = gender == 1;
+
+        // 用户生日时间、创建时间、更新时间逻辑
+        java.util.Date birthdayUtilDate = null;
+        java.util.Date createUtilDate = null;
+        java.util.Date modifyUtilDate = null;
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            birthdayUtilDate = simpleDate.parse(birthday);
+            createUtilDate = simpleDate.parse(LocalDate.now().toString());
+            modifyUtilDate = simpleDate.parse(LocalDate.now().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        java.sql.Date birthdaySqlDate = new java.sql.Date(birthdayUtilDate.getTime());
+        java.sql.Date createSqlDate = new java.sql.Date(createUtilDate.getTime());
+        java.sql.Date modifySqlDate = new java.sql.Date(modifyUtilDate.getTime());
+
+        String[] keyArr = { "userCode", "userName", "userPassword", "gender", "birthday", "phone", "address", "userRole", "createBy", "createDate", "modifyBy", "modifyDate" };
+        Object[] valueArr = { userCount, username, password, genderBool, birthdaySqlDate, phone, address, userRole, createBy, createSqlDate, modifyBy, modifySqlDate };
+
+        try {
+            connection = BaseDao.getConnection();
+            // 设置关闭事务自动提交
+            connection.setAutoCommit(false);
+            // 事务
+            isSuccess = userInfo.createUser(connection, keyArr, valueArr);
+            // 提交事务
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResources(connection, null, null);
+        }
+
+        return isSuccess;
     }
 }

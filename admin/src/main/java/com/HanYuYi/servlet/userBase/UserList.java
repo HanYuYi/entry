@@ -16,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.ZoneOffset;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @WebServlet("/userList.do")
@@ -33,13 +31,6 @@ public class UserList extends HttpServlet {
         String endDate = req.getParameter("endDate");
         String pageSize = req.getParameter("pageSize");
         String pageNum = req.getParameter("pageNum");
-
-        System.out.println("username：" + username);
-        System.out.println("roleId：" + roleId);
-        System.out.println("startDate：" + startDate);
-        System.out.println("endDate：" + endDate);
-        System.out.println("pageSize：" + pageSize);
-        System.out.println("pageNum：" + pageNum);
 
         String _username = null;
         if (!StringUtils.isNullOrEmpty(username)) {

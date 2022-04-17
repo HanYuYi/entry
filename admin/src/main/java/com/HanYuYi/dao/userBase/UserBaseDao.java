@@ -3,7 +3,6 @@ package com.HanYuYi.dao.userBase;
 import com.HanYuYi.entity.UserBase;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -41,12 +40,7 @@ public interface UserBaseDao {
      * @return
      * @throws SQLException
      */
-    int userCount(Connection connection,
-                  String username,
-                  long roleId,
-                  String startDate,
-                  String endDate
-    ) throws SQLException;
+    int userCount(Connection connection, String username, long roleId, String startDate, String endDate) throws SQLException;
 
     /**
      * 根据 用户名、用户角色、注册日期 分页查询用户信息
@@ -60,12 +54,15 @@ public interface UserBaseDao {
      * @return
      * @throws SQLException
      */
-    List<UserBase> userList(
-            Connection connection,
-            String username,
-            long roleId,
-            String startDate,
-            String endDate,
-            int pageSize,
-            int pageNum) throws SQLException;
+    List<UserBase> userList(Connection connection, String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) throws SQLException;
+
+    /**
+     * 向数据库中插入用户数据
+     * @param connection
+     * @param createKeyArr
+     * @param createValueArr
+     * @return
+     * @throws SQLException
+     */
+    boolean createUser(Connection connection, String[] createKeyArr, Object[] createValueArr) throws SQLException;
 }

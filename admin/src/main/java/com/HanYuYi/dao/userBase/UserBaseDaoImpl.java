@@ -170,8 +170,8 @@ public class UserBaseDaoImpl implements UserBaseDao {
             Object[] paramsArr = paramsList.toArray();
             PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql.toString());
             ResultSet resultSet = BaseDao.query(statement, paramsArr);
-            UserBase userBase = new UserBase();
             while (resultSet.next()) {
+                UserBase userBase = new UserBase();
                 userBase.setUserName(resultSet.getString("userName"));
                 userBase.setUserCode(resultSet.getLong("userCode"));
                 userBase.setGender(resultSet.getBoolean("gender"));
@@ -189,5 +189,52 @@ public class UserBaseDaoImpl implements UserBaseDao {
             BaseDao.closeResources(null, statement, resultSet);
         }
         return userList;
-    };
+    }
+
+    /**
+     * 向数据库中插入用户数据
+     * @param connection
+     * @param createKeyArr
+     * @param createValueArr
+     * @return
+     * @throws SQLException
+     */
+    public boolean createUser(Connection connection, String[] createKeyArr, Object[] createValueArr) throws SQLException {
+        if (connection != null) {
+            // 构造sql
+            StringBuilder sql = new StringBuilder("INSERT INTO user_base ");
+            StringBuilder sqlKey = new StringBuilder("(");
+            StringBuilder sqlValue = new StringBuilder("(");
+
+            // 构造参数
+            List<Object> params = new ArrayList<>();
+
+            for (int i = 0; i < createKeyArr.length; i++) {
+                if (i < (createKeyArr.length - 1)) {
+                    sqlKey.append(createKeyArr[i] + ",");
+                    sqlValue.append("?" + ",");
+                } else if (i == createKeyArr.length - 1) {
+                    sqlKey.append(createKeyArr[i]);
+                    sqlValue.append("?");
+                }
+
+                if (i <= (createKeyArr.length - 1)) {
+                    params.add(createValueArr[i]);
+                }
+            }
+            sqlKey.append(")");
+            sqlValue.append(")");
+            sql.append(sqlKey);
+            sql.append(" VALUES ");
+            sql.append(sqlValue);
+
+            PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql.toString());
+            int updateIndex = BaseDao.update(statement, params.toArray());
+            if (updateIndex > 0) {
+                return true;
+            }
+            BaseDao.closeResources(null, statement, null);
+        }
+        return false;
+    }
 }

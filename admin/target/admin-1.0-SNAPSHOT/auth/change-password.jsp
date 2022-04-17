@@ -46,7 +46,7 @@
                 this.$refs.form.validate(valid => {
                     if (valid) {
                         ajax({
-                            url: "${pageContext.request.contextPath}" + "/user/passwordChange",
+                            url: "${pageContext.request.contextPath}/user/passwordChange",
                             type: "post",
                             data: this.formData
                         }).then((resp) => {

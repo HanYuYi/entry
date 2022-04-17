@@ -31,7 +31,7 @@ public class UserRoleDaoImpl implements UserRoleDao {
                 userRole.setRoleCode(resultSet.getLong("roleCode"));
                 userRole.setRoleName(resultSet.getString("roleName"));
                 userRole.setCreateBy(resultSet.getLong("createBy"));
-                userRole.setCreateBydate(resultSet.getDate("createDate"));
+                userRole.setCreateByDate(resultSet.getDate("createDate"));
                 userRole.setModifyBy(resultSet.getLong("modifyBy"));
                 userRole.setModifyDate(resultSet.getDate("modifyDate"));
                 list.add(userRole);

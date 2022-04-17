@@ -50,4 +50,16 @@ public interface UserBaseService {
      * @return
      */
     List<UserBase> getUserList(String username, long roleId, String startDate, String endDate, int pageSize, int pageNum);
+
+    /**
+     * 创建用户账号
+     * @param username
+     * @param gender
+     * @param birthday
+     * @param phone
+     * @param address
+     * @param userRole
+     * @return
+     */
+    boolean toCreateUser(String username, String password, int gender, String birthday, String phone, String address, long userRole, long createBy, long modifyBy);
 }

@@ -103,7 +103,7 @@
                         isCollapse: true,
                         menuList: {
                             "0": "home.jsp",
-                            "1": ["user-list.jsp", "userList.do"],
+                            "1": ["user-list.jsp", "userList.do", "user-add.jsp"],
                             "2": "change-password.jsp",
                             "3-0-0": ""
                         }

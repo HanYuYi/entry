@@ -6,13 +6,13 @@ import java.sql.Date;
  * 映射user_role表
  */
 public class UserRole {
-    private long id;// 角色id
-    private long roleCode;// 角色编码
-    private String roleName;// 角色名称
-    private long createBy;// 创建者id
-    private Date createBydate; // 创建时间
-    private long modifyBy; // 更新者id
-    private Date modifyDate; // 更新时间
+    private long id;                                // 角色id
+    private long roleCode;                          // 角色编码
+    private String roleName;                        // 角色名称
+    private long createBy;                          // 创建者id
+    private Date createByDate;                      // 创建时间
+    private long modifyBy;                          // 更新者id
+    private Date modifyDate;                        // 更新时间
 
     public void setId(long id) {
         this.id = id;
@@ -30,8 +30,8 @@ public class UserRole {
         this.createBy = createBy;
     }
 
-    public void setCreateBydate(Date createBydate) {
-        this.createBydate = createBydate;
+    public void setCreateByDate(Date createByDate) {
+        this.createByDate = createByDate;
     }
 
     public void setModifyBy(long modifyBy) {
@@ -59,8 +59,8 @@ public class UserRole {
         return createBy;
     }
 
-    public Date getCreateBydate() {
-        return createBydate;
+    public Date getCreateByDate() {
+        return createByDate;
     }
 
     public long getModifyBy() {
