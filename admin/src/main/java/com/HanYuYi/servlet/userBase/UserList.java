@@ -4,10 +4,7 @@ import com.HanYuYi.entity.UserBase;
 import com.HanYuYi.entity.UserRole;
 import com.HanYuYi.service.userBase.UserBaseServiceImpl;
 import com.HanYuYi.service.userRole.UserRoleServiceImpl;
-import com.HanYuYi.util.Constants;
-import com.HanYuYi.util.DataFormatConversion;
-import com.HanYuYi.util.DateUtils;
-import com.HanYuYi.util.StringUtils;
+import com.HanYuYi.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,8 +26,6 @@ public class UserList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().setAttribute(Constants.USER_UPDATE_SUCCESS, "");
-        req.getSession().setAttribute(Constants.USER_UPDATE_ERROR, "");
 
         String method = req.getParameter("method");
         if ("query".equals(method)) {
@@ -147,14 +142,21 @@ public class UserList extends HttpServlet {
             if (!StringUtils.isNullOrEmpty(value)) {
                 columnsMap.put(key, value);
             }
-            System.out.println(value);
         }
+
+        resp.setContentType("application/json;charset=UTF-8");
+        RespFormat respBody = new RespFormat();
+        PrintWriter writer = resp.getWriter();
 
         // 联系电话校验
         String _phone = (String) columnsMap.get("phone");
         if (!StringUtils.isNullOrEmpty(_phone)) {
             if (!_phone.matches("^[1]\\d{10}$")) {
-                req.getSession().setAttribute(Constants.USER_UPDATE_ERROR, "你的手机号码格式有误");
+                respBody.setStatus(RespFormat.ERROR_STATUS);
+                respBody.setMessage("你的手机号码格式有误");
+                String deserialization = DataFormatConversion.Deserialization(respBody);
+                writer.write(deserialization);
+                writer.flush();
                 return;
             }
         }
@@ -162,42 +164,44 @@ public class UserList extends HttpServlet {
         // 转换性别为boolean
         String _gender = (String) columnsMap.get("gender");
         if (!StringUtils.isNullOrEmpty(_gender)) {
-            columnsMap.put("gender", "1".equals(_gender) ? true : false);
+            columnsMap.put("gender", "1".equals(_gender));
         }
 
         // 转换userRole为long
         String _userRole = (String) columnsMap.get("userRole");
         if (!StringUtils.isNullOrEmpty(_userRole)) {
-            columnsMap.put("gender", (Long.parseLong(_userRole)));
+            columnsMap.put("userRole", (Long.parseLong(_userRole)));
         }
 
         // 处理生日时间、更新时间逻辑
         String _birthday = (String) columnsMap.get("birthday");
-        java.util.Date birthdayUtilDate = null;
         java.util.Date modifyUtilDate = null;
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println("birthday: " + _birthday);
         try {
             if (!StringUtils.isNullOrEmpty(_birthday)) {
-                birthdayUtilDate = simpleDate.parse(_birthday);
+                java.util.Date birthdayUtilDate = simpleDate.parse(_birthday);
                 java.sql.Date birthdaySqlDate = new java.sql.Date(birthdayUtilDate.getTime());
                 columnsMap.put("birthday", birthdaySqlDate);
             }
             modifyUtilDate = simpleDate.parse(LocalDate.now().toString());
+            java.sql.Date modifySqlDate = new java.sql.Date(modifyUtilDate.getTime());
+            columnsMap.put("modifyDate", modifySqlDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        java.sql.Date modifySqlDate = new java.sql.Date(modifyUtilDate.getTime());
-
-        columnsMap.put("modifyDate", modifySqlDate);
 
         UserBaseServiceImpl userBaseService = new UserBaseServiceImpl();
         boolean isSuccess = userBaseService.toUpdateUser(columnsMap, Long.parseLong(req.getParameter("id")));
+
         if (isSuccess) {
-            resp.sendRedirect(req.getContextPath() + "/auth/user-list.jsp");
-            req.getSession().setAttribute(Constants.USER_UPDATE_SUCCESS, "信息更新成功");
+            respBody.setStatus(RespFormat.SUCCESS_STATUS);
+            respBody.setMessage("信息更新成功");
         } else {
-            req.getSession().setAttribute(Constants.USER_UPDATE_ERROR, "用户信息更新失败，请重试");
+            respBody.setStatus(RespFormat.ERROR_STATUS);
+            respBody.setMessage("用户信息更新失败，请重试");
         }
+        String deserialization = DataFormatConversion.Deserialization(respBody);
+        writer.write(deserialization);
+        writer.flush();
     }
 }

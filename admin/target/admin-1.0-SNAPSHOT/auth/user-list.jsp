@@ -167,6 +167,7 @@
                 pageSize: ${p_pageSize},
                 currentPage: ${p_pageNum},
                 currentLevel: ${userSession.userRole},
+                beforeUpdateRowUserRole: null,
                 updateFormRoleList: [],
                 updateForm: {
                     id: null,
@@ -192,7 +193,7 @@
         },
         computed: {
             disabledUpdateUserRole() {
-                return !(this.currentLevel < Number.parseInt(this.updateForm.userCode));
+                return !(this.currentLevel < Number.parseInt(this.beforeUpdateRowUserRole));
             }
         },
         mounted() {
@@ -240,6 +241,7 @@
             },
             // 开启编辑
             openEdit(index, row) {
+                this.beforeUpdateRowUserRole = row.userRole;
                 const { id, userName, gender, birthday, userRole, phone, address } = row;
                 this.updateForm = {
                     id,
@@ -258,8 +260,19 @@
                 this.$refs.updateFormRef.validate(valid => {
                     if (valid) {
                         const birthdayStr = dateFormat("yyyy-MM-dd HH:mm:ss", this.updateForm.birthday);
-                        const sendUpdateForm = { ...this.updateForm, birthday: birthdayStr };
-                        location.href = "${pageContext.request.contextPath}" + "/userList.do?method=update&" + serializeJson(sendUpdateForm);
+                        const sendUpdateForm = { ...this.updateForm, method: "update", birthday: birthdayStr };
+                        ajax({
+                            url: "${pageContext.request.contextPath}/userList.do",
+                            type: "get",
+                            data: sendUpdateForm,
+                        }).then(({status, message}) => {
+                            if (status === 1) {
+                                this.dialogFormVisible = false;
+                                this.handleQuery();
+                            } else {
+                                this.$notify.error({ title: '提示', message });
+                            }
+                        })
                     }
                 });
             },

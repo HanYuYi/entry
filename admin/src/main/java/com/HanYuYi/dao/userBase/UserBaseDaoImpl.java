@@ -175,6 +175,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
             ResultSet resultSet = BaseDao.query(statement, paramsArr);
             while (resultSet.next()) {
                 UserBase userBase = new UserBase();
+                userBase.setId(resultSet.getLong("id"));
                 userBase.setUserName(resultSet.getString("userName"));
                 userBase.setUserCode(resultSet.getLong("userCode"));
                 userBase.setGender(resultSet.getBoolean("gender"));

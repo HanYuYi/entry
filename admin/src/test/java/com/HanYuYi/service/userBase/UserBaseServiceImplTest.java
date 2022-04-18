@@ -41,6 +41,7 @@ class UserBaseServiceImplTest {
     @Test
     void toUpdateUser() {
         Map<String, Object> columnsMap = new HashMap<>();
+
         columnsMap.put("phone", "13984712358");
         columnsMap.put("gender", true);
         boolean b = UserBaseServiceImpl.toUpdateUser(columnsMap, 2l);
