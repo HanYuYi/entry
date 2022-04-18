@@ -154,6 +154,7 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @param pageNum
      * @return
      */
+    @Override
     public List<UserBase> getUserList(String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) {
         Connection connection = null;
         List<UserBase> list = new ArrayList<>();
@@ -224,5 +225,29 @@ public class UserBaseServiceImpl implements UserBaseService{
         }
 
         return isSuccess;
+    }
+
+    /**
+     * 根据id更新用户信息
+     * @param columns
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean toUpdateUser(Map<String, Object> columns, long id) {
+        Connection connection = null;
+        boolean status = false;
+
+        try {
+            connection = BaseDao.getConnection();
+            connection.setAutoCommit(false);
+            status = userInfo.updateUser(connection, columns, id);
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDao.closeResources(connection, null, null);
+        }
+        return status;
     }
 }

@@ -70,4 +70,6 @@ public class UserRole {
     public Date getModifyDate() {
         return modifyDate;
     }
+
+
 }

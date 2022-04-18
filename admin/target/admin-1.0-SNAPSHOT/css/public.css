@@ -90,3 +90,6 @@ main>aside {
 .box_scorll {
     overflow: auto!important;
 }
+.pad_dialog {
+    padding: 0 80px;
+}

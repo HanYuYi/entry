@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserRoleDaoImpl implements UserRoleDao {
@@ -30,10 +31,6 @@ public class UserRoleDaoImpl implements UserRoleDao {
                 userRole.setId(resultSet.getLong("id"));
                 userRole.setRoleCode(resultSet.getLong("roleCode"));
                 userRole.setRoleName(resultSet.getString("roleName"));
-                userRole.setCreateBy(resultSet.getLong("createBy"));
-                userRole.setCreateByDate(resultSet.getDate("createDate"));
-                userRole.setModifyBy(resultSet.getLong("modifyBy"));
-                userRole.setModifyDate(resultSet.getDate("modifyDate"));
                 list.add(userRole);
             }
             BaseDao.closeResources(null, statement, resultSet);

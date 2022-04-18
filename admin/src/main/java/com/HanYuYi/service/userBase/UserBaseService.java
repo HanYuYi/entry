@@ -62,4 +62,12 @@ public interface UserBaseService {
      * @return
      */
     boolean toCreateUser(String username, String password, int gender, String birthday, String phone, String address, long userRole, long createBy, long modifyBy);
+
+    /**
+     * 根据id更新用户信息
+     * @param columns
+     * @param id
+     * @return
+     */
+    boolean toUpdateUser(Map<String, Object> columns, long id);
 }

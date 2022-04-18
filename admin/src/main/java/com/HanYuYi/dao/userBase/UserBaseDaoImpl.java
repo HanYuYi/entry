@@ -6,6 +6,8 @@ import com.HanYuYi.entity.UserBase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 
 /**
  * 获取基本用户信息
@@ -144,6 +146,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
      * @return
      * @throws SQLException
      */
+    @Override
     public List<UserBase> userList(Connection connection, String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) throws SQLException {
         List<UserBase> userList = new ArrayList<>();
         if (connection != null) {
@@ -199,6 +202,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
      * @return
      * @throws SQLException
      */
+    @Override
     public boolean createUser(Connection connection, String[] createKeyArr, Object[] createValueArr) throws SQLException {
         if (connection != null) {
             // 构造sql
@@ -227,6 +231,35 @@ public class UserBaseDaoImpl implements UserBaseDao {
             sql.append(sqlKey);
             sql.append(" VALUES ");
             sql.append(sqlValue);
+
+            PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql.toString());
+            int updateIndex = BaseDao.update(statement, params.toArray());
+            if (updateIndex > 0) {
+                return true;
+            }
+            BaseDao.closeResources(null, statement, null);
+        }
+        return false;
+    }
+
+    /**
+     * 根据用户id更新用户信息
+     * @param connection
+     * @param columnsMap
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public boolean updateUser(Connection connection, Map<String, Object> columnsMap, long id) throws SQLException {
+        if (connection != null) {
+            StringJoiner sql = new StringJoiner(", ", "UPDATE user_base SET ", " WHERE id = ?");
+            List<Object> params = new ArrayList<>();
+            for (String key : columnsMap.keySet()) {
+                sql.add(key +"=?");
+                params.add(columnsMap.get(key));
+            }
+            params.add(id);
 
             PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql.toString());
             int updateIndex = BaseDao.update(statement, params.toArray());

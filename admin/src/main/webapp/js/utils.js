@@ -18,6 +18,7 @@ function serializeJson(jsonStr) {
  * @returns {*}
  */
 function dateFormat(fmt, date) {
+    if (date == null) return null;
     let ret;
     const opt = {
         "y+": date.getFullYear().toString(),        // 年

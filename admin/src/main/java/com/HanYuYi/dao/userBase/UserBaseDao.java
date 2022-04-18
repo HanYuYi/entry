@@ -5,6 +5,7 @@ import com.HanYuYi.entity.UserBase;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface UserBaseDao {
     /**
@@ -65,4 +66,14 @@ public interface UserBaseDao {
      * @throws SQLException
      */
     boolean createUser(Connection connection, String[] createKeyArr, Object[] createValueArr) throws SQLException;
+
+    /**
+     * 根据用户id更新用户信息
+     * @param connection
+     * @param columnsMap
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    boolean updateUser(Connection connection, Map<String, Object> columnsMap, long id) throws SQLException;
 }

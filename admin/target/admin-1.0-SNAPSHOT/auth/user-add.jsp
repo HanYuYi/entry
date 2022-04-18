@@ -4,7 +4,7 @@
 
 <div id="user-add">
     <div>
-        <el-button type="primary" plain icon="el-icon-back" circle @click="toUserListPage" ></el-button>
+        <el-button type="primary" plain icon="el-icon-back" circle @click="toUserListPage"></el-button>
     </div>
     <div style="width: 500px;margin: 0 auto">
         <el-form ref="form" :model="form" :rules="rules" label-width="80px">
@@ -108,7 +108,7 @@
                         ajax({
                             url: "${pageContext.request.contextPath}/user/createUser",
                             type: "post",
-                            data: { ...this.form, birthday: dateFormat("yyyy-MM-dd HH:mm:ss", this.form.birthday) }
+                            data: { ...this.form, birthday: dateFormat("yyyy-MM-dd", this.form.birthday) }
                         }).then(({status, message}) => {
                             if (status === 1) {
                                 this.$notify({ title: "提示", message: message, type: "success" });
@@ -125,7 +125,7 @@
                 this.$refs.form.resetFields();
             },
             toUserListPage() {
-                location.href = '${pageContext.request.contextPath}/userList.do';
+                location.href = '${pageContext.request.contextPath}/userList.do?method=query';
             }
         }
     })
