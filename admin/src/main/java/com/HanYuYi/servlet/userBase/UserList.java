@@ -126,7 +126,6 @@ public class UserList extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/auth/user-list.jsp");
     }
 
-
     /**
      * 编辑用户信息
      * @param req
