@@ -76,4 +76,13 @@ public interface UserBaseDao {
      * @throws SQLException
      */
     boolean updateUser(Connection connection, Map<String, Object> columnsMap, long id) throws SQLException;
+
+    /**
+     * 根据用户id删除用户
+     * @param connection
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    boolean deleteUser(Connection connection, long id) throws SQLException;
 }

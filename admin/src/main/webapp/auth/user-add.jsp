@@ -28,7 +28,7 @@
             </el-form-item>
             <el-form-item label="用户角色" prop="userRole">
                 <el-select v-if="serverData.roleList.length" v-model="form.userRole" placeholder="请选择用户角色" style="width: 100%;">
-                    <el-option v-for="(item, index) in serverData.roleList" :key="index" :label="item.roleName" :value="item.id"></el-option>
+                    <el-option v-for="(item, index) in updateFormRoleList" :key="index" :label="item.roleName" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="联系方式" prop="phone">
@@ -98,8 +98,12 @@
                         { validator: validatePhone, trigger: 'blur' }
                     ],
                     address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
-                }
+                },
+                updateFormRoleList: [],
             }
+        },
+        mounted() {
+            this.shiftUserRole();
         },
         methods: {
             submitForm () {
@@ -126,7 +130,13 @@
             },
             toUserListPage() {
                 location.href = '${pageContext.request.contextPath}/userList.do?method=query';
-            }
+            },
+            // 将角色信息第一条的全部删除
+            shiftUserRole() {
+                const newRoleList = [...this.serverData.roleList];
+                newRoleList.shift();
+                this.updateFormRoleList = newRoleList;
+            },
         }
     })
 </script>

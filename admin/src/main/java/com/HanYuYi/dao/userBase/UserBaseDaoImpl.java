@@ -170,6 +170,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
                 paramsList.add(pageSize);
                 sql.append(" LIMIT ?, ?");
             }
+            // sql.append(" ORDER BY ");
             Object[] paramsArr = paramsList.toArray();
             PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql.toString());
             ResultSet resultSet = BaseDao.query(statement, paramsArr);
@@ -264,6 +265,28 @@ public class UserBaseDaoImpl implements UserBaseDao {
 
             PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql.toString());
             int updateIndex = BaseDao.update(statement, params.toArray());
+            if (updateIndex > 0) {
+                return true;
+            }
+            BaseDao.closeResources(null, statement, null);
+        }
+        return false;
+    }
+
+    /**
+     * 根据用户id删除用户
+     * @param connection
+     * @param id
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public boolean deleteUser(Connection connection, long id) throws SQLException {
+        if (connection != null) {
+            String sql = "DELETE FROM user_base WHERE id = ?";
+            Long[] params = {id};
+            PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql);
+            int updateIndex = BaseDao.update(statement, params);
             if (updateIndex > 0) {
                 return true;
             }

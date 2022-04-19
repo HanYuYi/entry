@@ -112,8 +112,23 @@ public class UserBaseServiceImpl implements UserBaseService{
             return map;
         }
         // 最后验证修改是否成功
+        boolean bool = false;
         Connection connection = BaseDao.getConnection();
-        boolean bool = user.setUserPassword(connection, username, password);
+        try {
+            connection.setAutoCommit(false);
+            bool = user.setUserPassword(connection, username, password);
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            BaseDao.closeResources(connection, null, null);
+        }
+
         if (bool) {
             map.put("status", RespFormat.SUCCESS_STATUS);
             map.put("message", "密码修改成功");
@@ -121,7 +136,6 @@ public class UserBaseServiceImpl implements UserBaseService{
             map.put("status", RespFormat.ERROR_STATUS);
             map.put("message", "密码修改异常");
         }
-        BaseDao.closeResources(connection, null, null);
         return map;
     }
 
@@ -220,6 +234,11 @@ public class UserBaseServiceImpl implements UserBaseService{
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             BaseDao.closeResources(connection, null, null);
         }
@@ -245,6 +264,39 @@ public class UserBaseServiceImpl implements UserBaseService{
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            BaseDao.closeResources(connection, null, null);
+        }
+        return status;
+    }
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean toDeleteUser(long id) {
+        Connection connection = null;
+        boolean status = false;
+
+        try {
+            connection = BaseDao.getConnection();
+            connection.setAutoCommit(false);
+            status = userInfo.deleteUser(connection, id);
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         } finally {
             BaseDao.closeResources(connection, null, null);
         }

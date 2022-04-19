@@ -28,7 +28,14 @@
         </el-form-item>
     </el-form>
 
-    <el-table v-if="tableHeight" :data="serverData.tableData" size="small" class="box_scorll" border :height="tableHeight">
+    <el-table v-if="tableHeight"
+              :data="serverData.tableData"
+              size="small"
+              @sort-change="handleSort"
+              class="box_scorll"
+              border
+              :height="tableHeight"
+              :default-sort = "{prop: 'createDateFmt', order: 'descending'}">
         <el-table-column label="用户名" width="180">
             <template slot-scope="scope">
                 {{ scope.row.userName }}
@@ -59,7 +66,7 @@
                 {{ scope.row.userRoleName }}
             </template>
         </el-table-column>
-        <el-table-column label="注册日期" width="200">
+        <el-table-column label="注册日期" width="200" sortable>
             <template slot-scope="scope">
                 <i class="el-icon-time"></i>
                 <span style="margin-left: 10px">{{ scope.row.createDateFmt }}</span>
@@ -74,6 +81,12 @@
                         <el-tag size="medium">...</el-tag>
                     </div>
                 </el-popover>
+            </template>
+        </el-table-column>
+        <el-table-column label="上次更新日期" width="200" sortable>
+            <template slot-scope="scope">
+                <i class="el-icon-time"></i>
+                <span style="margin-left: 10px">{{ scope.row.modifyDateFmt }}</span>
             </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -93,7 +106,7 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="currentPage"
-            :page-sizes="[20, 40, 70, 100]"
+            :page-sizes="[10, 20, 40, 70]"
             :page-size="pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="serverData.pageTotal">
@@ -284,8 +297,22 @@
             },
             // 删除
             handleDelete(index, row) {
-                console.log(index, row);
-                this.$notify({ title: '提示', message: '删除成功', type: 'success' });
+                const sendUpdateForm = { method: "delete", id: row.id };
+                ajax({
+                    url: "${pageContext.request.contextPath}/userList.do",
+                    type: "get",
+                    data: sendUpdateForm,
+                }).then(({status, message}) => {
+                    if (status === 1) {
+                        this.handleQuery();
+                    } else {
+                        this.$notify.error({ title: '提示', message });
+                    }
+                })
+            },
+            handleSort({ column, prop, order }) {
+                console.log(column);
+                console.log(order);
             },
             handleSizeChange(val) {
                 this.pageSize = val;

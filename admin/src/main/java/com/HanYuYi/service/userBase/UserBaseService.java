@@ -70,4 +70,11 @@ public interface UserBaseService {
      * @return
      */
     boolean toUpdateUser(Map<String, Object> columns, long id);
+
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
+    boolean toDeleteUser(long id);
 }

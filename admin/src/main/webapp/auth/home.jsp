@@ -2,7 +2,7 @@
 <%@ include file="../common/header.jsp" %>
 
     <div id="home">
-        欢迎来到首页
+        <strong style="fontSize: 30px">${userSession.userName}，你好！欢迎登录后台系统！</strong>
     </div>
 
 <script>

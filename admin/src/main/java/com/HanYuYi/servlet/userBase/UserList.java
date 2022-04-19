@@ -34,6 +34,9 @@ public class UserList extends HttpServlet {
         if ("update".equals(method)) {
             update(req, resp);
         }
+        if ("delete".equals(method)) {
+            delete(req, resp);
+        }
     }
 
     /**
@@ -74,7 +77,7 @@ public class UserList extends HttpServlet {
                 _endDate = endDate;
             }
         }
-        int _pageSize = 20;
+        int _pageSize = 10;
         if (!StringUtils.isNullOrEmpty(pageSize)) {
             if (Integer.parseInt(pageSize) >= _pageSize) {
                 _pageSize = Integer.parseInt(pageSize);
@@ -200,6 +203,40 @@ public class UserList extends HttpServlet {
             respBody.setMessage("用户信息更新失败，请重试");
         }
         String deserialization = DataFormatConversion.Deserialization(respBody);
+        writer.write(deserialization);
+        writer.flush();
+    }
+
+    /**
+     * 删除用户
+     * @param req
+     * @param resp
+     * @throws IOException
+     */
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        boolean isSuccess = false;
+
+        String id = req.getParameter("id");
+
+        if (!StringUtils.isNullOrEmpty(id)) {
+            long _id = Long.parseLong(id);
+            UserBaseServiceImpl userBaseService = new UserBaseServiceImpl();
+            isSuccess = userBaseService.toDeleteUser(_id);
+        }
+
+        RespFormat respBody = new RespFormat();
+
+        if (isSuccess) {
+            respBody.setStatus(RespFormat.SUCCESS_STATUS);
+            respBody.setMessage("用户删除成功");
+        } else {
+            respBody.setStatus(RespFormat.ERROR_STATUS);
+            respBody.setMessage("用户删除失败");
+        }
+
+        String deserialization = DataFormatConversion.Deserialization(respBody);
+
+        PrintWriter writer = resp.getWriter();
         writer.write(deserialization);
         writer.flush();
     }
