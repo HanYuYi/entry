@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
     <link type="text/css" rel="stylesheet" href="../css/element-ui-2.15.6.min.css?a=1">
     <link type="text/css" rel="stylesheet" href="../css/default.css">
-    <link type="text/css" rel="stylesheet" href="../css/public.css?a=4">
+    <link type="text/css" rel="stylesheet" href="../css/public.css?a=1">
     <script type="text/javascript" src="../js/vue.js"></script>
     <script type="text/javascript" src="../js/element-ui-2.15.6.min.js"></script>
     <script type="text/javascript" src="../js/utils.js?20220416"></script>

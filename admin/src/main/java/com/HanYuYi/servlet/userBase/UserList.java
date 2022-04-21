@@ -53,7 +53,7 @@ public class UserList extends HttpServlet {
         String endDate = req.getParameter("endDate");
         String pageSize = req.getParameter("pageSize");
         String pageNum = req.getParameter("pageNum");
-        String sortColumn = req.getParameter("createDateFmt");
+        String sortColumn = req.getParameter("sortColumn");
         String order = req.getParameter("order");
 
         String _username = null;

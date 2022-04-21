@@ -41,7 +41,7 @@
                 {{ scope.row.userName }}
             </template>
         </el-table-column>
-        <el-table-column label="用户编码" width="180">
+        <el-table-column label="用户编码" width="100">
             <template slot-scope="scope">
                 {{ scope.row.userCode }}
             </template>
@@ -169,14 +169,14 @@
                     tableData: ${userList},
                     pageTotal: ${userCount}
                 },
-                sortRow: { prop: "${p_sortColumn}", order: "${_order}" == "1" ? "ascending" : "descending" },
+                sortRow: { prop: "${p_sortColumn}", order: "${p_order}" == "" ? "" : ("${p_order}" == "1" ? "ascending" : "descending") },
                 form: {
                     username: "${p_username}",
                     roleId: ${p_roleId} != 0 ? ${p_roleId} : null,
                     startDate: "${p_startDate}" !== "" ? new Date(parseInt(${p_startDate})) : null,
                     endDate: "${p_endDate}" !== "" ? new Date(parseInt(${p_endDate})) : null,
-                    sortColumn: "createDateFmt",
-                    order: 1
+                    sortColumn: "${p_sortColumn}",
+                    order: "${p_order}" == "" ? "" : ("${p_order}" == "1" ? 1 : 0)
                 },
                 tableHeight: 0,
                 dialogFormVisible: false,
@@ -268,7 +268,6 @@
                     phone,
                     address
                 };
-                console.log(this.updateForm);
                 this.dialogFormVisible = true;
             },
             // 提交编辑

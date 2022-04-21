@@ -93,3 +93,27 @@ main>aside {
 .pad_dialog {
     padding: 0 80px;
 }
+
+.avatar_uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.avatar_uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+.avatar_uploader_icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+}
+.avatar_upload_img {
+    width: 120px;
+    height: 120px;
+    display: block;
+}

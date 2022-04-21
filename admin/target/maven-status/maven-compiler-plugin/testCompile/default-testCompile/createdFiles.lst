@@ -1,1 +1,3 @@
-com\HanYuYi\service\UserBaseServiceImplTest.class
+com/HanYuYi/service/userBase/UserBaseServiceImplTest.class
+com/HanYuYi/service/userRole/UserRoleServiceImplTest.class
+com/HanYuYi/service/UserBaseServiceImplTest.class

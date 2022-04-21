@@ -8,6 +8,20 @@
     </div>
     <div style="width: 500px;margin: 0 auto">
         <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+
+            <el-form-item label="头像">
+                <el-upload
+                        class="avatar_uploader"
+                        action="${pageContext.request.contextPath}/uploadFile"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :on-error="handleAvatarError"
+                        :before-upload="beforeAvatarUpload">
+                    <img v-if="avatarUrl" :src="avatarUrl" class="avatar_upload_img">
+                    <i v-else class="el-icon-plus avatar_uploader_icon"></i>
+                </el-upload>
+            </el-form-item>
+
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="form.username"></el-input>
             </el-form-item>
@@ -73,6 +87,7 @@
                 serverData: {
                     roleList: ${roleList},
                 },
+                avatarUrl: "",
                 form: {
                     username: "",
                     password: "",
@@ -106,6 +121,26 @@
             this.shiftUserRole();
         },
         methods: {
+            // 头像上传成功的回调
+            handleAvatarSuccess(res, file) {
+                this.avatarUrl = URL.createObjectURL(file.raw);
+            },
+            // 头像移除
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            // 头像上传限制
+            beforeAvatarUpload(file) {
+                const isFormat = file.type === "image/jpeg" || file.type === "image/png";
+                const isLt20KB = file.size / 1024 <= 20;
+                if (!isFormat) {
+                    this.$message.error("上传头像图片只能是 JPG 或 PNG格式!");
+                }
+                if (!isLt20KB) {
+                    this.$message.error("上传头像图片大小不能超过 20KB!");
+                }
+                return isFormat && isLt20KB;
+            },
             submitForm () {
                 this.$refs.form.validate(valid => {
                     if (valid) {
