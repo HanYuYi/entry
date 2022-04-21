@@ -39,11 +39,11 @@ public class UploadFile extends HttpServlet {
 
         // 配置上传参数
         DiskFileItemFactory factory = new DiskFileItemFactory();
-        // 设置内存临界值 - 超过后将存于临时目录中
+        // 设置临时存储 - 超过后将存于临时目录中
         factory.setSizeThreshold(TEMP_SIZE);
         factory.setRepository(new File(servletContext.getRealPath("/WEB_INF/temp")));
 
-        // 设置内存实际值
+        // 设置永久存储
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setFileSizeMax(AVATAR_SIZE);
         upload.setHeaderEncoding("UTF-8");
