@@ -25,7 +25,7 @@ class UserBaseServiceImplTest {
 
     @Test
     void getUserList() {
-        List<UserBase> list = UserBaseServiceImpl.getUserList("admi", 0, "", "", 10, 1);
+        List<UserBase> list = UserBaseServiceImpl.getUserList("admi", 0, "", "", 10, 1, "createDateFmt", 0);
         list.stream().forEach(System.out::println);
         for (UserBase u : list) {
             System.out.println(u.getCreateDateFmt());

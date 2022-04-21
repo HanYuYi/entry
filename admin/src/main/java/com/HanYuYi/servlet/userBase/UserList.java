@@ -53,6 +53,8 @@ public class UserList extends HttpServlet {
         String endDate = req.getParameter("endDate");
         String pageSize = req.getParameter("pageSize");
         String pageNum = req.getParameter("pageNum");
+        String sortColumn = req.getParameter("createDateFmt");
+        String order = req.getParameter("order");
 
         String _username = null;
         if (!StringUtils.isNullOrEmpty(username)) {
@@ -89,6 +91,17 @@ public class UserList extends HttpServlet {
                 _pageNum = Integer.parseInt(pageNum);
             }
         }
+
+        String _sortColumn = null;
+        if (!StringUtils.isNullOrEmpty(sortColumn)) {
+            _sortColumn = sortColumn;
+        }
+
+        Integer _order = null;
+        if (!StringUtils.isNullOrEmpty(order)) {
+            _order = Integer.parseInt(order);
+        }
+
         HttpSession session = req.getSession();
 
         // 用户角色
@@ -111,7 +124,7 @@ public class UserList extends HttpServlet {
         session.setAttribute(Constants.ROLE_LIST, roleJson);
         // 用户列表
         UserBaseServiceImpl userBase = new UserBaseServiceImpl();
-        List<UserBase> userList = userBase.getUserList(_username, _roleId, _startDate, _endDate, _pageSize, _pageNum);
+        List<UserBase> userList = userBase.getUserList(_username, _roleId, _startDate, _endDate, _pageSize, _pageNum, _sortColumn, _order);
         String userListJson = DataFormatConversion.Deserialization(userList);
         session.setAttribute(Constants.USER_LIST, userListJson);
         // 数据total
@@ -125,6 +138,8 @@ public class UserList extends HttpServlet {
         session.setAttribute("p_endDate", endMilli);
         session.setAttribute("p_pageSize", _pageSize);
         session.setAttribute("p_pageNum", _pageNum);
+        session.setAttribute("p_sortColumn", _sortColumn);
+        session.setAttribute("p_order", _order);
 
         resp.sendRedirect(req.getContextPath() + "/auth/user-list.jsp");
     }

@@ -147,7 +147,7 @@ public class UserBaseDaoImpl implements UserBaseDao {
      * @throws SQLException
      */
     @Override
-    public List<UserBase> userList(Connection connection, String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) throws SQLException {
+    public List<UserBase> userList(Connection connection, String username, long roleId, String startDate, String endDate, int pageSize, int pageNum, String sortColumn, Integer order) throws SQLException {
         List<UserBase> userList = new ArrayList<>();
         if (connection != null) {
             StringBuilder sql = new StringBuilder("SELECT b.*, r.roleName FROM user_base b, user_role r WHERE b.userRole = r.id");
@@ -164,6 +164,18 @@ public class UserBaseDaoImpl implements UserBaseDao {
                 paramsList.add(startDate);
                 paramsList.add(endDate);
                 sql.append(" AND b.createDate >= ? AND b.createDate <= ?");
+            }
+            sql.append(" ORDER BY");
+            if (sortColumn != null && order != null) {
+                if ("createDateFmt".equals(sortColumn)) {
+                    sql.append(" createDate");
+                }
+                if ("modifyDateFmt".equals(sortColumn)) {
+                    sql.append(" modifyDate");
+                }
+                sql.append(order == 1 ? " ASC" : " DESC");
+            } else {
+                sql.append(" createDate ASC");
             }
             if (pageSize != 0 && pageNum != 0) {
                 paramsList.add((pageNum - 1) * pageSize);

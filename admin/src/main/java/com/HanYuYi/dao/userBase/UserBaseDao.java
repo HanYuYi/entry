@@ -55,7 +55,7 @@ public interface UserBaseDao {
      * @return
      * @throws SQLException
      */
-    List<UserBase> userList(Connection connection, String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) throws SQLException;
+    List<UserBase> userList(Connection connection, String username, long roleId, String startDate, String endDate, int pageSize, int pageNum, String sortColumn, Integer order) throws SQLException;
 
     /**
      * 向数据库中插入用户数据

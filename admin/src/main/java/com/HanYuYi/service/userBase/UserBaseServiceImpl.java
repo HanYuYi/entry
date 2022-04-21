@@ -169,12 +169,12 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @return
      */
     @Override
-    public List<UserBase> getUserList(String username, long roleId, String startDate, String endDate, int pageSize, int pageNum) {
+    public List<UserBase> getUserList(String username, long roleId, String startDate, String endDate, int pageSize, int pageNum, String sortColumn, Integer order) {
         Connection connection = null;
         List<UserBase> list = new ArrayList<>();
         try {
             connection = BaseDao.getConnection();
-            list = userInfo.userList(connection, username, roleId, startDate, endDate, pageSize, pageNum);
+            list = userInfo.userList(connection, username, roleId, startDate, endDate, pageSize, pageNum, sortColumn, order);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

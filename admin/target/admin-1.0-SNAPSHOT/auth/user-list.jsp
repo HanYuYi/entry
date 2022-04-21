@@ -35,7 +35,7 @@
               class="box_scorll"
               border
               :height="tableHeight"
-              :default-sort = "{prop: 'createDateFmt', order: 'descending'}">
+              :default-sort="sortRow">
         <el-table-column label="用户名" width="180">
             <template slot-scope="scope">
                 {{ scope.row.userName }}
@@ -66,7 +66,7 @@
                 {{ scope.row.userRoleName }}
             </template>
         </el-table-column>
-        <el-table-column label="注册日期" width="200" sortable>
+        <el-table-column prop="createDateFmt" label="注册日期" width="200" sortable>
             <template slot-scope="scope">
                 <i class="el-icon-time"></i>
                 <span style="margin-left: 10px">{{ scope.row.createDateFmt }}</span>
@@ -83,7 +83,7 @@
                 </el-popover>
             </template>
         </el-table-column>
-        <el-table-column label="上次更新日期" width="200" sortable>
+        <el-table-column prop="modifyDateFmt"  label="上次更新日期" width="200" sortable>
             <template slot-scope="scope">
                 <i class="el-icon-time"></i>
                 <span style="margin-left: 10px">{{ scope.row.modifyDateFmt }}</span>
@@ -169,11 +169,14 @@
                     tableData: ${userList},
                     pageTotal: ${userCount}
                 },
+                sortRow: { prop: "${p_sortColumn}", order: "${_order}" == "1" ? "ascending" : "descending" },
                 form: {
                     username: "${p_username}",
                     roleId: ${p_roleId} != 0 ? ${p_roleId} : null,
                     startDate: "${p_startDate}" !== "" ? new Date(parseInt(${p_startDate})) : null,
-                    endDate: "${p_endDate}" !== "" ? new Date(parseInt(${p_endDate})) : null
+                    endDate: "${p_endDate}" !== "" ? new Date(parseInt(${p_endDate})) : null,
+                    sortColumn: "createDateFmt",
+                    order: 1
                 },
                 tableHeight: 0,
                 dialogFormVisible: false,
@@ -310,9 +313,11 @@
                     }
                 })
             },
+            // 排序
             handleSort({ column, prop, order }) {
-                console.log(column);
-                console.log(order);
+                this.form.sortColumn = prop;
+                this.form.order = order === "ascending" ? 1 : 0;
+                this.handleQuery();
             },
             handleSizeChange(val) {
                 this.pageSize = val;

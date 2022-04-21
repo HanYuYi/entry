@@ -49,7 +49,7 @@ public interface UserBaseService {
      * @param pageNum
      * @return
      */
-    List<UserBase> getUserList(String username, long roleId, String startDate, String endDate, int pageSize, int pageNum);
+    List<UserBase> getUserList(String username, long roleId, String startDate, String endDate, int pageSize, int pageNum, String sortColumn, Integer order);
 
     /**
      * 创建用户账号
