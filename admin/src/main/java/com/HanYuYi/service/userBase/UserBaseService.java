@@ -61,7 +61,7 @@ public interface UserBaseService {
      * @param userRole
      * @return
      */
-    boolean toCreateUser(String username, String password, int gender, String birthday, String phone, String address, long userRole, long createBy, long modifyBy);
+    boolean toCreateUser(String avatar, String username, String password, int gender, String birthday, String phone, String address, long userRole, long createBy, long modifyBy);
 
     /**
      * 根据id更新用户信息

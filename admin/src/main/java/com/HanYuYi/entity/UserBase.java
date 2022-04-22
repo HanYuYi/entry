@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
  */
 public class UserBase {
     private long id;                            // 用户id
+    private String avatar;                      // 用户头像
     private long userCode;                      // 用户编码
     private String userName;                    // 用户名
     private String userPassword;                // 密码
@@ -31,6 +32,10 @@ public class UserBase {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public void setUserCode(long userCode) {
@@ -113,6 +118,10 @@ public class UserBase {
 
     public long getId() {
         return id;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 
     public long getUserCode() {

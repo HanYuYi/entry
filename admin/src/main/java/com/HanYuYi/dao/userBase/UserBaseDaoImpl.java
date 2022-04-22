@@ -3,6 +3,7 @@ package com.HanYuYi.dao.userBase;
 import com.HanYuYi.dao.BaseDao;
 import com.HanYuYi.entity.UserBase;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -182,13 +183,23 @@ public class UserBaseDaoImpl implements UserBaseDao {
                 paramsList.add(pageSize);
                 sql.append(" LIMIT ?, ?");
             }
-            // sql.append(" ORDER BY ");
             Object[] paramsArr = paramsList.toArray();
             PreparedStatement statement = BaseDao.getPreparedStatement(connection, sql.toString());
             ResultSet resultSet = BaseDao.query(statement, paramsArr);
+
+            String OS_SEPARATOR = File.separator;
+            String avatar = null;
+            String avatarUrl = null;
             while (resultSet.next()) {
                 UserBase userBase = new UserBase();
                 userBase.setId(resultSet.getLong("id"));
+                avatar = resultSet.getString("avatar");
+                if (avatar != null) {
+                    avatarUrl = OS_SEPARATOR + "WEB-INF" + OS_SEPARATOR + "upload/" + avatar;
+                } else {
+                    avatarUrl = OS_SEPARATOR + "WEB-INF" + OS_SEPARATOR + "upload/default.png";
+                }
+                userBase.setAvatar(resultSet.getString(avatarUrl);
                 userBase.setUserName(resultSet.getString("userName"));
                 userBase.setUserCode(resultSet.getLong("userCode"));
                 userBase.setGender(resultSet.getBoolean("gender"));

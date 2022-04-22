@@ -23,6 +23,7 @@ public class CreateUser extends HttpServlet {
         ServletInputStream inputStream = req.getInputStream();
         CreateUserReqSerialize serialize = DataFormatConversion.serialize(inputStream, new CreateUserReqSerialize());
 
+        String avatar = serialize.avatar;
         String username = serialize.username;
         String password = serialize.password;
         String confirmPassword = serialize.confirmPassword;
@@ -47,7 +48,7 @@ public class CreateUser extends HttpServlet {
             UserBase currentUser = (UserBase)req.getSession().getAttribute(Constants.USER_SESSION);
 
             UserBaseServiceImpl userBaseService = new UserBaseServiceImpl();
-            boolean createStatus = userBaseService.toCreateUser(username, password, gender, birthday, phone, address, userRole, currentUser.getId(), currentUser.getId());
+            boolean createStatus = userBaseService.toCreateUser(avatar, username, password, gender, birthday, phone, address, userRole, currentUser.getId(), currentUser.getId());
 
             if (createStatus) {
                 map.put("status", RespFormat.SUCCESS_STATUS);
@@ -66,6 +67,7 @@ public class CreateUser extends HttpServlet {
  * post参数格式
  */
 class CreateUserReqSerialize{
+    public String avatar;
     public String username;
     public String password;
     public String confirmPassword;

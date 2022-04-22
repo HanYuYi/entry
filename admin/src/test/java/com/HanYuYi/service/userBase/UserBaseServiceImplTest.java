@@ -34,7 +34,7 @@ class UserBaseServiceImplTest {
 
     @Test
     void toCreateUser() {
-        boolean status = UserBaseServiceImpl.toCreateUser("test001", "123456", 0, "2002-04-05", "17122312345", "成都市天河一路", 2l, 1l, 1l);
+        boolean status = UserBaseServiceImpl.toCreateUser("", "test001", "123456", 0, "2002-04-05", "17122312345", "成都市天河一路", 2l, 1l, 1l);
         System.out.println(status);
     }
 

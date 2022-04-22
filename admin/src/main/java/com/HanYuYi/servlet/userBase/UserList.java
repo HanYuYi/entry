@@ -2,6 +2,7 @@ package com.HanYuYi.servlet.userBase;
 
 import com.HanYuYi.entity.UserBase;
 import com.HanYuYi.entity.UserRole;
+import com.HanYuYi.service.upload.ImgUploadImpl;
 import com.HanYuYi.service.userBase.UserBaseServiceImpl;
 import com.HanYuYi.service.userRole.UserRoleServiceImpl;
 import com.HanYuYi.util.*;
@@ -36,6 +37,14 @@ public class UserList extends HttpServlet {
         }
         if ("delete".equals(method)) {
             delete(req, resp);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String method = req.getParameter("method");
+        if ("uploadUserAvatar".equals(method)) {
+            uploadAvatar(req, resp);
         }
     }
 
@@ -250,7 +259,26 @@ public class UserList extends HttpServlet {
         }
 
         String deserialization = DataFormatConversion.Deserialization(respBody);
+        resp.setContentType("application/json;charset=UTF-8");
+        PrintWriter writer = resp.getWriter();
+        writer.write(deserialization);
+        writer.flush();
+    }
 
+    /**
+     * 上传用户头像
+     * @param req
+     * @param resp
+     */
+    private void uploadAvatar(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ImgUploadImpl imgUpload = new ImgUploadImpl();
+        RespFormat uploadResult = imgUpload.upload(req);
+        if (uploadResult.getStatus() == RespFormat.SUCCESS_STATUS) {
+            String fileID = imgUpload.uploadID();
+            uploadResult.setData(fileID);
+        }
+        String deserialization = DataFormatConversion.Deserialization(uploadResult);
+        resp.setContentType("application/json;charset=UTF-8");
         PrintWriter writer = resp.getWriter();
         writer.write(deserialization);
         writer.flush();

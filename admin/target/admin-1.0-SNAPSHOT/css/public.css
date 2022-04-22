@@ -1,0 +1,119 @@
+/**home*/
+/*header*/
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    display: flex;
+    justify-content: space-between;
+    background-image: linear-gradient(to bottom, #74b6ea, #409eff);
+}
+header>.left {
+    margin-left: 70px;
+}
+header>.left>img {
+    vertical-align: top;
+    height: 70px;
+    margin-top: 5px;
+}
+header>.left>span {
+    color: #ffffff;
+    font-size: 34px;
+    font-weight: bold;
+    margin-left: 10px;
+    text-shadow: 1px 1px 6px #333;
+}
+header>.right {
+    color: #fff;
+    margin-right: 70px;
+}
+header>.right>span {
+    font-size: 18px;
+}
+header>.right>.out_btn {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+}
+header>.right>.out_btn>span {
+    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+    display: block;
+}
+header>.right>.out_btn>span>.log-out {
+    display: block;
+    width: inherit;
+    height: inherit;
+}
+header>.right>.out_btn>span>.log-out>i {
+    color: #fff;
+    font-size: 22px;
+    margin-top: 7px;
+}
+/*主体面板*/
+main {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    display: flex;
+    background: #f9f9f9;
+}
+main>.menu_box {
+    width: 280px;
+    height: 100%;
+    overflow: auto;
+    border-right: solid 1px #e6e6e6;
+    background: #ffffff;
+}
+main>.menu_box>#menu>.el-menu {
+    border: 0;
+}
+main>aside {
+    width: calc(100vw - 280px - 40px - 30px);
+    height: calc(100% - 40px - 30px);
+    margin: 20px;
+    padding: 15px;
+    overflow: auto;
+    border-radius: 7px;
+    background: #ffffff;
+    box-shadow: 1px 1px 30px #cbcaca;
+}
+.box_scorll {
+    overflow: auto!important;
+}
+.pad_dialog {
+    padding: 0 80px;
+}
+
+.avatar_uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.avatar_uploader .el-upload:hover {
+    border-color: #409EFF;
+}
+.avatar_uploader_icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+}
+.avatar_upload_img {
+    width: 120px;
+    height: 120px;
+    display: block;
+}

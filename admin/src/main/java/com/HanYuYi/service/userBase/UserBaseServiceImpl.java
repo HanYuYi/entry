@@ -194,7 +194,7 @@ public class UserBaseServiceImpl implements UserBaseService{
      * @return
      */
     @Override
-    public boolean toCreateUser(String username, String password, int gender, String birthday, String phone, String address, long userRole, long createBy, long modifyBy) {
+    public boolean toCreateUser(String avatar, String username, String password, int gender, String birthday, String phone, String address, long userRole, long createBy, long modifyBy) {
         Connection connection = null;
         boolean isSuccess = false;
 
@@ -221,8 +221,8 @@ public class UserBaseServiceImpl implements UserBaseService{
         java.sql.Date createSqlDate = new java.sql.Date(createUtilDate.getTime());
         java.sql.Date modifySqlDate = new java.sql.Date(modifyUtilDate.getTime());
 
-        String[] keyArr = { "userCode", "userName", "userPassword", "gender", "birthday", "phone", "address", "userRole", "createBy", "createDate", "modifyBy", "modifyDate" };
-        Object[] valueArr = { userCount, username, password, genderBool, birthdaySqlDate, phone, address, userRole, createBy, createSqlDate, modifyBy, modifySqlDate };
+        String[] keyArr = { "avatar", "userCode", "userName", "userPassword", "gender", "birthday", "phone", "address", "userRole", "createBy", "createDate", "modifyBy", "modifyDate" };
+        Object[] valueArr = { avatar, userCount, username, password, genderBool, birthdaySqlDate, phone, address, userRole, createBy, createSqlDate, modifyBy, modifySqlDate };
 
         try {
             connection = BaseDao.getConnection();
