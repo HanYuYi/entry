@@ -155,6 +155,7 @@
                             if (status === 1) {
                                 this.$notify({ title: "提示", message: message, type: "success" });
                                 this.resetForm();
+                                this.avatarUrl = "";
                             } else {
                                 this.$notify.error({ title: "提示", message: message });
                             }

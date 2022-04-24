@@ -23,9 +23,9 @@ public class ImgUploadImpl implements ImgUpload {
      */
     @Override
     public RespFormat upload(HttpServletRequest request) {
-        RespFormat uoloadResult = uploadValidator(request);
-        if (uoloadResult.getStatus() == RespFormat.ERROR_STATUS) {
-            return uoloadResult;
+        RespFormat uploadResult = uploadValidator(request);
+        if (uploadResult.getStatus() == RespFormat.ERROR_STATUS) {
+            return uploadResult;
         }
         // 开始上传操作
         ServletFileUpload uploader = beforeUpload(request);
@@ -44,27 +44,29 @@ public class ImgUploadImpl implements ImgUpload {
                     if (!item.isFormField()) {
                         uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
                         String fileName = new File(item.getName()).getName();
-                        String[] fileNameSplit = fileName.split(".");
-                        String filePath = uploadUrl + OS_SEPARATOR + uuid + fileNameSplit[fileNameSplit.length - 1];
-                        System.out.println("filePath: " + filePath);
+                        String[] fileNameSplit = fileName.split("\\.");
+                        String filePath = uploadUrl + OS_SEPARATOR + uuid + "." + fileNameSplit[fileNameSplit.length - 1];
+                        System.out.println(filePath);
                         File file = new File(filePath);
                         item.write(file);
-                        uoloadResult.setStatus(RespFormat.SUCCESS_STATUS);
-                        uoloadResult.setMessage("文件上传成功");
+                        uploadResult.setStatus(RespFormat.SUCCESS_STATUS);
+                        uploadResult.setMessage("文件上传成功");
+
+                        // 将图片的后缀存入会话
+                        request.getSession().setAttribute(uuid, fileNameSplit[fileNameSplit.length - 1]);
                     }
                 }
             }
-
         } catch (FileUploadException e) {
             e.printStackTrace();
-            uoloadResult.setStatus(RespFormat.ERROR_STATUS);
-            uoloadResult.setMessage(e.getMessage());
+            uploadResult.setStatus(RespFormat.ERROR_STATUS);
+            uploadResult.setMessage(e.getMessage());
         } catch (Exception ex) {
             ex.printStackTrace();
-            uoloadResult.setStatus(RespFormat.ERROR_STATUS);
-            uoloadResult.setMessage(ex.getMessage());
+            uploadResult.setStatus(RespFormat.ERROR_STATUS);
+            uploadResult.setMessage(ex.getMessage());
         }
-        return uoloadResult;
+        return uploadResult;
     }
 
     /**

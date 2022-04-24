@@ -117,3 +117,7 @@ main>aside {
     height: 120px;
     display: block;
 }
+.el-avatar {
+    background: transparent;
+    vertical-align: middle;
+}

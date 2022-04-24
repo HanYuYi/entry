@@ -48,6 +48,7 @@ public class CreateUser extends HttpServlet {
             UserBase currentUser = (UserBase)req.getSession().getAttribute(Constants.USER_SESSION);
 
             UserBaseServiceImpl userBaseService = new UserBaseServiceImpl();
+            avatar = avatar != null ? avatar + "." + req.getSession().getAttribute(avatar) : "";
             boolean createStatus = userBaseService.toCreateUser(avatar, username, password, gender, birthday, phone, address, userRole, currentUser.getId(), currentUser.getId());
 
             if (createStatus) {

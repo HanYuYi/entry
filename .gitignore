@@ -27,3 +27,4 @@ hs_err_pid*
 servlet/target/
 .DS_Store
 /spring/target
+/admin/target

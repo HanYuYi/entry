@@ -9,11 +9,13 @@
         <module name="spring" />
         <module name="admin" />
         <module name="servlet" />
+        <module name="mybatis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="admin" target="8" />
       <module name="entry" target="1.7" />
+      <module name="mybatis" target="1.7" />
       <module name="servlet" target="9" />
       <module name="spring" target="1.7" />
     </bytecodeTargetLevel>

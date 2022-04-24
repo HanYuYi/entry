@@ -13,6 +13,9 @@ import java.io.IOException;
  */
 public class LoginIntercept implements Filter {
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {}
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         String uri = req.getRequestURI().replaceAll(req.getContextPath(), "");
@@ -22,7 +25,6 @@ public class LoginIntercept implements Filter {
         // 未登录
         if (attr == null) {
             if ((!uri.equals("/index.jsp")) && (!uri.equals("/"))) {
-                System.out.println(req.getContextPath() + "/");
                 resp.sendRedirect(req.getContextPath() + "/");
             }
         } else {
@@ -32,4 +34,7 @@ public class LoginIntercept implements Filter {
         }
         chain.doFilter(request, response);
     }
+
+    @Override
+    public void destroy() {}
 }

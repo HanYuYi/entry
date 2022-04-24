@@ -8,11 +8,11 @@ import java.io.File;
 public interface ImgUpload {
     public static final String OS_SEPARATOR = File.separator;
     public static final int MAX_AVATAR_SIZE = 1024 * 1024 * 2;                  // 头像最大限制 2M
-    public static final int TEMP_AVATAR_SIZE = 1024 * 1024 * 1;                 // 头像临时文件大小限制 1M
-    public static final int AVATAR_SIZE = 1024 * 20;                            // 最大文件上传值 20K
+    // TODO
+    public static final int TEMP_AVATAR_SIZE = 1024 * 1024 * 2;                 // 头像临时文件大小限制 1M
 
-    public static final String TEMP_URL = OS_SEPARATOR + "WEB-INF" + OS_SEPARATOR + "tempUpload";        // 临时头像存储目录
-    public static final String AVATAR_URL = OS_SEPARATOR + "WEB-INF" + OS_SEPARATOR + "upload";          // 头像存储目录
+    public static final String TEMP_URL = OS_SEPARATOR + "uploadAvatar" + OS_SEPARATOR + "tempUpload";        // 临时头像存储目录
+    public static final String AVATAR_URL = OS_SEPARATOR + "uploadAvatar" + OS_SEPARATOR + "upload";          // 头像存储目录
 
     /**
      * 执行上传操作

@@ -190,19 +190,25 @@ public class UserBaseDaoImpl implements UserBaseDao {
             String OS_SEPARATOR = File.separator;
             String avatar = null;
             String avatarUrl = null;
+            boolean gender = false;
             while (resultSet.next()) {
                 UserBase userBase = new UserBase();
                 userBase.setId(resultSet.getLong("id"));
                 avatar = resultSet.getString("avatar");
+                gender = resultSet.getBoolean("gender");
                 if (avatar != null) {
-                    avatarUrl = OS_SEPARATOR + "WEB-INF" + OS_SEPARATOR + "upload/" + avatar;
+                    avatarUrl = OS_SEPARATOR + "uploadAvatar" + OS_SEPARATOR + "upload" + OS_SEPARATOR + avatar;
                 } else {
-                    avatarUrl = OS_SEPARATOR + "WEB-INF" + OS_SEPARATOR + "upload/default.png";
+                    if (gender) {
+                        avatarUrl = OS_SEPARATOR + "uploadAvatar" + OS_SEPARATOR + "upload" + OS_SEPARATOR + "avatar_m_default.webp";
+                    } else {
+                        avatarUrl = OS_SEPARATOR + "uploadAvatar" + OS_SEPARATOR + "upload" + OS_SEPARATOR + "avatar_f_default.webp";
+                    }
                 }
-                userBase.setAvatar(resultSet.getString(avatarUrl);
+                userBase.setAvatar(avatarUrl);
                 userBase.setUserName(resultSet.getString("userName"));
                 userBase.setUserCode(resultSet.getLong("userCode"));
-                userBase.setGender(resultSet.getBoolean("gender"));
+                userBase.setGender(gender);
                 userBase.setBirthday(resultSet.getDate("birthday"));
                 userBase.setPhone(resultSet.getString("phone"));
                 userBase.setAddress(resultSet.getString("address"));

@@ -41,12 +41,17 @@
                 {{ scope.row.userName }}
             </template>
         </el-table-column>
+        <el-table-column label="头像" width="100">
+            <template slot-scope="scope">
+                <el-avatar :src="virUrl + scope.row.avatar" size="small"></el-avatar>
+            </template>
+        </el-table-column>
         <el-table-column label="用户编码" width="100">
             <template slot-scope="scope">
                 {{ scope.row.userCode }}
             </template>
         </el-table-column>
-        <el-table-column label="性别" width="100">
+        <el-table-column label="性别" width="60">
             <template slot-scope="scope">
                 {{ scope.row.gender }}
             </template>
@@ -89,7 +94,7 @@
                 <span style="margin-left: 10px">{{ scope.row.modifyDateFmt }}</span>
             </template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="140">
             <template slot-scope="scope">
                 <el-button size="mini"
                         @click="openEdit(scope.$index, scope.row)">编辑</el-button>
@@ -164,6 +169,7 @@
                 }
             };
             return {
+                virUrl: "${pageContext.request.contextPath}",
                 serverData: {
                     roleList: ${roleList},
                     tableData: ${userList},
@@ -253,7 +259,7 @@
                     pageSize: this.pageSize,
                     pageNum: this.currentPage
                 };
-                location.href = "${pageContext.request.contextPath}" + "/userList.do?method=query&" + serializeJson(sendParam);
+                location.href = this.virUrl + "/userList.do?method=query&" + serializeJson(sendParam);
             },
             // 开启编辑
             openEdit(index, row) {
@@ -277,7 +283,7 @@
                         const birthdayStr = dateFormat("yyyy-MM-dd HH:mm:ss", this.updateForm.birthday);
                         const sendUpdateForm = { ...this.updateForm, method: "update", birthday: birthdayStr };
                         ajax({
-                            url: "${pageContext.request.contextPath}/userList.do",
+                            url: this.virUrl + "/userList.do",
                             type: "get",
                             data: sendUpdateForm,
                         }).then(({status, message}) => {
@@ -301,7 +307,7 @@
             handleDelete(index, row) {
                 const sendUpdateForm = { method: "delete", id: row.id };
                 ajax({
-                    url: "${pageContext.request.contextPath}/userList.do",
+                    url: this.virUrl + "/userList.do",
                     type: "get",
                     data: sendUpdateForm,
                 }).then(({status, message}) => {
@@ -327,7 +333,7 @@
                 this.handleQuery();
             },
             toUserAddPage() {
-                location.href = '${pageContext.request.contextPath}/auth/user-add.jsp';
+                location.href = this.virUrl + "/auth/user-add.jsp";
             }
         }
     })
