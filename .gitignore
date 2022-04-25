@@ -28,3 +28,4 @@ servlet/target/
 .DS_Store
 /spring/target
 /admin/target
+/mybatis/target
