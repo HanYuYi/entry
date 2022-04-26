@@ -11,7 +11,9 @@ public class User {
     private long userCode;                      // 用户编码
     private String userName;                    // 用户名
     private String userPassword;                // 密码
-    private String gender;                      // 性别
+    private boolean gender;                     // 性别
+    private String genderFmt;                   // 性别字符串
+    private Date birthday;                      // 生日
     private String phone;                       // 电话
     private String address;                     // 地址
     private long userRole;                      // 角色id
@@ -24,6 +26,22 @@ public class User {
 
     private int age;                            // 年龄
     private String userRoleName;                // 角色名称
+
+    public User(long id, long userCode, String userName, String userPassword, boolean gender, Date birthday, String phone, String address, long userRole, long createBy, Date createDate, long modifyBy, Date modifyDate) {
+        this.id = id;
+        this.userCode = userCode;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.phone = phone;
+        this.address = address;
+        this.userRole = userRole;
+        this.createBy = createBy;
+        this.createDate = createDate;
+        this.modifyBy = modifyBy;
+        this.modifyDate = modifyDate;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -46,7 +64,16 @@ public class User {
     }
 
     public void setGender(boolean gender) {
-        this.gender = gender ? "男" : "女";
+        this.gender = gender;
+        setGenderFmt(gender ? "男" : "女");
+    }
+
+    public void setGenderFmt(String gender) {
+        this.genderFmt = gender;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public void setPhone(String phone) {
@@ -116,8 +143,16 @@ public class User {
         return userPassword;
     }
 
-    public String getGender() {
+    public boolean getGender() {
         return gender;
+    }
+
+    public String getGenderFmt() {
+        return genderFmt;
+    }
+
+    public Date getBirthday() {
+        return birthday;
     }
 
     public String getPhone() {
@@ -153,7 +188,7 @@ public class User {
     }
 
     public String getModifyDateFmt() {
-        return modifyDate.toString();
+        return modifyDateFmt;
     }
 
     public int getAge() {

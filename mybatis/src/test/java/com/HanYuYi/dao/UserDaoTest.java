@@ -5,10 +5,8 @@ import com.HanYuYi.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 
-import java.util.Comparator;
-import java.util.HashMap;
+import java.sql.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * mybatis的使用
@@ -18,11 +16,11 @@ class UserDaoTest {
     @Test
     void getUserInfo() {
         // 获取sqlSession
-        /*try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
             // 调用有两种方式，推荐使用1
 
             // 1 getMapper
-            UserDao mapper = sqlSession.getMapper(UserDao.class);
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
             List<User> userInfo = mapper.getUserInfo();
 
             // 2 select
@@ -31,7 +29,50 @@ class UserDaoTest {
             for (User user : userInfo) {
                 System.out.println(user);
             }
-        }*/
-
+        }
     }
+
+    @Test
+    void getUserById(){
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            User userInfo = mapper.getUserById(10L);
+            System.out.println(userInfo);
+        }
+    }
+
+    @Test
+    void insertUser() {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            int rowIndex = mapper.insertUser(new User(13L, 13L, "bati001", "123456", true, new Date(693792003400L), "13755412097", "安庆市宜秀区振风大道与独秀大道交叉口东北200米", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
+            System.out.println(rowIndex);
+            // 执行事务
+            sqlSession.commit();
+        }
+    }
+
+    @Test
+    void deleteUserById() {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            int rowIndex = mapper.deleteUserById(14L);
+            System.out.println(rowIndex);
+            // 执行事务
+            sqlSession.commit();
+        }
+    }
+
+    @Test
+    void updateUser() {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            int rowIndex = mapper.updateUser(new User(12L, 12L, "ad005", "123456", true, new Date(693792003400L), "13755412000", "浙江省杭州市滨江区江南大道588号", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
+            System.out.println(rowIndex);
+            // 执行事务
+            sqlSession.commit();
+        }
+    }
+
+
 }

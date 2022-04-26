@@ -2,8 +2,26 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.HanYuYi.dao.UserDao">
+<mapper namespace="com.HanYuYi.dao.UserMapper">
     <select id="getUserInfo" resultType="com.HanYuYi.pojo.User">
-        SELECT * FROM user_base WHERE id &lt;= 10
+        SELECT * FROM user_base;
     </select>
+
+    <select id="getUserById" parameterType="long" resultType="com.HanYuYi.pojo.User">
+        SELECT * FROM user_base WHERE id = #{id};
+    </select>
+
+    <insert id="insertUser" parameterType="com.HanYuYi.pojo.User">
+        INSERT INTO user_base (id, userCode, userName, userPassword, gender, birthday, phone, address, userRole, createBy, createDate, modifyBy, modifyDate)
+        VALUES
+        (#{id}, #{userCode}, #{userName}, #{userPassword}, #{gender}, #{birthday}, #{phone}, #{address}, #{userRole}, #{createBy}, #{createDate}, #{modifyBy}, #{modifyDate});
+    </insert>
+
+    <delete id="deleteUserById" parameterType="long">
+        DELETE FROM user_base WHERE id = #{id};
+    </delete>
+
+    <update id="updateUser" parameterType="com.HanYuYi.pojo.User">
+        UPDATE user_base SET id=#{id}, userCode=#{userCode}, userName=#{userName}, userPassword=#{userPassword}, gender=#{gender}, birthday=#{birthday}, phone=#{phone}, address=#{address}, userRole=#{userRole},createBy=#{createBy}, createDate=#{createDate}, modifyBy=#{modifyBy}, modifyDate=#{modifyDate} WHERE id=#{id};
+    </update>
 </mapper>
