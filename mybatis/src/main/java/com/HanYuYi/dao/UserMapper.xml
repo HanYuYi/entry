@@ -4,6 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.HanYuYi.dao.UserDao">
     <select id="getUserInfo" resultType="com.HanYuYi.pojo.User">
-        SELECT * FROM user_base WHERE id >= 10
+        SELECT * FROM user_base WHERE id &lt;= 10
     </select>
 </mapper>
