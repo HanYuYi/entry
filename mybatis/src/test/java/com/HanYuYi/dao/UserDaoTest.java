@@ -38,7 +38,7 @@ class UserDaoTest {
     void getUserById(){
         try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            User userInfo = mapper.getUserById(17L);
+            User userInfo = mapper.getUserById(11L);
             System.out.println(userInfo);
         }
     }

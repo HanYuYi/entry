@@ -3,15 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.HanYuYi.dao.UserMapper">
-    <select id="getUserInfo" resultType="com.HanYuYi.pojo.User">
+    
+    <resultMap id="userResultMap" type="user">
+        <result column="userName" property="names"/>
+    </resultMap>
+
+    <!--user resultType使用别名-->
+    <select id="getUserInfo" resultType="user">
         SELECT * FROM user_base;
     </select>
 
-    <select id="getUserById" parameterType="long" resultType="com.HanYuYi.pojo.User">
+    <!--使用resultMap映射-->
+    <select id="getUserById" parameterType="long" resultMap="userResultMap">
         SELECT * FROM user_base WHERE id = #{id};
     </select>
 
-    <insert id="insertUser" parameterType="com.HanYuYi.pojo.User">
+    <insert id="insertUser" parameterType="user">
         INSERT INTO user_base (id, userCode, userName, userPassword, gender, birthday, phone, address, userRole, createBy, createDate, modifyBy, modifyDate)
         VALUES
         (#{id}, #{userCode}, #{userName}, #{userPassword}, #{gender}, #{birthday}, #{phone}, #{address}, #{userRole}, #{createBy}, #{createDate}, #{modifyBy}, #{modifyDate});

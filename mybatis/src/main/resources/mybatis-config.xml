@@ -4,18 +4,31 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+
+    <!--这里的二级标签必须按顺序排列-->
+
+    <!--加载数据库配置文件-->
+    <properties resource="db.properties"/>
+
+    <!--别名-->
+    <typeAliases>
+        <package name="com.HanYuYi.pojo"/>
+    </typeAliases>
+
     <environments default="development">
         <environment id="development">
+            <!--事务管理器-->
             <transactionManager type="JDBC"/>
+            <!--连接池-->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/market?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="password"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
-    <!--每一个mapper都需要在这里注册-->
+    <!--每一个mapper都需要在这里注册，或者使用package注册全部mapper-->
     <mappers>
         <mapper resource="com/HanYuYi/dao/UserMapper.xml"/>
     </mappers>
