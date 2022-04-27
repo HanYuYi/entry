@@ -6,7 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * mybatis的使用
@@ -36,7 +38,7 @@ class UserDaoTest {
     void getUserById(){
         try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            User userInfo = mapper.getUserById(10L);
+            User userInfo = mapper.getUserById(17L);
             System.out.println(userInfo);
         }
     }
@@ -45,7 +47,7 @@ class UserDaoTest {
     void insertUser() {
         try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            int rowIndex = mapper.insertUser(new User(13L, 13L, "bati001", "123456", true, new Date(693792003400L), "13755412097", "安庆市宜秀区振风大道与独秀大道交叉口东北200米", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
+            int rowIndex = mapper.insertUser(new User(17L, 17L, "bati001", "123456", true, new Date(693792003400L), "13755412097", "安庆市宜秀区振风大道与独秀大道交叉口东北200米", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
             System.out.println(rowIndex);
             // 执行事务
             sqlSession.commit();
@@ -58,7 +60,6 @@ class UserDaoTest {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
             int rowIndex = mapper.deleteUserById(14L);
             System.out.println(rowIndex);
-            // 执行事务
             sqlSession.commit();
         }
     }
@@ -67,12 +68,15 @@ class UserDaoTest {
     void updateUser() {
         try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            int rowIndex = mapper.updateUser(new User(12L, 12L, "ad005", "123456", true, new Date(693792003400L), "13755412000", "浙江省杭州市滨江区江南大道588号", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
+
+            Map<String, Object> columns = new HashMap<>();
+            columns.put("id", 17L);
+            columns.put("phone", "18111278471");
+            columns.put("birthday", new Date(693794803410L));
+
+            int rowIndex = mapper.updateUser(columns);
             System.out.println(rowIndex);
-            // 执行事务
             sqlSession.commit();
         }
     }
-
-
 }

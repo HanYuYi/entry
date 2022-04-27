@@ -3,6 +3,7 @@ package com.HanYuYi.dao;
 import com.HanYuYi.pojo.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
     /**
@@ -35,8 +36,8 @@ public interface UserMapper {
 
     /**
      * 修改用户
-     * @param user
+     * @param columns
      * @return
      */
-    int updateUser(User user);
+    int updateUser(Map<String, Object> columns);
 }

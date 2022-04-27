@@ -21,7 +21,7 @@
         DELETE FROM user_base WHERE id = #{id};
     </delete>
 
-    <update id="updateUser" parameterType="com.HanYuYi.pojo.User">
-        UPDATE user_base SET id=#{id}, userCode=#{userCode}, userName=#{userName}, userPassword=#{userPassword}, gender=#{gender}, birthday=#{birthday}, phone=#{phone}, address=#{address}, userRole=#{userRole},createBy=#{createBy}, createDate=#{createDate}, modifyBy=#{modifyBy}, modifyDate=#{modifyDate} WHERE id=#{id};
+    <update id="updateUser" parameterType="map">
+        UPDATE user_base SET phone=#{phone}, birthday=#{birthday} WHERE id=#{id};
     </update>
 </mapper>
