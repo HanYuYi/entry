@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.HanYuYi.dao.UserMapper">
-    
+
     <resultMap id="userResultMap" type="user">
         <result column="userName" property="names"/>
     </resultMap>
@@ -18,10 +18,38 @@
         SELECT * FROM user_base WHERE id = #{id};
     </select>
 
+    <!--TODO: parameterMap-->
     <insert id="insertUser" parameterType="user">
-        INSERT INTO user_base (id, userCode, userName, userPassword, gender, birthday, phone, address, userRole, createBy, createDate, modifyBy, modifyDate)
-        VALUES
-        (#{id}, #{userCode}, #{userName}, #{userPassword}, #{gender}, #{birthday}, #{phone}, #{address}, #{userRole}, #{createBy}, #{createDate}, #{modifyBy}, #{modifyDate});
+        INSERT INTO user_base (
+            id,
+            userCode,
+            userName,
+            userPassword,
+            gender,
+            birthday,
+            phone,
+            address,
+            userRole,
+            createBy,
+            createDate,
+            modifyBy,
+            modifyDate
+        ) VALUES
+            (
+                #{id},
+                #{userCode},
+                #{userName},
+                #{userPassword},
+                #{gender},
+                #{birthday},
+                #{phone},
+                #{address},
+                #{userRole},
+                #{createBy},
+                #{createDate},
+                #{modifyBy},
+                #{modifyDate}
+            );
     </insert>
 
     <delete id="deleteUserById" parameterType="long">

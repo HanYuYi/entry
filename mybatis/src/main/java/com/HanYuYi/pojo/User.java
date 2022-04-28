@@ -9,7 +9,7 @@ public class User {
     private long id;                            // 用户id
     private String avatar;                      // 用户头像
     private long userCode;                      // 用户编码
-    private String names;                       // 用户名
+    private String userName;                       // 用户名
     private String userPassword;                // 密码
     private boolean gender;                     // 性别
     private String genderFmt;                   // 性别字符串
@@ -27,10 +27,10 @@ public class User {
     private int age;                            // 年龄
     private String userRoleName;                // 角色名称
 
-    public User(long id, long userCode, String names, String userPassword, boolean gender, Date birthday, String phone, String address, long userRole, long createBy, Date createDate, long modifyBy, Date modifyDate) {
+    public User(long id, long userCode, String userName, String userPassword, boolean gender, Date birthday, String phone, String address, long userRole, long createBy, Date createDate, long modifyBy, Date modifyDate) {
         this.id = id;
         this.userCode = userCode;
-        this.names = names;
+        this.userName = userName;
         this.userPassword = userPassword;
         this.gender = gender;
         this.birthday = birthday;
@@ -55,8 +55,8 @@ public class User {
         this.userCode = userCode;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setUserPassword(String userPassword) {
@@ -135,8 +135,8 @@ public class User {
         return userCode;
     }
 
-    public String getNames() {
-        return names;
+    public String getUserName() {
+        return userName;
     }
 
     public String getUserPassword() {
@@ -204,7 +204,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", userCode=" + userCode +
-                ", names='" + names + '\'' +
+                ", userName='" + userName + '\'' +
                 ", userPassword='" + userPassword + '\'' +
                 ", gender=" + gender +
                 ", phone='" + phone + '\'' +

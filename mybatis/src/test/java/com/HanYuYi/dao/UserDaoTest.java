@@ -47,7 +47,7 @@ class UserDaoTest {
     void insertUser() {
         try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            int rowIndex = mapper.insertUser(new User(17L, 17L, "bati001", "123456", true, new Date(693792003400L), "13755412097", "安庆市宜秀区振风大道与独秀大道交叉口东北200米", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
+            int rowIndex = mapper.insertUser(new User(18L, 18L, "bati002", "123456", false, new Date(693122003071L), "17988541710", "金朱东路与金阳北路交叉口5号(烈变国际广场旁)", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
             System.out.println(rowIndex);
             // 执行事务
             sqlSession.commit();

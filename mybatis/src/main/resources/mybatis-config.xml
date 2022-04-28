@@ -13,6 +13,8 @@
     <!--别名-->
     <typeAliases>
         <package name="com.HanYuYi.pojo"/>
+        <!--还可以使用这种方式和注解定义别名-->
+        <!--<typeAlias type="com.HanYuYi.pojo.User" alias="user"/>-->
     </typeAliases>
 
     <environments default="development">
