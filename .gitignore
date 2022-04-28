@@ -29,3 +29,4 @@ servlet/target/
 /spring/target
 /admin/target
 /mybatis/target
+/mybatis/logs

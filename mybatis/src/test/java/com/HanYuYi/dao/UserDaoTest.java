@@ -3,6 +3,7 @@ package com.HanYuYi.dao;
 import com.HanYuYi.pojo.User;
 import com.HanYuYi.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
@@ -15,6 +16,9 @@ import java.util.Map;
  */
 class UserDaoTest {
 
+    // log4j对象
+    static Logger logger = Logger.getLogger(UserDaoTest.class);
+
     @Test
     void getUserInfo() {
         // 获取sqlSession
@@ -23,14 +27,22 @@ class UserDaoTest {
 
             // 1 getMapper
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            List<User> userInfo = mapper.getUserInfo();
 
-            // 2 select
+            HashMap<String, Integer> params = new HashMap<>();
+            params.put("index", 0);
+            params.put("size", 5);
+            List<User> userInfo = mapper.getUserInfo(params);
+
+            // 2 select(不推荐使用)
             // List<User> userInfo1 = sqlSession.selectList("com.HanYuYi.dao.UserDao.getUserInfo");
 
             for (User user : userInfo) {
                 System.out.println(user);
             }
+            // log4j使用
+            logger.info("log4j:info 这是一条info");
+            logger.debug("log4j:debug 这是一条debug");
+            logger.error("log4j:error 这是一条error");
         }
     }
 

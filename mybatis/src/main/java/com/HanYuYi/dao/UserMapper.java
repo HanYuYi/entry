@@ -10,7 +10,7 @@ public interface UserMapper {
      * 获取所有用户信息
      * @return
      */
-    List<User> getUserInfo();
+    List<User> getUserInfo(Map<String, Integer> params);
 
     /**
      * 查询单个用户
