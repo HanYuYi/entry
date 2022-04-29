@@ -30,7 +30,10 @@ public class MybatisUtils {
      * 获取SqlSession，SqlSession包含了免洗请数据库的执行sql的所有方法
      * @return
      */
-    public static SqlSession getSqlSession() {
+    public static SqlSession getSqlSession(boolean autoCommit) {
+        if (autoCommit) {
+            return sqlSessionFactory.openSession(autoCommit);
+        }
         return sqlSessionFactory.openSession();
     }
 }

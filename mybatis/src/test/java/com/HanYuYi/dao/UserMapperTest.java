@@ -14,15 +14,15 @@ import java.util.Map;
 /**
  * mybatis的使用
  */
-class UserDaoTest {
+class UserMapperTest {
 
     // log4j对象
-    static Logger logger = Logger.getLogger(UserDaoTest.class);
+    static Logger logger = Logger.getLogger(UserMapperTest.class);
 
     @Test
     void getUserInfo() {
         // 获取sqlSession
-        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
             // 调用有两种方式，推荐使用1
 
             // 1 getMapper
@@ -48,7 +48,7 @@ class UserDaoTest {
 
     @Test
     void getUserById(){
-        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
             User userInfo = mapper.getUserById(11L);
             System.out.println(userInfo);
@@ -57,7 +57,7 @@ class UserDaoTest {
 
     @Test
     void insertUser() {
-        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
             int rowIndex = mapper.insertUser(new User(18L, 18L, "bati002", "123456", false, new Date(693122003071L), "17988541710", "金朱东路与金阳北路交叉口5号(烈变国际广场旁)", 2L, 1L, new Date(System.currentTimeMillis()), 1L, new Date(System.currentTimeMillis())));
             System.out.println(rowIndex);
@@ -68,7 +68,7 @@ class UserDaoTest {
 
     @Test
     void deleteUserById() {
-        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
             int rowIndex = mapper.deleteUserById(14L);
             System.out.println(rowIndex);
@@ -78,7 +78,7 @@ class UserDaoTest {
 
     @Test
     void updateUser() {
-        try(SqlSession sqlSession = MybatisUtils.getSqlSession()) {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
 
             Map<String, Object> columns = new HashMap<>();

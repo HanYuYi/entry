@@ -9,7 +9,7 @@ public class User {
     private long id;                            // 用户id
     private String avatar;                      // 用户头像
     private long userCode;                      // 用户编码
-    private String userName;                       // 用户名
+    private String userName;                    // 用户名
     private String userPassword;                // 密码
     private boolean gender;                     // 性别
     private String genderFmt;                   // 性别字符串

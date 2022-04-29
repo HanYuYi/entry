@@ -39,5 +39,9 @@
     <!--每一个mapper都需要在这里注册，或者使用package注册全部mapper-->
     <mappers>
         <mapper resource="com/HanYuYi/dao/UserMapper.xml"/>
+
+        <!--注册使用注解的mapper-->
+        <mapper class="com.HanYuYi.dao.UserMapperByAnnotation"/>
     </mappers>
+
 </configuration>
