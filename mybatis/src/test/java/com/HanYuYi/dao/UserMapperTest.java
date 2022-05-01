@@ -1,15 +1,14 @@
 package com.HanYuYi.dao;
 
 import com.HanYuYi.pojo.User;
+import com.HanYuYi.pojo.UserByLombok;
 import com.HanYuYi.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * mybatis的使用
@@ -91,4 +90,33 @@ class UserMapperTest {
             sqlSession.commit();
         }
     }
+
+    /**
+     * 第一种对多一查询
+     */
+    @Test
+    void getUserOneToManyBySelect() {
+        try (SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            List<Map<String, Object>> userOneToManyList = mapper.getUserOneToManyBySelect();
+            for (Map<String, Object> userByLombok : userOneToManyList) {
+                System.out.println(userByLombok);
+            }
+        }
+    }
+
+    /**
+     * 第二种对多一查询
+     */
+    @Test
+    void getUserOneToManyByChild() {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            List<Map<String, Object>> userOneToManyList = mapper.getUserOneToManyByChild();
+            for (Map<String, Object> userByLombok : userOneToManyList) {
+                System.out.println(userByLombok);
+            }
+        }
+    }
+
 }

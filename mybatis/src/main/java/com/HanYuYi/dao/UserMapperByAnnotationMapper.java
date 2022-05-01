@@ -1,6 +1,5 @@
 package com.HanYuYi.dao;
 
-import com.HanYuYi.pojo.User;
 import com.HanYuYi.pojo.UserByLombok;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -11,7 +10,7 @@ import java.util.Map;
 /**
  * 使用注解查询，可用于简单的sql查询
  */
-public interface UserMapperByAnnotation {
+public interface UserMapperByAnnotationMapper {
 
     @Insert("INSERT INTO user_base (id,userCode,userName,userPassword,gender,birthday,phone,address,userRole,createBy,createDate,modifyBy,modifyDate) VALUES (#{id},#{userCode},#{userName},#{userPassword},#{gender},#{birthday},#{phone},#{address},#{userRole},#{createBy},#{createDate},#{modifyBy},#{modifyDate})")
     int insertUser(Map<String, Object> user);

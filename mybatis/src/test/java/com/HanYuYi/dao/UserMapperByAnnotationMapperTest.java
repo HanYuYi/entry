@@ -1,6 +1,5 @@
 package com.HanYuYi.dao;
 
-import com.HanYuYi.pojo.User;
 import com.HanYuYi.pojo.UserByLombok;
 import com.HanYuYi.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -9,14 +8,12 @@ import org.junit.jupiter.api.Test;
 import java.sql.Date;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class UserMapperByAnnotationTest {
+class UserMapperByAnnotationMapperTest {
 
     @Test
     void insertUser() {
         try (SqlSession sqlSession = MybatisUtils.getSqlSession(true)) {
-            UserMapperByAnnotation mapper = sqlSession.getMapper(UserMapperByAnnotation.class);
+            UserMapperByAnnotationMapper mapper = sqlSession.getMapper(UserMapperByAnnotationMapper.class);
             HashMap<String, Object> param = new HashMap<>();
             param.put("id", 14l);
             param.put("userCode", 14l);
@@ -41,7 +38,7 @@ class UserMapperByAnnotationTest {
     @Test
     void getUserById() {
         try (SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
-            UserMapperByAnnotation mapper = sqlSession.getMapper(UserMapperByAnnotation.class);
+            UserMapperByAnnotationMapper mapper = sqlSession.getMapper(UserMapperByAnnotationMapper.class);
             UserByLombok user = mapper.getUserById(3l);
             System.out.println(user);
         }

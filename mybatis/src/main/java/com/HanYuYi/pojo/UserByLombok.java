@@ -21,7 +21,7 @@ public class UserByLombok {
     private Date birthday;                      // 生日
     private String phone;                       // 电话
     private String address;                     // 地址
-    private long userRole;                      // 角色id
+    private RoleByLombok role;                  // 角色
     private long createBy;                      // 创建者id
     private Date createDate;                    // 创建时间
     private String createDateFmt;               // 创建时间字符串
@@ -32,7 +32,7 @@ public class UserByLombok {
     private int age;                            // 年龄
     private String userRoleName;                // 角色名称
 
-    public UserByLombok(long id, long userCode, String userName, String userPassword, boolean gender, Date birthday, String phone, String address, long userRole, long createBy, Date createDate, long modifyBy, Date modifyDate) {
+    public UserByLombok(long id, long userCode, String userName, String userPassword, boolean gender, Date birthday, String phone, String address, RoleByLombok role, long createBy, Date createDate, long modifyBy, Date modifyDate) {
         this.id = id;
         this.userCode = userCode;
         this.userName = userName;
@@ -41,7 +41,7 @@ public class UserByLombok {
         this.birthday = birthday;
         this.phone = phone;
         this.address = address;
-        this.userRole = userRole;
+        this.role = role;
         this.createBy = createBy;
         this.createDate = createDate;
         this.modifyBy = modifyBy;
