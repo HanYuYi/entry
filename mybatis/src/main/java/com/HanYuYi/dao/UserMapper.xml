@@ -67,7 +67,7 @@
     <!--==================多对一=================-->
 
     <!--思路：按照结果嵌套处理-->
-    <select id="getUserOneToManyBySelect" resultMap="userCol">
+    <select id="getUserManyToOneBySelect" resultMap="userCol">
         SELECT u.id id, u.userName username, r.roleName role
         FROM user_base u, user_role r
         WHERE u.userRole = r.id;
@@ -80,9 +80,8 @@
         </association>
     </resultMap>
 
-
     <!--思路：查处所有的用户信息，仔根据用户的userRole查询对应的角色。子查询-->
-    <select id="getUserOneToManyByChild" resultMap="userByRole">
+    <select id="getUserManyToOneByChild" resultMap="userByRole">
         SELECT * FROM user_base;
     </select>
     <resultMap id="userByRole" type="map">
@@ -95,5 +94,35 @@
         SELECT * FROM user_role WHERE id = #{userRole};
     </select>
 
+
+    <!--==================一对多=================-->
+
+    <!--思路：按照结果嵌套查询-->
+    <select id="getRoleOneToManyBySelect" resultMap="roleForUser">
+        SELECT u.id uId, u.userName uName, u.userRole uRole, r.id rId, r.roleName rName
+        FROM user_base u, user_role r
+        WHERE u.userRole = r.id
+        AND r.id = #{roleId};
+    </select>
+    <resultMap id="roleForUser" type="RoleByOneToMany">
+        <result property="id" column="rId"/>
+        <result property="roleName" column="rName"/>
+        <collection property="userAll" ofType="UserByOneToMany">
+            <result property="id" column="uId"/>
+            <result property="userName" column="uName"/>
+            <result property="userRole" column="uRole"/>
+        </collection>
+    </resultMap>
+
+    <!--思路：子查询-->
+    <select id="getRoleOneToManyByChild" resultMap="roleByUser">
+        SELECT id, roleName FROM user_role WHERE id = #{roleId};
+    </select>
+    <resultMap id="roleByUser" type="roleByOneToMany">
+        <collection property="userAll" column="id" javaType="ArrayList" ofType="userByOneToMany" select="getUserByRoleId"/>
+    </resultMap>
+    <select id="getUserByRoleId" resultType="userByOneToMany">
+        SELECT id, userName FROM user_base WHERE userRole = #{id};
+    </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.HanYuYi.dao;
 
+import com.HanYuYi.pojo.RoleByOneToMany;
 import com.HanYuYi.pojo.User;
 import com.HanYuYi.pojo.UserByLombok;
 import com.HanYuYi.utils.MybatisUtils;
@@ -95,10 +96,10 @@ class UserMapperTest {
      * 第一种对多一查询
      */
     @Test
-    void getUserOneToManyBySelect() {
+    void getUserManyToOneBySelect() {
         try (SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            List<Map<String, Object>> userOneToManyList = mapper.getUserOneToManyBySelect();
+            List<Map<String, Object>> userOneToManyList = mapper.getUserManyToOneBySelect();
             for (Map<String, Object> userByLombok : userOneToManyList) {
                 System.out.println(userByLombok);
             }
@@ -109,13 +110,39 @@ class UserMapperTest {
      * 第二种对多一查询
      */
     @Test
-    void getUserOneToManyByChild() {
+    void getUserManyToOneByChild() {
         try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            List<Map<String, Object>> userOneToManyList = mapper.getUserOneToManyByChild();
+            List<Map<String, Object>> userOneToManyList = mapper.getUserManyToOneByChild();
             for (Map<String, Object> userByLombok : userOneToManyList) {
                 System.out.println(userByLombok);
             }
+        }
+    }
+
+
+    /**
+     * 第一种一对多查询
+     */
+    @Test
+    void getRoleOneToManyBySelect() {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            RoleByOneToMany role = mapper.getRoleOneToManyBySelect(1l);
+            System.out.println(role);
+        }
+    }
+
+
+    /**
+     * 第二种一对多查询
+     */
+    @Test
+    void getRoleOneToManyByChild() {
+        try(SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            RoleByOneToMany role = mapper.getRoleOneToManyByChild(1l);
+            System.out.println(role);
         }
     }
 
