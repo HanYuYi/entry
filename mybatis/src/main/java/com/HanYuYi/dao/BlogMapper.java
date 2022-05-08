@@ -37,4 +37,6 @@ public interface BlogMapper {
      * @return
      */
     int updateBySet(Map map);
+
+    List<Blog> queryByEach(Map map);
 }

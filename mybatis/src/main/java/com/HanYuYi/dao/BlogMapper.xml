@@ -28,12 +28,13 @@
     <select id="getBlogListByIf" parameterType="map" resultType="blog">
         SELECT * FROM blog
         <where>
-            <if test="author != null">
+            <!--<if test="author != null">
                 AND author = #{author}
             </if>
             <if test="views != null">
                 AND views >= #{views}
-            </if>
+            </if>-->
+            <include refid="columnIf"/>
         </where>
     </select>
 
@@ -74,5 +75,32 @@
         </set>
         WHERE id = #{id}
     </update>
+    
+    <!--sql片段：定一段sql，被其他地方引用-->
+    <sql id="columnIf">
+        <if test="author != null">
+            AND author = #{author}
+        </if>
+        <if test="views != null">
+            AND views >= #{views}
+        </if>
+    </sql>
+    
+    <!--foreach-->
+    <select id="queryByEach" parameterType="map" resultType="blog">
+        SELECT * FROM blog
+        <where>
+            <foreach collection="views" item="view" open="views IN (" separator="," close=")">
+                #{view}
+            </foreach>
+        </where>
+    </select>
+
+    <!--缓存
+    设置缓存参数
+    mybatis默认是一级缓存（只在一个sqlSession有效），这里配置后开启二级缓存（在一个namespace有效）
+    缓存只在读的时候有效，在写的时候会刷新缓存
+    -->
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>
 
 </mapper>

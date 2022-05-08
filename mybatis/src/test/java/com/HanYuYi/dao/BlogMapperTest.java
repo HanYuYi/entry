@@ -6,10 +6,7 @@ import com.HanYuYi.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BlogMapperTest {
     @Test
@@ -86,5 +83,52 @@ public class BlogMapperTest {
             int index = mapper.updateBySet(params);
             System.out.println(index);
         }
+    }
+
+    @Test
+    void queryByEach() {
+        try (SqlSession sqlSession = MybatisUtils.getSqlSession(false)) {
+            BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
+
+            ArrayList<Integer> listViews = new ArrayList<>();
+            listViews.add(996);
+            listViews.add(13090);
+
+            HashMap<String, ArrayList> params = new HashMap<>();
+            params.put("views", listViews);
+
+            List<Blog> blogs = mapper.queryByEach(params);
+            System.out.println(blogs);
+        }
+    }
+
+    /**
+     * 测试缓存
+     */
+    @Test
+    void cache() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession(false);
+
+        BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
+
+        ArrayList<Integer> listViews = new ArrayList<>();
+        listViews.add(996);
+
+        HashMap<String, ArrayList> params = new HashMap<>();
+        params.put("views", listViews);
+
+        List<Blog> blogs = mapper.queryByEach(params);
+        sqlSession.close();
+
+
+        SqlSession sqlSession2 = MybatisUtils.getSqlSession(false);
+        BlogMapper mapper2 = sqlSession2.getMapper(BlogMapper.class);
+
+        List<Blog> blogs2 = mapper2.queryByEach(params);
+        // 默认一级缓存只在一个sqlSession中有效，由于配置了二级缓存，所以在一个namespace有效
+        System.out.println(blogs == blogs2);// true
+
+        sqlSession2.close();
+
     }
 }

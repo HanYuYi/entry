@@ -17,6 +17,9 @@
 
         <!--开启驼峰命名自动映射-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!--显示开启缓存，默认是开启的-->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 
     <!--别名-->
