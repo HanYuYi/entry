@@ -7,6 +7,7 @@
           <file>file://$MODULE_DIR$/src/main/resources/beans.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/diBeans.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/annoBeans.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/iocBeans.xml</file>
         </fileset>
       </configuration>
     </facet>

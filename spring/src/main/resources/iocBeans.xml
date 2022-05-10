@@ -46,7 +46,7 @@
     <import resource="XXX.xml"></import>-->
 
 
-    <!--namespace：命名空间，注意：要在xml头部配置
+    <!--namespace：命名空间，注意：要在xml头部配置约束
     p：针对set注入
     c：针对构造器注入-->
     <bean id="namesp1" class="com.HanYuYi.ioc.NameSpaceCalss"
@@ -56,7 +56,7 @@
           c:age="23" c:name="命名2" />
 
 
-    <!--bean的作用域，默认是单例，还有其他reques，session，application等等-->
+    <!--bean的作用域，默认是单例 singleton，还有其他request，session，application等等-->
     <bean id="namesp3" class="com.HanYuYi.ioc.NameSpaceCalss" scope="prototype" />
 
 
@@ -65,8 +65,9 @@
     <bean id="people" class="com.HanYuYi.ioc.demo03.People" autowire="constructor"></bean>
 
 
-    <!--autowire: 注解自动装配，注意：要在xml头部配置-->
+    <!--autowire: 注解自动装配，注意：要在xml头部配置约束-->
     <context:annotation-config />
+    <!--被装配的对象-->
     <bean id="dogNew" class="com.HanYuYi.ioc.demo03.DogNew" c:dogName="修勾勾"></bean>
     <bean id="dogNew1" class="com.HanYuYi.ioc.demo03.DogNew" c:dogName="修勾"></bean>
     <bean id="catNew" class="com.HanYuYi.ioc.demo03.CatNew" p:catName="大圆子"></bean>
