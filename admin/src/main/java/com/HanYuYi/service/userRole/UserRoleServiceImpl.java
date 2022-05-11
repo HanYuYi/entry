@@ -1,7 +1,7 @@
 package com.HanYuYi.service.userRole;
 
-import com.HanYuYi.dao.BaseDao;
-import com.HanYuYi.dao.userRole.UserRoleDaoImpl;
+import com.HanYuYi.ioc01.dao.BaseDao;
+import com.HanYuYi.ioc01.dao.userRole.UserRoleDaoImpl;
 import com.HanYuYi.entity.UserRole;
 
 import java.sql.Connection;

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.HanYuYi.ioc01.dao.UserMapper">
+
+    <resultMap id="userResultMap" type="user">
+        <result column="userName" property="names"/>
+    </resultMap>
+
+    <!--user resultType使用别名 and 入参用map映射-->
+    <select id="getUserInfo" parameterType="map" resultType="user">
+        SELECT * FROM user_base LIMIT #{index}, #{size};
+    </select>
+
+    <!--使用resultMap映射-->
+    <!--<select id="getUserById" parameterType="_long" resultMap="userResultMap">
+        SELECT * FROM user_base WHERE id = #{id};
+    </select>-->
+    <select id="getUserById" parameterType="_long" resultType="user">
+        SELECT * FROM user_base WHERE id = #{id};
+    </select>
+
+    <!--TODO: parameterMap-->
+    <insert id="insertUser" parameterType="user">
+        INSERT INTO user_base (
+            id,
+            userCode,
+            userName,
+            userPassword,
+            gender,
+            birthday,
+            phone,
+            address,
+            userRole,
+            createBy,
+            createDate,
+            modifyBy,
+            modifyDate
+        ) VALUES
+            (
+                #{id},
+                #{userCode},
+                #{userName},
+                #{userPassword},
+                #{gender},
+                #{birthday},
+                #{phone},
+                #{address},
+                #{userRole},
+                #{createBy},
+                #{createDate},
+                #{modifyBy},
+                #{modifyDate}
+            );
+    </insert>
+
+    <delete id="deleteUserById" parameterType="long">
+        DELETE FROM user_base WHERE id = #{id};
+    </delete>
+
+    <update id="updateUser" parameterType="map">
+        UPDATE user_base SET phone=#{phone}, birthday=#{birthday} WHERE id=#{id};
+    </update>
+
+
+    <!--==================多对一=================-->
+
+    <!--思路：按照结果嵌套处理-->
+    <select id="getUserManyToOneBySelect" resultMap="userCol">
+        SELECT u.id id, u.userName username, r.roleName role
+        FROM user_base u, user_role r
+        WHERE u.userRole = r.id;
+    </select>
+    <resultMap id="userCol" type="map">
+        <result property="id" column="id"/>
+        <result property="name" column="username"/>
+        <association property="role" javaType="RoleByLombok">
+            <result property="roleName" column="role"/>
+        </association>
+    </resultMap>
+
+    <!--思路：查处所有的用户信息，仔根据用户的userRole查询对应的角色。子查询-->
+    <select id="getUserManyToOneByChild" resultMap="userByRole">
+        SELECT * FROM user_base;
+    </select>
+    <resultMap id="userByRole" type="map">
+        <result property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <!--多对一的某一个字段是一个对象：用association-->
+        <association property="role" column="userRole" javaType="RoleByLombok" select="getRoleList"/>
+    </resultMap>
+    <select id="getRoleList" resultType="RoleByLombok">
+        SELECT * FROM user_role WHERE id = #{userRole};
+    </select>
+
+
+    <!--==================一对多=================-->
+
+    <!--思路：按照结果嵌套查询-->
+    <select id="getRoleOneToManyBySelect" resultMap="roleForUser">
+        SELECT u.id uId, u.userName uName, u.userRole uRole, r.id rId, r.roleName rName
+        FROM user_base u, user_role r
+        WHERE u.userRole = r.id
+        AND r.id = #{roleId};
+    </select>
+    <resultMap id="roleForUser" type="RoleByOneToMany">
+        <result property="id" column="rId"/>
+        <result property="roleName" column="rName"/>
+        <collection property="userAll" ofType="UserByOneToMany">
+            <result property="id" column="uId"/>
+            <result property="userName" column="uName"/>
+            <result property="userRole" column="uRole"/>
+        </collection>
+    </resultMap>
+
+    <!--思路：子查询-->
+    <select id="getRoleOneToManyByChild" resultMap="roleByUser">
+        SELECT id, roleName FROM user_role WHERE id = #{roleId};
+    </select>
+    <resultMap id="roleByUser" type="roleByOneToMany">
+        <collection property="userAll" column="id" javaType="ArrayList" ofType="userByOneToMany" select="getUserByRoleId"/>
+    </resultMap>
+    <select id="getUserByRoleId" resultType="userByOneToMany">
+        SELECT id, userName FROM user_base WHERE userRole = #{id};
+    </select>
+
+</mapper>

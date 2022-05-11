@@ -48,9 +48,9 @@
         <mapper resource="com/HanYuYi/dao/RoleMapper.xml"/>
 
         <!--注册使用注解的mapper-->
-        <mapper class="com.HanYuYi.dao.UserMapperByAnnotationMapper"/>
+        <mapper class="com.HanYuYi.ioc01.dao.UserMapperByAnnotationMapper"/>
 
-        <mapper class="com.HanYuYi.dao.BlogMapper"/>
+        <mapper class="com.HanYuYi.ioc01.dao.BlogMapper"/>
     </mappers>
 
 </configuration>
