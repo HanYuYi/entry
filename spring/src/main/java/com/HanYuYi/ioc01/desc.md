@@ -1,5 +1,5 @@
-##这个包演示IOC
-###spring常用的装配注解
+## 这个包演示IOC
+### spring常用的装配注解
 ```java
 @Autowired
 @Qualifier

@@ -47,8 +47,9 @@
 
 
     <!--namespace：命名空间，注意：要在xml头部配置约束
-    p：针对set注入
-    c：针对构造器注入-->
+    p：针对set注入 ==> xmlns:p
+    c：针对构造器注入 ==> xmlns:c
+    -->
     <bean id="namesp1" class="com.HanYuYi.ioc01.ioc.NameSpaceCalss"
           p:age="22" p:name="命名1" />
 
@@ -65,7 +66,11 @@
     <bean id="people" class="com.HanYuYi.ioc01.ioc.demo03.People" autowire="constructor"></bean>
 
 
-    <!--autowire: 注解自动装配，注意：要在xml头部配置约束-->
+    <!--autowire: 注解自动装配，注意：要在xml头部配置约束
+     约束 ==> xmlns:context
+     约束的支持 ==> http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+    -->
     <context:annotation-config />
     <!--被装配的对象-->
     <bean id="dogNew" class="com.HanYuYi.ioc01.ioc.demo03.DogNew" c:dogName="修勾勾"></bean>
