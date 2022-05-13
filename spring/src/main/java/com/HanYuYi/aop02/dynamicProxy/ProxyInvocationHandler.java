@@ -36,8 +36,23 @@ public class ProxyInvocationHandler<T> implements InvocationHandler {
      */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("[DEBUG] " + method.getName() + "方法执行了");
+        seeHouse();
         Object invoke = method.invoke(target, args);
+        fare();
         return invoke;
+    }
+
+    /**
+     * 看房
+     */
+    public void seeHouse() {
+        System.out.println("中介带房客看房");
+    }
+
+    /**
+     * 签租房合同
+     */
+    public void fare() {
+        System.out.println("签合同");
     }
 }

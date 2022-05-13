@@ -27,7 +27,7 @@ public class Proxy {
      * 看房
      */
     public void seeHouse() {
-        System.out.println("中介带你看房");
+        System.out.println("中介带房客看房");
     }
 
     /**

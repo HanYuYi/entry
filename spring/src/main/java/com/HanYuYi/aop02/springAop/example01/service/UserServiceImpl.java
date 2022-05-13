@@ -19,6 +19,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update() {
         System.out.println("用户信息更新成功");
-
     }
 }

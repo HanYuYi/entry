@@ -4,15 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="address" class="com.HanYuYi.ioc01.di.Address">
-        <property name="address" value="广东"></property>
+        <property name="address" value="广东"/>
     </bean>
 
     <bean id="students" class="com.HanYuYi.ioc01.di.Students">
         <!--1：普通值注入-->
-        <property name="name" value="hello, di"></property>
+        <property name="name" value="hello, di"/>
 
         <!--2：bean注入-->
-        <property name="address" ref="address"></property>
+        <property name="address" ref="address"/>
 
         <!--3：Array注入-->
         <property name="books">
@@ -35,8 +35,8 @@
         <!--5：Map注入-->
         <property name="card">
             <map>
-                <entry key="学生证" value="389232897"></entry>
-                <entry key="银行卡" value="622883762891928736"></entry>
+                <entry key="学生证" value="389232897"/>
+                <entry key="银行卡" value="622883762891928736"/>
             </map>
         </property>
 
