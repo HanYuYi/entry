@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class UserServiceImplTest {
     @Test
     void userService() {
@@ -15,5 +13,14 @@ class UserServiceImplTest {
         userService.delete();
         System.out.println("======================================");
         userService.select();
+
+        userService.insert();
+    }
+
+    @Test
+    void userServiceInsert() {
+        ApplicationContext springAop = new ClassPathXmlApplicationContext("springAop01.xml");
+        UserService userService = springAop.getBean("userService", UserService.class);
+        userService.insert();
     }
 }

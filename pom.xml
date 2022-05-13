@@ -68,7 +68,7 @@
         </dependency>
     </dependencies>
 
-    <!--防止在build的时候配置文件不打包到target-->
+    <!--处理静态资源过滤问题，防止在build的时候配置文件不打包到target-->
     <build>
         <resources>
             <resource>

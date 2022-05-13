@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/aop
-       https://www.springframework.org/schema/aop/spring-aop.xsd">
+       https://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--配置日志切入，注意：要在xml头部配置约束
         约束 ==> xmlns:aop
@@ -38,4 +41,14 @@
             <aop:before method="cacheSelectData" pointcut-ref="pointcutUserSelect"/>
         </aop:aspect>
     </aop:config>
+
+
+    <!--使用注解注册bean-->
+    <context:component-scan
+            base-package="com.HanYuYi.aop02.springAop.example01.annotation" />
+    <context:annotation-config />
+    <!--配置aop，第三种，开启注解支持
+    proxy-target-class 设置动态代理代理的是接口还是类，默认为false是接口，JDK的 invocationHandler，为true的时候是类 cglib
+    -->
+    <aop:aspectj-autoproxy proxy-target-class="false"/>
 </beans>
