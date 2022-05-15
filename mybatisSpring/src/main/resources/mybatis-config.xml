@@ -5,28 +5,20 @@
 
 <configuration>
 
-    <!--这里的二级标签必须按顺序排列-->
-
     <!--加载数据库配置文件-->
     <properties resource="db.properties"/>
 
     <settings>
-        <!--日志配置-->
-        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
         <setting name="logImpl" value="LOG4J"/>
 
-        <!--开启驼峰命名自动映射-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
 
         <!--显示开启缓存，默认是开启的-->
         <setting name="cacheEnabled" value="true"/>
     </settings>
 
-    <!--别名-->
     <typeAliases>
         <package name="com.HanYuYi.pojo"/>
-        <!--还可以使用这种方式和注解定义别名-->
-        <!--<typeAlias type="com.HanYuYi.pojo.User" alias="user"/>-->
     </typeAliases>
 
     <environments default="development">
@@ -42,15 +34,9 @@
             </dataSource>
         </environment>
     </environments>
-    <!--每一个mapper都需要在这里注册，或者使用package注册全部mapper-->
+
     <mappers>
-        <mapper resource="com/HanYuYi/dao/UserMapper.xml"/>
-        <mapper resource="com/HanYuYi/dao/RoleMapper.xml"/>
-
-        <!--注册使用注解的mapper-->
-        <mapper class="com.HanYuYi.dao.UserMapperByAnnotationMapper"/>
-
-        <mapper class="com.HanYuYi.dao.BlogMapper"/>
+        <mapper class="com.HanYuYi.mapper.BlogMapper"/>
     </mappers>
 
 </configuration>

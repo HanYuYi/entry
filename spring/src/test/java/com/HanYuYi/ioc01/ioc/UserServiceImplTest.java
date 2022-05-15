@@ -1,5 +1,7 @@
-package com.HanYuYi.ioc01.ioc;
+package com.HanYuYi.ioc;
 
+import com.HanYuYi.ioc01.ioc.NameSpaceCalss;
+import com.HanYuYi.ioc01.ioc.UserServiceImpl;
 import com.HanYuYi.ioc01.ioc.demo02.UserConsImpl;
 import com.HanYuYi.ioc01.ioc.demo03.People;
 import com.HanYuYi.ioc01.ioc.demo03.PeopleNew;

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.HanYuYi.mapper.BlogMapper">
+
+    <!--mybatis 小于等于-->
+    <select id="getBlog" parameterType="map" resultType="blog">
+        SELECT * FROM blog
+        <where>
+            <choose>
+                <when test="author != null">
+                    title = #{title}
+                </when>
+                <when test="views != null">
+                    AND views = #{views}
+                </when>
+                <when test="viewsSection != null">
+                    <if test="viewsSection[0] != null">
+                        AND blog.views >= #{viewsSection[0]}
+                    </if>
+
+                    <if test="viewsSection[1] != null">
+                        AND blog.views <![CDATA[<=]]> #{viewsSection[1]}
+                    </if>
+                </when>
+                <otherwise>
+                    AND author = #{author}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+</mapper>

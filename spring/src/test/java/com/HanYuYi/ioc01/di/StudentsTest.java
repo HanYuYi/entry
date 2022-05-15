@@ -1,4 +1,4 @@
-package com.HanYuYi.ioc01.di;
+package com.HanYuYi.di;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

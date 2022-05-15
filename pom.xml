@@ -12,6 +12,7 @@
         <module>servlet</module>
         <module>admin</module>
         <module>mybatis</module>
+        <module>mybatiSpring</module>
     </modules>
     <name>entry</name>
     <packaging>pom</packaging>

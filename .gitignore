@@ -30,3 +30,5 @@ servlet/target/
 /admin/target
 /mybatis/target
 /mybatis/logs
+/mybatisSpring/target
+/mybatisSpring/logs

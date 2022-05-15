@@ -1,4 +1,4 @@
-package com.HanYuYi.ioc01.javaConfig;
+package com.HanYuYi.javaConfig;
 
 import com.HanYuYi.ioc01.javaConfig.config.BeanConfig;
 import org.junit.jupiter.api.Test;

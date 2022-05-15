@@ -1,7 +1,7 @@
 package com.HanYuYi.service.userBase;
 
-import com.HanYuYi.ioc01.dao.BaseDao;
-import com.HanYuYi.ioc01.dao.userBase.UserBaseDaoImpl;
+import com.HanYuYi.dao.BaseDao;
+import com.HanYuYi.dao.userBase.UserBaseDaoImpl;
 import com.HanYuYi.entity.UserBase;
 import com.HanYuYi.util.RespFormat;
 

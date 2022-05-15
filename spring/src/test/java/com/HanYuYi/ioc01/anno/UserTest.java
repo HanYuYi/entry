@@ -1,5 +1,6 @@
-package com.HanYuYi.ioc01.anno;
+package com.HanYuYi.anno;
 
+import com.HanYuYi.ioc01.anno.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
