@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        使用spring管理mybatis的xml配置其实步骤和mybatis里类似，只不过在spring里面用bean管理了，这里一共分三步：
+        1、加载数据库配置
+        2、使用 mybatis-spring 的 SqlSessionFactoryBean 创建 sqlSessionFactory
+        3、使用 mybatis-spring 的 SqlSessionTemplate 创建 sqlSession
+
+    -->
+
+    <!--1-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/market?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="password"/>
+    </bean>
+
+    <!--2-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--相当于import的作用-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--指定加载的mapper，相当于mybatis里面注册mappers-->
+        <property name="mapperLocations" value="classpath:com/HanYuYi/mapper/BlogMapper.xml"/>
+    </bean>
+
+    <!--3-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 业务和配置分离，这里专注这册bean-->
+
+    <import resource="mybatis-dao.xml"/>
+
+    <!--4 第一种-->
+    <bean id="blogMapper" class="com.HanYuYi.mapper.BlogMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+
+    <!--4 第二种-->
+    <bean id="blogMapper2" class="com.HanYuYi.mapper.BlogMapperImpl2">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+</beans>

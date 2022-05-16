@@ -5,9 +5,6 @@
 
 <configuration>
 
-    <!--加载数据库配置文件-->
-    <properties resource="db.properties"/>
-
     <settings>
         <setting name="logImpl" value="LOG4J"/>
 
@@ -20,23 +17,5 @@
     <typeAliases>
         <package name="com.HanYuYi.pojo"/>
     </typeAliases>
-
-    <environments default="development">
-        <environment id="development">
-            <!--事务管理器-->
-            <transactionManager type="JDBC"/>
-            <!--连接池-->
-            <dataSource type="POOLED">
-                <property name="driver" value="${driver}"/>
-                <property name="url" value="${url}"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
-            </dataSource>
-        </environment>
-    </environments>
-
-    <mappers>
-        <mapper class="com.HanYuYi.mapper.BlogMapper"/>
-    </mappers>
 
 </configuration>

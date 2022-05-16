@@ -11,59 +11,59 @@
 
 
     <!--注册bean-->
-    <bean id="getUser" class="com.HanYuYi.dao.UserDaoImpl"/>
-    <bean id="helloUser" class="com.HanYuYi.ioc.UserServiceImpl">
+    <bean id="getUser" class="com.HanYuYi.ioc01.dao.UserDaoImpl"></bean>
+    <bean id="helloUser" class="com.HanYuYi.ioc01.ioc.UserServiceImpl">
         <!-- value 和 ref的区别
         value：直接赋值
         ref：对象引用
         -->
-        <property name="name" value="张三"/>
-        <property name="userDao" ref="getUser"/>
+        <property name="name" value="张三"></property>
+        <property name="userDao" ref="getUser"></property>
     </bean>
 
 
-    <!--只要注册到这里的对象，都会被spring自动new-->
-    <!-- <bean id="userAuto" class="UserAutoNew"/>-->
+    <!--只要注册到这的对象，都会被spring自动new-->
+    <!-- <bean id="userAuto" class="com.HanYuYi.ioc01.ioc.demo02.UserAutoNew"></bean>-->
 
     <!--构造器注入：给构造器赋值，默认是无参构造-->
-    <bean id="conUser" class="com.HanYuYi.ioc.demo02.UserConsImpl">
+    <bean id="conUser" class="com.HanYuYi.ioc01.ioc.demo02.UserConsImpl">
         <!--根据构造器参数引用赋值-->
-        <!--<constructor-arg ref="userAuto"/>-->
+        <!--<constructor-arg ref="userAuto"></constructor-arg>-->
 
         <!--1：根据构造器参数下标赋值-->
-        <!--<constructor-arg index="0" value="马芳铃"/>-->
+        <!--<constructor-arg index="0" value="马芳铃"></constructor-arg>-->
         <!--2：根据构造器参数类型赋值-->
-        <!--<constructor-arg type="java.lang.String" value="马芳铃"/>-->
+        <!--<constructor-arg type="java.lang.String" value="马芳铃"></constructor-arg>-->
         <!--3：根据构造器参数名称赋值-->
-        <constructor-arg name="username" value="马芳铃"/>
+        <constructor-arg name="username" value="马芳铃"></constructor-arg>
     </bean>
 
 
     <!--配置：name别名，alias也可以设置别名，import -->
-    <!--<bean id="conUser" class="UserConsImpl" name="conUser1,conUser2">
-        <constructor-arg name="username" value="马芳铃"/>
+    <!--<bean id="conUser" class="com.HanYuYi.ioc01.ioc.demo02.UserConsImpl" name="conUser1,conUser2">
+        <constructor-arg name="username" value="马芳铃"></constructor-arg>
     </bean>
-    <import resource="XXX.xml"/>-->
+    <import resource="XXX.xml"></import>-->
 
 
     <!--namespace：命名空间，注意：要在xml头部配置约束
     p：针对set注入 ==> xmlns:p
     c：针对构造器注入 ==> xmlns:c
     -->
-    <bean id="namesp1" class="com.HanYuYi.ioc.NameSpaceCalss"
+    <bean id="namesp1" class="com.HanYuYi.ioc01.ioc.NameSpaceCalss"
           p:age="22" p:name="命名1" />
 
-    <bean id="namesp2" class="com.HanYuYi.ioc.NameSpaceCalss"
+    <bean id="namesp2" class="com.HanYuYi.ioc01.ioc.NameSpaceCalss"
           c:age="23" c:name="命名2" />
 
 
     <!--bean的作用域，默认是单例 singleton，还有其他request，session，application等等-->
-    <bean id="namesp3" class="com.HanYuYi.ioc.NameSpaceCalss" scope="prototype"/>
+    <bean id="namesp3" class="com.HanYuYi.ioc01.ioc.NameSpaceCalss" scope="prototype" />
 
 
     <!--autowire：xml自动装配，byName byType constructor-->
-    <bean id="dog" class="com.HanYuYi.ioc.demo03.Dog"/>
-    <bean id="people" class="com.HanYuYi.ioc.demo03.People" autowire="constructor"/>
+    <bean id="dog" class="com.HanYuYi.ioc01.ioc.demo03.Dog"></bean>
+    <bean id="people" class="com.HanYuYi.ioc01.ioc.demo03.People" autowire="constructor"></bean>
 
 
     <!--autowire: 注解自动装配，注意：要在xml头部配置约束
@@ -71,12 +71,12 @@
      约束的支持 ==> http://www.springframework.org/schema/context
        https://www.springframework.org/schema/context/spring-context.xsd
     -->
-    <context:annotation-config/>
+    <context:annotation-config />
     <!--被装配的对象-->
-    <bean id="dogNew" class="com.HanYuYi.ioc.demo03.DogNew" c:dogName="修勾勾"/>
-    <bean id="dogNew1" class="com.HanYuYi.ioc.demo03.DogNew" c:dogName="修勾"/>
-    <bean id="catNew" class="com.HanYuYi.ioc.demo03.CatNew" p:catName="大圆子"/>
-    <bean id="catNew1" class="com.HanYuYi.ioc.demo03.CatNew" p:catName="大咪"/>
-    <bean id="peopleNew" class="com.HanYuYi.ioc.demo03.PeopleNew"/>
+    <bean id="dogNew" class="com.HanYuYi.ioc01.ioc.demo03.DogNew" c:dogName="修勾勾"></bean>
+    <bean id="dogNew1" class="com.HanYuYi.ioc01.ioc.demo03.DogNew" c:dogName="修勾"></bean>
+    <bean id="catNew" class="com.HanYuYi.ioc01.ioc.demo03.CatNew" p:catName="大圆子"></bean>
+    <bean id="catNew1" class="com.HanYuYi.ioc01.ioc.demo03.CatNew" p:catName="大咪"></bean>
+    <bean id="peopleNew" class="com.HanYuYi.ioc01.ioc.demo03.PeopleNew"></bean>
 
 </beans>
