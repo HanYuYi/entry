@@ -31,4 +31,16 @@
         </where>
     </select>
 
+    <select id="getAllBlog" resultType="blog">
+        SELECT * FROM blog
+    </select>
+
+    <insert id="insert" parameterType="blog">
+        INSERT INTO blog (id,title,author,create_time,views) VALUES (#{id},#{title}, #{author},#{createTime},#{views})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM blog WHERE id = #{id}
+    </delete>
+
 </mapper>

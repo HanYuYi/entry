@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="address" class="com.HanYuYi.di.Address">
+    <bean id="address" class="com.HanYuYi.ioc01.di.Address">
         <property name="address" value="广东"/>
     </bean>
 
-    <bean id="students" class="com.HanYuYi.di.Students">
+    <bean id="students" class="com.HanYuYi.ioc01.di.Students">
         <!--1：普通值注入-->
         <property name="name" value="hello, di"/>
 

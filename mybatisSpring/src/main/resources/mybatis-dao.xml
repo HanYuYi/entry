@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx
+       https://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       https://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--
         使用spring管理mybatis的xml配置其实步骤和mybatis里类似，只不过在spring里面用bean管理了，这里一共分三步：
@@ -34,4 +40,28 @@
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
 
+
+
+    <!--mybatis-spring的声明式事务管理-->
+    <!-- 1-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 2 AOP 织入事务-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!-- 给具体方法配置事务，有事务的方法一定要配置，通常直接用*配置-->
+        <tx:attributes>
+            <!-- propagation 事务传播特性 https://blog.csdn.net/weixin_43283513/article/details/111408968-->
+            <tx:method name="getAllBlog" propagation="REQUIRED"/>
+            <tx:method name="insert" propagation="REQUIRED"/>
+            <tx:method name="delete" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 3 配置事务切入-->
+    <aop:config>
+        <aop:pointcut id="txPointcut" expression="execution(* com.HanYuYi.mapper.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
 </beans>
