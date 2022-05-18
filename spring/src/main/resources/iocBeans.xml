@@ -66,7 +66,7 @@
     <bean id="people" class="com.HanYuYi.ioc01.ioc.demo03.People" autowire="constructor"></bean>
 
 
-    <!--autowire: 注解自动装配，注意：要在xml头部配置约束
+    <!--autowire: @注解自动装配，注意：要在xml头部配置约束
      约束 ==> xmlns:context
      约束的支持 ==> http://www.springframework.org/schema/context
        https://www.springframework.org/schema/context/spring-context.xsd

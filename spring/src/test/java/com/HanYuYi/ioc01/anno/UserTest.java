@@ -1,4 +1,4 @@
-package com.HanYuYi.anno;
+package com.HanYuYi.ioc01.anno;
 
 import com.HanYuYi.ioc01.anno.User;
 import org.junit.jupiter.api.Test;

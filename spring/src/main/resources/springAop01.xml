@@ -32,7 +32,6 @@
 
 
     <bean id="diyCache" class="com.HanYuYi.aop02.springAop.example01.cache.DiyCache"/>
-
     <!--配置aop，第二种，自定义切面-->
     <aop:config>
         <aop:aspect ref="diyCache">
@@ -44,8 +43,7 @@
 
 
     <!--使用注解注册bean-->
-    <context:component-scan
-            base-package="com.HanYuYi.aop02.springAop.example01.annotation" />
+    <context:component-scan base-package="com.HanYuYi.aop02.springAop.example01.annotation" />
     <context:annotation-config />
     <!--配置aop，第三种，开启注解支持
     proxy-target-class 设置动态代理代理的是接口还是类，默认为false是接口，JDK的 invocationHandler，为true的时候是类 cglib

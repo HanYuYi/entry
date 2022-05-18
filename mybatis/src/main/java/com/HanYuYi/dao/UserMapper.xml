@@ -5,7 +5,7 @@
 <mapper namespace="com.HanYuYi.dao.UserMapper">
 
     <resultMap id="userResultMap" type="user">
-        <result column="userName" property="names"/>
+        <result column="userName" property="userName"/>
     </resultMap>
 
     <!--user resultType使用别名 and 入参用map映射-->
@@ -80,7 +80,7 @@
         </association>
     </resultMap>
 
-    <!--思路：查处所有的用户信息，仔根据用户的userRole查询对应的角色。子查询-->
+    <!--思路：查出所有的用户信息，再根据用户的userRole查询对应的角色，子查询-->
     <select id="getUserManyToOneByChild" resultMap="userByRole">
         SELECT * FROM user_base;
     </select>

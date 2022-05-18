@@ -1,4 +1,4 @@
-package com.HanYuYi.ioc;
+package com.HanYuYi.ioc01.ioc;
 
 import com.HanYuYi.ioc01.ioc.NameSpaceCalss;
 import com.HanYuYi.ioc01.ioc.UserServiceImpl;

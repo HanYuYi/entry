@@ -9,6 +9,9 @@
           <file>file://$MODULE_DIR$/src/main/resources/annoBeans.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/iocBeans.xml</file>
         </fileset>
+        <fileset id="fileset2" name="SpringAop01" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/springAop01.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
