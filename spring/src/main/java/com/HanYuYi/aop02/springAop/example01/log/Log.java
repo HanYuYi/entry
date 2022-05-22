@@ -14,7 +14,7 @@ public class Log implements MethodBeforeAdvice {
      *
      * @param method 要执行的目标对象的方法，相当于在这个方法在被代理的方法执行前会被执行
      * @param args 方法参数
-     * @param target 要添加的目目标对象
+     * @param target 要增强的目标对象
      * @throws Throwable
      */
     @Override

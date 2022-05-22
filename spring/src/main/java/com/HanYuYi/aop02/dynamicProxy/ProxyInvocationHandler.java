@@ -5,10 +5,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * 基于
+ * 基于 jdk的
  * Proxy
  * InvocationHandler
- * 实现动态代理
+ * 实现动态代理，这个jdk代理只能用于目标对象实现了接口的类上，如果一个类没有实现接口，请使用cglib代理（就是在测试类中可以看到，setTarget的上一个接口，不是类）
  */
 public class ProxyInvocationHandler<T> implements InvocationHandler {
 

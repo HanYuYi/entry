@@ -3,10 +3,8 @@ package com.HanYuYi.mapper;
 import com.HanYuYi.pojo.Blog;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 第二种，使用继承的方式

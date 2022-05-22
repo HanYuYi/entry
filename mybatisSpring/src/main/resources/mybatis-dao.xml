@@ -47,12 +47,12 @@
 
 
     <!--mybatis-spring的声明式事务管理-->
-    <!-- 1-->
+    <!-- 1、定义事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!-- 2 AOP 织入事务-->
+    <!-- 2、AOP 配置切入点-->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <!-- 给具体方法配置事务，有事务的方法一定要配置，通常直接用*配置-->
         <tx:attributes>
@@ -63,7 +63,7 @@
         </tx:attributes>
     </tx:advice>
 
-    <!-- 3 配置事务切入-->
+    <!-- 3、配置切面-->
     <aop:config>
         <aop:pointcut id="txPointcut" expression="execution(* com.HanYuYi.mapper.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>

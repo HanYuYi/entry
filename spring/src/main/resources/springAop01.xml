@@ -16,30 +16,35 @@
         https://www.springframework.org/schema/aop/spring-aop.xsd
     -->
 
+    <!--第一种 配置aop，接口实现方式-->
+
+    <!--配置目标对象-->
     <bean id="userService" class="com.HanYuYi.aop02.springAop.example01.service.UserServiceImpl"/>
+    <!--配置通知（增强）-->
     <bean id="log" class="com.HanYuYi.aop02.springAop.example01.log.Log"/>
     <bean id="afterLog" class="com.HanYuYi.aop02.springAop.example01.log.AfterLog"/>
-
-    <!--配置aop，第一种，接口实现方式-->
+    <!--使用传统的spring配置aop-->
     <aop:config>
-        <!--切入点，pointcut：实现接口的切入对象用这个 expression 是一个表达式，配置方式详解：https://blog.csdn.net/qq_37306041/article/details/84779925 -->
+        <!--配置切入点，pointcut：实现接口的切入对象用这个 expression 是一个表达式，配置方式详解：https://blog.csdn.net/qq_37306041/article/details/84779925 -->
         <aop:pointcut id="pointcutUserServiceImpl" expression="execution(* com.HanYuYi.aop02.springAop.example01.service.UserServiceImpl.*(..))"/>
-
-        <!--将事务增强与切入点组合， 将log 和 afterLog 增强到 pointcutUserServiceImpl-->
+        <!--配置切面（切入点+通知=切面），将通知与切入点组合， 将log 和 afterLog 增强到 pointcutUserServiceImpl-->
         <aop:advisor advice-ref="log" pointcut-ref="pointcutUserServiceImpl"/>
         <aop:advisor advice-ref="afterLog" pointcut-ref="pointcutUserServiceImpl"/>
     </aop:config>
 
 
-    <bean id="diyCache" class="com.HanYuYi.aop02.springAop.example01.cache.DiyCache"/>
+
     <!--配置aop，第二种，自定义切面-->
+    <bean id="diyCache" class="com.HanYuYi.aop02.springAop.example01.cache.DiyCache"/>
+    <!--使用aspectj配置aop-->
     <aop:config>
         <aop:aspect ref="diyCache">
             <aop:pointcut id="pointcutUserSelect" expression="execution(* com.HanYuYi.aop02.springAop.example01.service.UserServiceImpl.select(..))"/>
-            <!--同时的时间（生命周期）-->
+            <!--通知的时间（生命周期）-->
             <aop:before method="cacheSelectData" pointcut-ref="pointcutUserSelect"/>
         </aop:aspect>
     </aop:config>
+
 
 
     <!--使用注解注册bean-->
