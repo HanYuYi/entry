@@ -15,10 +15,10 @@ class SupplierTableMapperImplTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         SupplierTableMapper supplierTableMapper = context.getBean("supplierTableMapper", SupplierTableMapper.class);
         SupplierTable supplierTable = new SupplierTable(
-                1,
-                "山东豪克华光联合发展有限公司",
-                "13033120917",
-                "山东省济南市历城区将军路1111号",
+                2,
+                "北京纳福尔食用油有限公司",
+                "17122110913",
+                "北京市丰台区惠翔国际信鸽产业园",
                 new Date()
         );
         int insertIndex = supplierTableMapper.insert(supplierTable);
