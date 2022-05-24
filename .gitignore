@@ -33,3 +33,4 @@ servlet/target/
 /mybatis/logs
 /mybatisSpring/target
 /mybatisSpring/logs
+/spring-mvc-study/target

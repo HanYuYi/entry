@@ -13,6 +13,7 @@
         <module>admin</module>
         <module>mybatis</module>
         <module>mybatisSpring</module>
+        <module>spring-mvc-study</module>
     </modules>
     <name>entry</name>
     <packaging>pom</packaging>
