@@ -13,4 +13,30 @@
         DELETE FROM supplier_table WHERE id = #{id}
     </delete>
 
+    <update id="update" parameterType="map">
+        UPDATE supplier_table
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="address != null">
+                address = #{address}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="int" resultType="supplierTable">
+        SELECT * FROM supplier_table WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultType="supplierTable">
+        SELECT * FROM supplier_table
+        <if test="pageIndex != null and pageSize ！= null">
+            LIMIT pageIndex, pageSize
+        </if>
+    </select>
 </mapper>

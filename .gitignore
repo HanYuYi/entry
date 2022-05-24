@@ -28,6 +28,7 @@ servlet/target/
 .DS_Store
 /spring/target
 /admin/target
+/admin/logs
 /mybatis/target
 /mybatis/logs
 /mybatisSpring/target
