@@ -2,8 +2,7 @@ package com.HanYuYi.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -27,6 +26,19 @@ public class HomeController {
     @RequestMapping(value = "/testRequest", method = {RequestMethod.GET, RequestMethod.POST})
     public String testRequest(Model model) {
         model.addAttribute("requestSuccess", "1");
+        return "request";
+    }
+
+    @GetMapping("/testRestful/{a}/{b}")
+    public String testRestful(@PathVariable int a, @PathVariable int b, Model model) {
+        model.addAttribute("restfulCount", "计算结果为：" + (a + b));
+        return "request";
+    }
+
+    @RequestMapping(path = "/testParams",headers = "Accept-Encoding=gzip, deflate, br", params = "username")
+    public String testParams(Model model) {
+        model.addAttribute("paramsAccept", "你浏览的的接受压缩格式匹配成功！");
+        model.addAttribute("paramsUsername", "username 匹配成功!");
         return "request";
     }
 

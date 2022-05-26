@@ -4,6 +4,9 @@
     <title>request</title>
 </head>
 <body>
-${requestSuccess != null ? "提交成功" : ""}
+${requestSuccess != null ? "提交成功" : ""}<br>
+${restfulCount}<br>
+${paramsAccept}<br>
+${paramsUsername}
 </body>
 </html>
