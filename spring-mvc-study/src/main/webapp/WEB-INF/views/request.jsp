@@ -7,6 +7,7 @@
 ${requestSuccess != null ? "提交成功" : ""}<br>
 ${restfulCount}<br>
 ${paramsAccept}<br>
-${paramsUsername}
+${paramsUsername}<br>
+${forwardMsg}
 </body>
 </html>
