@@ -1,5 +1,6 @@
 package com.HanYuYi.controller;
 
+import com.HanYuYi.pojo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 //@RequestMapping("/page")
+//@RestController
 public class HomeController {
 
     @RequestMapping("/home.do")
@@ -40,16 +42,29 @@ public class HomeController {
     }
 
     /**
-     * restful 风格，且接受前端入参（前端单个入参）
-     * 从前端接受的参数最好都写上注解，便于区分
+     * restful 风格 get
      * @param a
      * @param b
      * @param model
      * @return
      */
     @GetMapping("/testRestful/{a}/{b}")
-    public String testRestful(@PathVariable int a, @PathVariable int b, @RequestParam("three") int c, Model model) {
-        model.addAttribute("restfulCount", "计算结果为：" + (a + b + c));
+    public String testRestfulGet(@PathVariable int a, @PathVariable int b, Model model) {
+        model.addAttribute("restfulCount", "计算结果为：" + (a + b));
+        return "request";
+    }
+
+    /**
+     * restful 风格 (入参拼接没有键，以不同的状态请求同一个url)
+     * post
+     * @param a
+     * @param b
+     * @param model
+     * @return
+     */
+    @PostMapping("/testRestful/{a}/{b}")
+    public String testRestfulPost(@PathVariable("a") Integer a, @PathVariable("b") Integer b, Model model) {
+        model.addAttribute("restfulCount", "您新增的值为：a=" + a + ", b=" + b);
         return "request";
     }
 
@@ -80,4 +95,27 @@ public class HomeController {
         return "redirect:/testRequest";
     }
 
+    /**
+     * 接受前端入参（前端单个入参）
+     * 从前端接受的参数最好都写上注解，便于区分
+     * @param one
+     * @param two
+     * @param model
+     * @return
+     */
+    @GetMapping("/testParam")
+    public String testParam(@RequestParam("a") Integer one, @RequestParam("b") Integer two, Model model) {
+        model.addAttribute("restfulCount", "计算结果为：" + (one + two));
+        return "request";
+    }
+
+    /**
+     * 接收前端对象格式的参数
+     * @param user
+     */
+    @RequestMapping(path = "/testParamForObject", method = {RequestMethod.GET, RequestMethod.POST})
+    public String testParamForObject(User user) {
+        System.out.println(user);
+        return "home";
+    }
 }
