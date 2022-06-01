@@ -1,10 +1,15 @@
 package com.HanYuYi.controller;
 
 import com.HanYuYi.pojo.User;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
+import java.util.Map;
 
 
 @Controller
@@ -70,13 +75,13 @@ public class HomeController {
 
     /**
      * 限制请求头 和 请求参数
-     * @param model
+     * @param modelMap
      * @return
      */
     @RequestMapping(path = "/testParams",headers = "Accept-Encoding=gzip, deflate, br", params = "username")
-    public String testParams(Model model) {
-        model.addAttribute("paramsAccept", "你浏览的的接受压缩格式匹配成功！");
-        model.addAttribute("paramsUsername", "username 匹配成功!");
+    public String testParams(ModelMap modelMap) {
+        modelMap.addAttribute("paramsAccept", "你浏览的的接受压缩格式匹配成功！");
+        modelMap.addAttribute("paramsUsername", "username 匹配成功!");
         return "request";
     }
 
@@ -85,8 +90,8 @@ public class HomeController {
      * @return
      */
     @RequestMapping("/testForward")
-    public String forwardAndRedirect(Model model) {
-        model.addAttribute("forwardMsg", "转发成功！");
+    public String forwardAndRedirect(Map<String, String> map) {
+        map.put("forwardMsg", "转发成功！");
         // 转发
         // return "request";
         // return "/request";
@@ -110,7 +115,7 @@ public class HomeController {
     }
 
     /**
-     * 接收前端对象格式的参数
+     * 接收前端对象格式的参数，对象被注入值是通过set注入的，同时测试list
      * @param user
      */
     @RequestMapping(path = "/testParamForObject", method = {RequestMethod.GET, RequestMethod.POST})
@@ -118,4 +123,29 @@ public class HomeController {
         System.out.println(user);
         return "home";
     }
+
+    /**
+     * 接收前端时间字符串格式的参数
+     * 接收前端时间字符串格式有两种方式，这是第一种，使用 @DateTimeFormat 注解
+     * @param date
+     * @return
+     */
+    @RequestMapping("/testParamForDate")
+    public String testParamForDate(@DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        System.out.println(date);
+        return "home";
+    }
+
+    /**
+     * 接收前端时间字符串格式的参数
+     * 接收前端时间字符串格式有两种方式，这是第二种，使用 类型转换器，需要写util，配置转换器，推荐使用第一种
+     * @param date
+     * @return
+     */
+    @RequestMapping("/testParamForDateConverter")
+    public String testParamForDateConverter(Date date) {
+        System.out.println(date);
+        return "home";
+    }
+
 }
