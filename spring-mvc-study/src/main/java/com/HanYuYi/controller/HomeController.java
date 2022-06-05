@@ -1,6 +1,10 @@
 package com.HanYuYi.controller;
 
 import com.HanYuYi.pojo.User;
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +12,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -148,4 +155,51 @@ public class HomeController {
         return "home";
     }
 
+    /**
+     * @ResponseBody 和 Jackson 的使用
+     * @ResponseBody 作用和 @RestController 一样
+     * @return
+     * @throws JsonProcessingException
+     */
+    @GetMapping("/ResponseBodyAndJackson")
+    @ResponseBody
+    public String ResponseBodyAndJackson() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        // 关闭Jackson默认返回时间戳，并自定义返回格式
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        SimpleDateFormat simp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        mapper.setDateFormat(simp);
+
+        List<String> hobby = new ArrayList<>();
+        hobby.add("登山");
+        hobby.add("跑步");
+
+        List<User> list = new ArrayList<>();
+        list.add(new User("张三", "123456", 22, new Date(), hobby));
+        list.add(new User("李四", "123qwe", 19, new Date(), hobby));
+        list.add(new User("王五", "112233", 31, new Date(), hobby));
+
+        return mapper.writeValueAsString(list);
+    }
+
+    /**
+     * FastJson 的使用
+     * @return
+     */
+    @GetMapping("/ResponseBodyAndFastJson")
+    @ResponseBody
+    public String ResponseBodyAndFastJson() {
+        List<String> hobby = new ArrayList<>();
+        hobby.add("登山");
+        hobby.add("跑步");
+
+        List<User> list = new ArrayList<>();
+        list.add(new User("张三", "123456", 22, new Date(), hobby));
+        list.add(new User("李四", "123qwe", 19, new Date(), hobby));
+        list.add(new User("王五", "112233", 31, new Date(), hobby));
+
+        System.out.println(JSON.parseObject(JSON.toJSONString(list), List.class));
+
+        return JSON.toJSONString(list);
+    }
 }
