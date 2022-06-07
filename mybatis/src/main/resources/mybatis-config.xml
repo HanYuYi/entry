@@ -47,7 +47,7 @@
         <mapper resource="com/HanYuYi/dao/UserMapper.xml"/>
         <mapper resource="com/HanYuYi/dao/RoleMapper.xml"/>
 
-        <!--注册使用注解的mapper-->
+        <!--注册使用注解查询的mapper-->
         <mapper class="com.HanYuYi.dao.UserMapperByAnnotationMapper"/>
 
         <mapper class="com.HanYuYi.dao.BlogMapper"/>

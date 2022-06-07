@@ -1,4 +1,4 @@
-package com.HanYuYi.controller;
+package com.HanYuYi.controllerSimple;
 
 import com.HanYuYi.pojo.User;
 import com.alibaba.fastjson.JSON;

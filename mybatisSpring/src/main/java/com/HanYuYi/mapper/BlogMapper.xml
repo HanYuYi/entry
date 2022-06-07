@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.HanYuYi.mapper.BlogMapper">
+<mapper namespace="com.HanYuYi.mapper.BlogMappers">
 
     <!--mybatis 小于等于-->
     <select id="getBlog" parameterType="map" resultType="blog">

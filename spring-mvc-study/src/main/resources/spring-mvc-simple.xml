@@ -10,8 +10,15 @@
        http://www.springframework.org/schema/mvc
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!--
+    spring mvc 三大组件：
+    处理器映射器：RequestMappingHandlerMapping
+    处理器适配器：RequestMappingHandlerAdapter
+    视图解析器： InternalResourceViewResolver
+    -->
+
     <!--扫描包-->
-    <context:component-scan base-package="com.HanYuYi.controller"/>
+    <context:component-scan base-package="com.HanYuYi.controllerSimple"/>
 
     <!--static下的静态资源放行，说白了就是让静态文件可以被访问-->
     <mvc:resources mapping="/static/**" location="/static/" />

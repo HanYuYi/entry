@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.HanYuYi.mapper.BlogMappers">
+
+    <!--添加数据-->
+    <insert id="insertBlog" parameterType="blog">
+        INSERT INTO blog (id, title, author, create_time, views)
+        VALUES (#{id}, #{title}, #{author}, #{createTime}, #{views})
+    </insert>
+
+    <!--删除数据-->
+    <delete id="deleteBlog" parameterType="String">
+        DELETE FROM blog WHERE id = #{id}
+    </delete>
+
+    <!--修改数据-->
+    <update id="updateBlog" parameterType="map">
+        UPDATE blog
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="author != null">
+                author = #{author},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime},
+            </if>
+            <if test="views != null">
+                views = #{views}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--查询数据-->
+    <select id="getBlogs" parameterType="map" resultType="blog">
+        SELECT * FROM blog
+            <where>
+                <if test="title != null">
+                    title = #{title},
+                </if>
+                <if test="author != null">
+                    author = #{author},
+                </if>
+                <if test="createTime != null">
+                    createTime = #{createTime},
+                </if>
+                <if test="views != null">
+                    views = #{views}
+                </if>
+            </where>
+    </select>
+
+    <!--查询数据-->
+    <select id="getBlogsAll" resultType="blog">
+        SELECT * FROM blog
+    </select>
+
+</mapper>
