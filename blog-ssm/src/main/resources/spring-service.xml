@@ -13,6 +13,11 @@
     <!-- 扫描service包-->
     <context:component-scan base-package="com.HanYuYi.service"/>
 
+    <!-- 注册 service bean-->
+    <bean id="BlogServiceImpl" class="com.HanYuYi.service.BlogServiceImpl">
+        <property name="mapper" ref="blogMappers"/>
+    </bean>
+
     <!-- 配置声明式事务， 如果在要事务中横切新的东西，需要配置AOP织入-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />

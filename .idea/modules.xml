@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/admin/admin.iml" filepath="$PROJECT_DIR$/admin/admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blog-ssm/blog-ssm.iml" filepath="$PROJECT_DIR$/blog-ssm/blog-ssm.iml" />
       <module fileurl="file://$PROJECT_DIR$/entry.iml" filepath="$PROJECT_DIR$/entry.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatisSpring/mybatiSpring.iml" filepath="$PROJECT_DIR$/mybatisSpring/mybatiSpring.iml" />
       <module fileurl="file://$PROJECT_DIR$/mybatis/mybatis.iml" filepath="$PROJECT_DIR$/mybatis/mybatis.iml" />
