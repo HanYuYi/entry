@@ -12,6 +12,7 @@
         <module name="spring-mvc-study" />
         <module name="servlet" />
         <module name="mybatis" />
+        <module name="springboot-study" />
         <module name="admin" />
         <module name="mybatisSpring" />
         <module name="blog-ssm" />
@@ -28,7 +29,13 @@
       <module name="servlet" target="9" />
       <module name="spring" target="1.7" />
       <module name="spring-mvc-study" target="1.7" />
+      <module name="springboot-study" target="1.7" />
       <module name="ssm-blog" target="1.7" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="springboot-study" options="-parameters" />
+    </option>
   </component>
 </project>

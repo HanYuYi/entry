@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "person",
+      "type": "com.HanYuYi.pojo.Person",
+      "sourceType": "com.HanYuYi.pojo.Person"
+    }
+  ],
+  "properties": [
+    {
+      "name": "person.age",
+      "type": "java.lang.Integer",
+      "sourceType": "com.HanYuYi.pojo.Person"
+    },
+    {
+      "name": "person.flower-name",
+      "type": "java.lang.String",
+      "sourceType": "com.HanYuYi.pojo.Person"
+    },
+    {
+      "name": "person.hobby",
+      "type": "java.lang.String[]",
+      "sourceType": "com.HanYuYi.pojo.Person"
+    },
+    {
+      "name": "person.name",
+      "type": "java.lang.String",
+      "sourceType": "com.HanYuYi.pojo.Person"
+    }
+  ],
+  "hints": []
+}

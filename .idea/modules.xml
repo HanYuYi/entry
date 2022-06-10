@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/servlet/servlet.iml" filepath="$PROJECT_DIR$/servlet/servlet.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring/spring.iml" filepath="$PROJECT_DIR$/spring/spring.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring-mvc-study/spring-mvc-study.iml" filepath="$PROJECT_DIR$/spring-mvc-study/spring-mvc-study.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-study/springboot-study.iml" filepath="$PROJECT_DIR$/springboot-study/springboot-study.iml" />
     </modules>
   </component>
 </project>
