@@ -4,12 +4,16 @@ import com.HanYuYi.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Email;
 
 @RestController
 @RequestMapping("/yaml")
+@Validated
 public class HelloYaml {
 
     @Value("${uname}")
@@ -57,5 +61,10 @@ public class HelloYaml {
     @RequestMapping("/getConfiguration")
     public Person getConfiguration() {
         return person;
+    }
+
+    @RequestMapping("/getJsr303/{e}")
+    public String jsr303(@Email @PathVariable String e) {
+        return "验证码已发送到您邮箱：" + e + "，请注意查收！";
     }
 }

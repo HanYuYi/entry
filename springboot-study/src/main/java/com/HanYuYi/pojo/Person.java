@@ -3,6 +3,7 @@ package com.HanYuYi.pojo;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 @Component
 @ConfigurationProperties(prefix = "person")
@@ -13,5 +14,4 @@ public class Person {
     private String flowerName;
     private int age;
     private String[] hobby;
-
 }
