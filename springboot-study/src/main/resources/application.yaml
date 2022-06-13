@@ -1,0 +1,18 @@
+#演示profiles，这里采用分段式，还可以用application-dev的方式和application.properties
+#还可以给idea设置spring.profiles.active，还可以执行jar的时候使用命令行--spring.profiles.active=pro的方式设置
+---
+spring:
+  profiles:
+    active: dev #激活profile
+---
+server:
+  port: 8084
+
+spring:
+  profiles: dev
+---
+server:
+  port: 8085
+
+spring:
+  profiles: pro

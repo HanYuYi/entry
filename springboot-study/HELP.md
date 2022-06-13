@@ -32,4 +32,20 @@ The following guides illustrate how to use some features concretely:
 3、通过```@ConfigurationProperties```结合实体类
 
 
-### JSR303 校验，通过在字段上添加注解来限制字段只能接受的值，如：```@Email```限制只接受邮箱格式，同时需要在类上注解```@Validated```
+# 2.JSR303 校验
+### 通过在字段上添加注解来限制字段只能接受的值，如：```@Email```限制只接受邮箱格式，同时需要在类上注解```@Validated```
+
+
+# 3.profile
+### 不同的环境配置不同的文件，比如开发环境配置文件名为：application-dev.yml，以-XXXX区分环境，再以 ```spring: profiles: actibe: XXXX```激活配置
+
+
+# 4.配置文件存放位置
+### 有四个地方可以存放配置文件
+1、在根目录下新建一个config文件夹存放
+
+2、在根目录下直接存放
+
+3、在classpath下(resources)新建一个config文件夹存放
+
+4、在classpath下(resources)存放，默认的

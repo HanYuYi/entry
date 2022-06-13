@@ -1,6 +1,6 @@
 #由spring boot 解析
-server:
-  port: 8082
+#server:
+#  port: 8082
 
 #自定义解析
 uname: 马六

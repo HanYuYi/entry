@@ -10,7 +10,8 @@
     {
       "name": "person.age",
       "type": "java.lang.Integer",
-      "sourceType": "com.HanYuYi.pojo.Person"
+      "sourceType": "com.HanYuYi.pojo.Person",
+      "defaultValue": 0
     },
     {
       "name": "person.flower-name",
