@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Email;
 
+/**
+ * 这里主要演示读取配置文件
+ */
 @RestController
 @RequestMapping("/yaml")
 @Validated
