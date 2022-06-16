@@ -1,6 +1,7 @@
 package com.HanYuYi.controller;
 
 import com.HanYuYi.pojo.Person;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Email;
 /**
  * 这里主要演示读取配置文件
  */
+@Slf4j
 @RestController
 @RequestMapping("/yaml")
 @Validated
@@ -68,6 +70,7 @@ public class HelloYaml {
 
     @RequestMapping("/getJsr303/{e}")
     public String jsr303(@Email @PathVariable String e) {
+        log.info("Yes");
         return "验证码已发送到您邮箱：" + e + "，请注意查收！";
     }
 }
