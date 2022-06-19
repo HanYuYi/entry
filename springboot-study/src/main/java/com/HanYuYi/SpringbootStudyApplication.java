@@ -30,6 +30,7 @@ public class SpringbootStudyApplication {
         for (String bean : beanNamesForType) {
             System.out.println(bean);
         }
+
     }
 
 }

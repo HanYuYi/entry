@@ -4,12 +4,20 @@
 spring:
   profiles:
     active: dev #激活profile
+
+#  mvc:
+#    static-path-pattern: /res/** # 加前缀访问，这个会导致welcome失效
+
+#  resources:
+#    static-locations: [classpath:/haha/] # 自定义静态资源目录
+
 ---
 server:
   port: 8084
 
 spring:
   profiles: dev
+
 ---
 server:
   port: 8085

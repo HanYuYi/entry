@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Import;
 /**
  * 这里演示几个基本的装配注解
  */
+//@ConditionalOnBean(name = "people") // 注意先后顺序
 @Configuration(proxyBeanMethods = false)
 @Import({Matcher.class})
-@ConditionalOnBean(name = "tom")
 public class MyConfig {
 
     @Bean
