@@ -12,11 +12,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -116,17 +114,23 @@ public class HomeController {
      * @return
      */
     @GetMapping("/testParam")
-    public String testParam(@RequestParam("a") Integer one, @RequestParam("b") Integer two, Model model) {
+    public String testParam(@RequestParam("a") Integer one, @RequestParam("b") Integer two, Model model, @PathVariable Map<String, String> params) {
         model.addAttribute("restfulCount", "计算结果为：" + (one + two));
+        System.out.println(params);
         return "request";
     }
 
     /**
      * 接收前端对象格式的参数，对象被注入值是通过set注入的，同时测试list
+     * 也可以用 @RequestBody 接收
      * @param user
      */
     @RequestMapping(path = "/testParamForObject", method = {RequestMethod.GET, RequestMethod.POST})
-    public String testParamForObject(User user) {
+    public String testParamForObject(User user, @RequestBody String content) {
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("params", content);
+        System.out.println(paramMap);
+
         System.out.println(user);
         return "home";
     }
@@ -201,5 +205,28 @@ public class HomeController {
         System.out.println(JSON.parseObject(JSON.toJSONString(list), List.class));
 
         return JSON.toJSONString(list);
+    }
+
+    /**
+     * 对 路径变量 和 获取header 和 获取cookie 的补充
+     * @param a
+     * @param b
+     * @param par
+     * @return
+     */
+    @GetMapping("/supplement/{aa}/{bb}")
+    @ResponseBody
+    public Map<String, String> supplement(@PathVariable("aa") String a,
+                                          @PathVariable("bb") String b,
+                                          @PathVariable Map<String, String> par,
+                                          @RequestHeader Map<String, String> headers,
+                                          @CookieValue("JSESSIONID") String jsessionId,
+                                          @CookieValue Cookie cookie) {
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(par);
+        System.out.println("JSESSIONID--->"+jsessionId);
+        System.out.println(cookie);
+        return headers;
     }
 }
