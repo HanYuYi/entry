@@ -1,5 +1,7 @@
 package com.HanYuYi.controller;
 
+import com.HanYuYi.pojo.People;
+import com.HanYuYi.pojo.Person;
 import com.HanYuYi.pojo.Pet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import java.util.Map;
 /**
  * 1、2演示矩阵变量
  * 3、4演示自定义参数参数格式，自定义位于MyConfig
+ * 5、内容协商
  */
 @Slf4j
 @Controller
@@ -59,5 +62,16 @@ public class MatrixVariableController {
     public Pet testConverterSuccess(HttpServletRequest request) {
         Pet pet = (Pet)request.getAttribute("pet");
         return pet;
+    }
+
+    /**
+     * 继续客户端 Accept 的内容协商，由于浏览器xml权重高于json，所以在配置了 jackson-dataformat-xml 依赖的情况下会返回xml
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/testAcceptXml")
+    public People returnXml() {
+        People people = new People("风清扬", 26, new Pet());
+        return people;
     }
 }
