@@ -33,7 +33,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- jackson 返回xml-->
+        <!-- jackson 默认根据 请求头 Accept 返回xml，基于url也需要此依赖-->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>

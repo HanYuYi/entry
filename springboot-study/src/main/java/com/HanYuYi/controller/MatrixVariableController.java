@@ -1,11 +1,9 @@
 package com.HanYuYi.controller;
 
 import com.HanYuYi.pojo.People;
-import com.HanYuYi.pojo.Person;
 import com.HanYuYi.pojo.Pet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
