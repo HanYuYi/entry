@@ -5,11 +5,11 @@
 #server:
 #  port: 8082
 
-#自定义解析
+#自定义解析的数据
 uname: 马六
 
 person:
-  name: 王武,
+  name: 王武
   flower-name: ${person.name:uname},
   alias: ${uname}
   age: ${random.int}
@@ -27,20 +27,24 @@ spring:
   profiles:
     active: dev #激活profile
 
+
   #  mvc:
   #    static-path-pattern: /res/** # 加前缀访问，这个会导致welcome失效
 
   #  resources:
   #    static-locations: [classpath:/haha/] # 自定义静态资源目录
 
-#  mvc:
-#    contentnegotiation:
-#      # 开启基于url的format=xml或json的内容协商
-#      favor-parameter: true
+  mvc:
+    contentnegotiation:
+      # 开启基于url的format=xml或json的内容协商，默认返回格式根据请求头 Accept里字段的权重决定
+      favor-parameter: true
 
 ---
 server:
   port: 8084
+  servlet:
+    # 设置项目上下文路径
+    context-path: /
 
 spring:
   profiles: dev
