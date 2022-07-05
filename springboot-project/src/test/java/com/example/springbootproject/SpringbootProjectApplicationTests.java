@@ -1,13 +1,22 @@
 package com.example.springbootproject;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
 
 @SpringBootTest
 class SpringbootProjectApplicationTests {
 
+    @Autowired
+    DataSource dataSource;
+
     @Test
-    void contextLoads() {
+    void contextLoads() throws SQLException {
+        System.out.println(dataSource.getClass());
+
     }
 
 }
