@@ -61,8 +61,8 @@
 
     <div class="login_panel">
         <h2>中后台管理系统</h2>
-        <p th:text="${error}"></p>
-        <form action="index.html" th:attr="action=@{/login}" method="post">
+        <p th:text="${loginError}"></p>
+        <form action="view/blog.html" th:attr="action=@{/login}" method="post">
             <label>用户名：</label><input type="text" name="username"><br><br>
             <label>密码：</label><input type="password" name="password"><br><br>
             <label></label><input type="submit" value="登录">

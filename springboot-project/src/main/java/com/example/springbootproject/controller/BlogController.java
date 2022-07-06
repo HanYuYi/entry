@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * 日志控制
+ */
 @Controller
 public class BlogController {
 
