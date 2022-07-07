@@ -7,21 +7,29 @@
     <div th:replace="common/index :: staticResources"></div>
     <style>
         table {
-            border: none;
-            margin: 20px 0 20px;
+            border-top: 1px solid #c8c8c8;
+            border-right: 1px solid #c8c8c8;
+            font-size: 16px;
+            color: #717171;
+        }
+        table tr:first-child {
+            background: #74b6ea;
         }
         table td,
         table th {
-            border-color: #303344;
+            border-left: 1px solid #c8c8c8;
+            border-bottom: 1px solid #c8c8c8;
             text-align: center;
-            height: 43px;
+            height: 40px;
+            line-height: 40px;
             color: #2b2929;
-            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         table th {
-            font-size: 16px;
             font-weight: 400;
-            color: #07f1b7;
+            color: #fff;
         }
     </style>
 </head>
@@ -34,12 +42,14 @@
     <aside>
         <table border="1" align="center" cellspacing="0" width="100%">
             <tr>
-                <th>博客名称</th>
-                <th>作者</th>
-                <th>发表时间</th>
-                <th>阅读量</th>
+                <th width="5%">#</th>
+                <th width="40%">博客名称</th>
+                <th width="20%">作者</th>
+                <th width="15%">发表时间</th>
+                <th width="20%">阅读量</th>
             </tr>
-            <tr th:each="blog:${blogList}">
+            <tr th:each="blog,status : ${blogList}">
+                <td th:text="${status.count}"></td>
                 <td th:text="${blog.title}"></td>
                 <td th:text="${blog.author}"></td>
                 <td th:text="${blog.createTime}"></td>
