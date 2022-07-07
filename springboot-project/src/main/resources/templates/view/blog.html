@@ -4,22 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>日志</title>
-
     <div th:replace="common/index :: staticResources"></div>
-
+    <style>
+        table {
+            border: none;
+            margin: 20px 0 20px;
+        }
+        table td,
+        table th {
+            border-color: #303344;
+            text-align: center;
+            height: 43px;
+            color: #2b2929;
+            font-size: 14px;
+        }
+        table th {
+            font-size: 16px;
+            font-weight: 400;
+            color: #07f1b7;
+        }
+    </style>
 </head>
 
 <body>
-
 <div th:replace="~{common/index :: #header}"></div>
-
 <main>
-
     <div th:replace="common/index :: left_menu"></div>
 
-    <aside>2222</aside>
+    <aside>
+        <table border="1" align="center" cellspacing="0" width="100%">
+            <tr>
+                <th>博客名称</th>
+                <th>作者</th>
+                <th>发表时间</th>
+                <th>阅读量</th>
+            </tr>
+            <tr th:each="blog:${blogList}">
+                <td th:text="${blog.title}"></td>
+                <td th:text="${blog.author}"></td>
+                <td th:text="${blog.createTime}"></td>
+                <td th:text="${blog.views}"></td>
+            </tr>
+        </table>
+    </aside>
 </main>
-
 <div th:replace="common/index :: staticResourcesCommon"></div>
 
 </body>
