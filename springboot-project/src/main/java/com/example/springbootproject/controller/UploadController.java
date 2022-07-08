@@ -2,6 +2,7 @@ package com.example.springbootproject.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,8 +27,9 @@ public class UploadController {
     }
 
     @PostMapping("/upload")
-    public void FormUpload(@RequestParam("username") String names, @RequestPart("avatar") MultipartFile[] files) throws IOException {
-        log.info("上传信息：用户名{}，文件{}", names, files);
+    public String FormUpload(@RequestParam("username") String names, @RequestPart("avatar") MultipartFile[] files) throws IOException {
+        log.info("上传信息：用户名：{}，文件：{}", names, files);
+        String dir = ResourceUtils.getURL("/").getPath();
 
         if (files.length > 0) {
             for (MultipartFile file : files) {
@@ -35,10 +37,12 @@ public class UploadController {
                     // 获取原生文件名
                     String originalFilename = file.getOriginalFilename();
                     // 输出到文件夹
-                    file.transferTo(new File("."+OS_SEPARATOR + "uploadFIle"+OS_SEPARATOR + names + "_" + originalFilename));
+                    file.transferTo(new File(dir + "uploadFile" + OS_SEPARATOR + names + "_" + originalFilename));
                 }
             }
         }
+
+        return "redirect:/upload";
     }
 
 }

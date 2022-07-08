@@ -6,7 +6,23 @@
     <title>文件上传</title>
     <div th:replace="common/index :: staticResources"></div>
     <style>
-
+        input[type="text"] {
+            width: 270px;
+            padding: 0 10px;
+            height: 46px;
+            border-radius: 5px;
+            border: 1px solid #e6e6e6;
+        }
+        input[type="submit"] {
+            width: 80px;
+            height: 46px;
+            border-radius: 5px;
+            border: 1px solid #e6e6e6;
+            background: #409eff;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -16,8 +32,8 @@
 
     <aside>
       <form th:action="@{/upload}" method="post" enctype="multipart/form-data">
-        <input type="text" name="username"><br>
-        <input type="file" name="avatar" multiple><br>
+        <input type="text" name="username"><br><br>
+        <input type="file" name="avatar" multiple><br><br>
         <input type="submit" value="提交">
       </form>
     </aside>
