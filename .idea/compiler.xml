@@ -11,6 +11,7 @@
         <module name="springboot-project" />
         <module name="mybatiSpring" />
         <module name="spring-mvc-study" />
+        <module name="springSecurity-study" />
         <module name="servlet" />
         <module name="mybatis" />
         <module name="springboot-study" />
@@ -22,21 +23,23 @@
     <bytecodeTargetLevel>
       <module name="aaaa" target="1.7" />
       <module name="admin" target="8" />
-      <module name="blog-ssm" target="1.7" />
-      <module name="entry" target="1.7" />
+      <module name="blog-ssm" target="1.8" />
+      <module name="entry" target="1.8" />
       <module name="mybatis" target="9" />
-      <module name="mybatiSpring" target="1.7" />
+      <module name="mybatiSpring" target="1.8" />
       <module name="mybatisSpring" target="1.7" />
       <module name="servlet" target="9" />
-      <module name="spring" target="1.7" />
-      <module name="spring-mvc-study" target="1.7" />
-      <module name="springboot-project" target="1.7" />
-      <module name="springboot-study" target="1.7" />
+      <module name="spring" target="1.8" />
+      <module name="spring-mvc-study" target="1.8" />
+      <module name="springboot-project" target="1.8" />
+      <module name="springboot-study" target="1.8" />
+      <module name="springSecurity-study" target="1.8" />
       <module name="ssm-blog" target="1.7" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="springSecurity-study" options="-parameters" />
       <module name="springboot-project" options="-parameters" />
       <module name="springboot-study" options="-parameters" />
     </option>
