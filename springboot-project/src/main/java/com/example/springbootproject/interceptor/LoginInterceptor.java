@@ -21,6 +21,16 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // 针对测试接口，开启跨域，且不需要登录
+        if (request.getRequestURI().equals("/backLineLink")) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            response.setHeader("Access-Control-Allow-Headers", "*");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            return true;
+        }
+
         Object loginInfo = request.getSession().getAttribute("loginInfo");
         if (loginInfo != null) {
             return true;
