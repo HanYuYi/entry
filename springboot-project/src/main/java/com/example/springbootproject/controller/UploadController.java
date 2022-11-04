@@ -30,6 +30,7 @@ public class UploadController {
     public String FormUpload(@RequestParam("username") String names, @RequestPart("avatar") MultipartFile[] files) throws IOException {
         log.info("上传信息：用户名：{}，文件：{}", names, files);
         String dir = ResourceUtils.getURL("/").getPath();
+        log.info("当前目录{}", dir);
 
         if (files.length > 0) {
             for (MultipartFile file : files) {
