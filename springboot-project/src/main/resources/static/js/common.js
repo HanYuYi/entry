@@ -12,7 +12,7 @@ new Vue({
                 center: true
             })
                 .then(() => {
-                    location.href = "@{/logout}";
+                    location.href = "/logout";
                 })
                 .catch(error => { console.log(error) });
         }

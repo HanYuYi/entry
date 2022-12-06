@@ -8,6 +8,7 @@ mybatis:
 
 
 spring:
+  # mysql
   datasource:
     username: root
     password: password
@@ -26,6 +27,24 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectProperties: druid.stat.mergeMysql=true;druid.stat.SlowSqlMillis=500
+
+
+  # redis
+  redis:
+    host: 47.92.158.139
+    port: 6379
+    database: 8
+    timeout: 3000
+    # jedis 连接池
+    jedis:
+      pool:
+        max-active: 50
+        max-wait: 300
+        max-idle: 20
+        min-idle: 2
+
+
+
 
 
 

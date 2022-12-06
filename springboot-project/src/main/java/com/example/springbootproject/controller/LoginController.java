@@ -53,4 +53,16 @@ public class LoginController {
         }
     }
 
+    /**
+     * 处理登出请求
+     * @param session
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("loginInfo");
+
+        return "redirect:/";
+    }
+
 }
