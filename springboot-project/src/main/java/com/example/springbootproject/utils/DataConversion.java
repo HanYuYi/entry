@@ -1,17 +1,17 @@
-package com.HanYuYi.util;
+package com.example.springbootproject.utils;
 
+import com.example.springbootproject.pojo.Blog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * 序列化 和 反序列化 JSON
  */
-public class DataFormatConversion {
+public class DataConversion {
     private static ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     static {
@@ -20,12 +20,12 @@ public class DataFormatConversion {
 
     /**
      * 将json字符串反序列化为对象
+     * @param <T>
      * @param json
      * @param customType
-     * @param <T>
      * @return
      */
-    public static <T> T serialize(InputStream json, T customType) {
+    public static <T> T Deserialization(String json, Blog customType) {
         T result = null;
         try {
             result = (T) mapper.readValue(json, customType.getClass());
@@ -41,7 +41,7 @@ public class DataFormatConversion {
      * @param <E>
      * @return
      */
-    public static <E> String Deserialization(E customType) {
+    public static <E> String serialize(E customType) {
         String result = null;
         try {
             result = mapper.writeValueAsString(customType);
