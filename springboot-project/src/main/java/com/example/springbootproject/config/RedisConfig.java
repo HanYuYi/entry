@@ -2,6 +2,7 @@ package com.example.springbootproject.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
@@ -16,6 +17,9 @@ public class RedisConfig {
 
     @Value("${spring.redis.port}")
     private Integer port;
+
+    @Value("${spring.redis.password}")
+    private String password;
 
     @Value("${spring.redis.database}")
     private Integer database;
@@ -49,7 +53,7 @@ public class RedisConfig {
 
     @Bean
     public JedisPool JedisPool() {
-        JedisPool jedisPool = new JedisPool(jedisPoolConfig(), host, port, timeout, null, database);
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig(), host, port, timeout, password, database);
         log.info("JedisPool注入成功！");
         log.info("redis地址：" + host + ":" + port);
         log.info(jedisPool.toString());

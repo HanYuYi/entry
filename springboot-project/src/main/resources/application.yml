@@ -34,6 +34,7 @@ spring:
     host: 47.92.158.139
     port: 6379
     database: 8
+    password: password
     timeout: 3000
     # jedis 连接池
     jedis:
@@ -42,9 +43,3 @@ spring:
         max-wait: 300
         max-idle: 20
         min-idle: 2
-
-
-
-
-
-
