@@ -5,6 +5,7 @@ import com.example.springbootproject.pojo.Blog;
 import com.example.springbootproject.utils.DataConversion;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
@@ -31,14 +32,11 @@ public class BlogServiceImpl implements BlogService {
 
 
     /**
-     * 将查询数据放在blog区的userBlogXXX缓存中
+     * 将查询数据放在blog区的userBlogXXX缓存中(spring的缓存)
      * @param username
      * @return
-     *
-     * 清除缓存
-     * @CacheEvict(value = "blog", key = "'userBlog' + username")
      */
-    @Cacheable(value = "blog", key = "'userBlog' + username")
+    @Cacheable(value = "blog", key = "'userBlog' + #username")
     @Override
     public List<Blog> getBlogs(String username) {
 
@@ -68,5 +66,28 @@ public class BlogServiceImpl implements BlogService {
         resource.close();
 
         return backList;
+    }
+
+
+    /**
+     * 清除blog区的所有缓存
+     * allEntries = true
+     * @return
+     */
+    @Override
+    @CacheEvict(value = "blog", allEntries = true)
+    public String clearCache() {
+        return "<h1>所有缓存清除成功！</h1>";
+    }
+
+
+    /**
+     * 清除blog区的userBlogXXX缓存
+     * @return
+     */
+    @Override
+    @CacheEvict(value = "blog", key = "'userBlog' + #username")
+    public String clearCache(String username) {
+        return "<h1>缓存清除成功！</h1>";
     }
 }

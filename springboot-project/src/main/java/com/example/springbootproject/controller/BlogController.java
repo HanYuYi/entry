@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -59,4 +57,21 @@ public class BlogController {
         return blogServiceImpl.getBlogs(username);
     }
 
+
+    /**
+     * 清除blog的缓存
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/clearCache")
+    public String clearCache(String all, HttpSession session) {
+        if (all != null && all.equals("1")) {
+            return blogServiceImpl.clearCache();
+        }
+
+        HashMap<String, Object> loginInfoMap = (HashMap<String, Object>) session.getAttribute("loginInfo");
+        String username = (String) loginInfoMap.get("username");
+
+        return blogServiceImpl.clearCache(username);
+    }
 }

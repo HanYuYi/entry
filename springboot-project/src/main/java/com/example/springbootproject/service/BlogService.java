@@ -8,4 +8,8 @@ public interface BlogService {
 
     List<Blog> getBlogs(String username);
 
+    String clearCache();
+
+    String clearCache(String username);
+
 }
