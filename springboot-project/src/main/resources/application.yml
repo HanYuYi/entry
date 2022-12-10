@@ -28,13 +28,12 @@ spring:
     useGlobalDataSourceStat: true
     connectProperties: druid.stat.mergeMysql=true;druid.stat.SlowSqlMillis=500
 
-
   # redis
   redis:
     host: 47.92.158.139
-    port: 6379
+    port: 6973
     database: 8
-    password: password
+    password: password01
     timeout: 3000
     # jedis 连接池
     jedis:
@@ -43,3 +42,8 @@ spring:
         max-wait: 300
         max-idle: 20
         min-idle: 2
+  cache:
+    type: redis
+    redis:
+      time-to-live: 60000
+      cache-null-values: false

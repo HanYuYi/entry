@@ -22,17 +22,17 @@
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
       <module name="admin" target="8" />
-      <module name="blog-ssm" target="1.8" />
-      <module name="entry" target="1.8" />
+      <module name="blog-ssm" target="1.7" />
+      <module name="entry" target="1.7" />
       <module name="mybatis" target="9" />
-      <module name="mybatiSpring" target="1.8" />
+      <module name="mybatiSpring" target="1.7" />
       <module name="mybatisSpring" target="1.7" />
       <module name="servlet" target="9" />
-      <module name="spring" target="1.8" />
-      <module name="spring-mvc-study" target="1.8" />
+      <module name="spring" target="1.7" />
+      <module name="spring-mvc-study" target="1.7" />
       <module name="springboot-project" target="8" />
-      <module name="springboot-study" target="1.8" />
-      <module name="springSecurity-study" target="1.8" />
+      <module name="springboot-study" target="1.7" />
+      <module name="springSecurity-study" target="1.7" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
